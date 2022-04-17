@@ -45,11 +45,11 @@ Quiz Result Page:
  
 
 # ERD
-![image](https://user-images.githubusercontent.com/47770303/163694899-a5b09c5d-851b-464a-827a-87e6a88761fe.png)
+![image](https://user-images.githubusercontent.com/47770303/163695026-6ef6cba1-fb69-44ca-a4b1-e0aac03a0c32.png)
 
 
 # Wireframes
-![image](https://user-images.githubusercontent.com/47770303/163694907-28cfc8be-9d9b-465b-9fcd-842fa47110e3.png)
+![image](https://user-images.githubusercontent.com/47770303/163695304-c7b953ef-619a-4774-b34b-ebea1fdc1f65.png)
 
 # Technologies Used
 - Django-rest-framework
