@@ -45,9 +45,13 @@ Quiz Result Page:
  
 
 # ERD
+![image](https://user-images.githubusercontent.com/47770303/163694899-a5b09c5d-851b-464a-827a-87e6a88761fe.png)
 
 
 # Wireframes
-
+![image](https://user-images.githubusercontent.com/47770303/163694907-28cfc8be-9d9b-465b-9fcd-842fa47110e3.png)
 
 # Technologies Used
+- Django-rest-framework
+- React
+- PostgreSQL
