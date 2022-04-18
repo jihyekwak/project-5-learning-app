@@ -2,7 +2,7 @@ const WelcomePage = () => {
 
     return(
         <div>
-
+            welcome page
         </div>
     )
 }

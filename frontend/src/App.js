@@ -1,26 +1,35 @@
 import { useState, useEffect } from 'react';
+import { Routes, Route} from 'react-router-dom';
 import axios from "axios";
 import './App.css';
+import WelcomePage from './pages/WelcomePage';
 import NavBar from './components/NavBar';
+import MainPage from './pages/MainPage';
+import MyPage from './pages/MyPage';
 
 function App() {
 
-  const [quizList, setQuizList] = useState([])
+  // const [quizList, setQuizList] = useState([])
 
-  useEffect(() => {
-    axios
-    .get("/api/quizzes/")
-    .then((res)=> {
-      console.log(res.data)
-      setQuizList(res.data)
-    })
-    .catch((err) => console.log(err))
-  }, [])
+  // useEffect(() => {
+  //   axios
+  //   .get("/api/quizzes/")
+  //   .then((res)=> {
+  //     console.log(res.data)
+  //     setQuizList(res.data)
+  //   })
+  //   .catch((err) => console.log(err))
+  // }, [])
 
   return (
     <div className="App">
       <NavBar />
-      <h1>Learning App</h1>
+      <Routes>
+        <Route path="/" element={<WelcomePage />} />
+        <Route path="main" element={<MainPage />} />
+        <Route path="mypage" element={<MyPage />} />
+      </Routes>
+      {/* <h1>Learning App</h1>
       <h2>Quiz List</h2>
         {quizList.map((quiz) => {
           return (
@@ -42,7 +51,7 @@ function App() {
               </>
             </div>
           )
-        })}
+        })} */}
     </div>
   );
 }
