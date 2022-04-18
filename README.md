@@ -42,8 +42,8 @@ Quiz Result Page:
  
 
 # User Flow
- ![image](https://user-images.githubusercontent.com/47770303/163765261-1f6260ed-db5d-42d5-a8fe-fc4cf1fde44f.png)
- 
+ ![image](https://user-images.githubusercontent.com/47770303/163765706-9464c79b-7534-48a4-87a6-19fde655b2f5.png)
+
 # ERD
 ![image](https://user-images.githubusercontent.com/47770303/163704781-ddbc34b9-1d8e-4235-9cdc-43d129047169.png)
 
