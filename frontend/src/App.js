@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import './App.css';
+import NavBar from './components/NavBar';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <div className="App">
+      <NavBar />
       <h1>Learning App</h1>
       <h2>Quiz List</h2>
         {quizList.map((quiz) => {
