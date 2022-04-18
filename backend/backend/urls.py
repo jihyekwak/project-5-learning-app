@@ -19,7 +19,7 @@ from rest_framework import routers
 from quiz import views
 
 router = routers.DefaultRouter()
-router.register(r'quizzes', views.SubjectView, 'subject')
+router.register(r'quizzes', views.QuizView, 'quiz')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
