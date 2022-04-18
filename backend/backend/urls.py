@@ -23,5 +23,6 @@ router.register(r'quizzes', views.QuizView, 'quiz')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('quiz.urls')),
     path('api/', include(router.urls)),
 ]

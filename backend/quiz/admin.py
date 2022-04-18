@@ -9,20 +9,17 @@ class AnswerAdmin(admin.ModelAdmin):
     list_editable = ['text', 'is_correct']
     list_filter = ['question']
 
-admin.site.register(Answer, AnswerAdmin)
-
 class AnswerAdminInline(admin.TabularInline):
     model = Answer
     fk_name = "question"
 
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [AnswerAdminInline]
+
     list_display = ['quiz', 'text']
     list_display_links = ['quiz']
     list_editable = ['text']
     list_filter = ['quiz']
-
-admin.site.register(Question, QuestionAdmin)
 
 class QuestionAdminInline(admin.TabularInline):
     model = Question
@@ -33,8 +30,6 @@ class QuizAdmin(admin.ModelAdmin):
 
     list_display = ['title', 'subject', 'difficulty', 'grade', 'created_at']
     list_display_links = ['title']
-
-admin.site.register(Quiz, QuizAdmin)
 
 class QuizAdminInline(admin.TabularInline):
     model = Quiz
@@ -47,3 +42,6 @@ class SubjectAdmin(admin.ModelAdmin):
     list_display_links = ['name']
 
 admin.site.register(Subject, SubjectAdmin)
+admin.site.register(Quiz, QuizAdmin)
+admin.site.register(Question, QuestionAdmin)
+admin.site.register(Answer, AnswerAdmin)
