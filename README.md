@@ -45,8 +45,7 @@ Quiz Result Page:
  
 
 # ERD
-![image](https://user-images.githubusercontent.com/47770303/163695026-6ef6cba1-fb69-44ca-a4b1-e0aac03a0c32.png)
-
+![image](https://user-images.githubusercontent.com/47770303/163704781-ddbc34b9-1d8e-4235-9cdc-43d129047169.png)
 
 # Wireframes
 ![image](https://user-images.githubusercontent.com/47770303/163695304-c7b953ef-619a-4774-b34b-ebea1fdc1f65.png)
