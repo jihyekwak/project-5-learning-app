@@ -15,7 +15,7 @@ DIFFICULTY_CHOICES = {
 }
 
 GRADE_CHOICES = {
-    ('Pre-k', 'Pre-K'),
+    ('Pre-K', 'Pre-K'),
     ('Kindergarten', 'Kindergarten'),
     ('1st Grade', '1st Grade'),
     ('2nd Grade', '2nd Grade'),

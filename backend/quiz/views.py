@@ -17,13 +17,13 @@ class QuizView(viewsets.ModelViewSet):
     serializer_class = QuizSerializer
     queryset = Quiz.objects.all()
 
-    def get_queryset(self):
-        qs = super().get_queryset()
+    # def get_queryset(self):
+    #     qs = super().get_queryset()
 
-        search = self.request.query_params.get('search', '')
-        if search:
-            qs = qs.filter(title_icontains = search)
-        return qs
+    #     search = self.request.query_params.get('search', '')
+    #     if search:
+    #         qs = qs.filter(title_icontains = search)
+    #     return qs
 
 # class QuestionView(viewsets.ModelViewSet):
 #     serializer_class = QuestionSerializer

@@ -2,6 +2,8 @@ from django.urls import URLPattern, path, include
 from rest_framework import routers
 from . import views
 
+appname = "quiz"
+
 router = routers.DefaultRouter()
 router.register(r'quizzes', views.QuizView, 'quiz')
 router.register(r'subjects', views.SubjectView, 'subject')
