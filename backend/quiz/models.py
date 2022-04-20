@@ -17,9 +17,9 @@ DIFFICULTY_CHOICES = {
 GRADE_CHOICES = {
     ('Pre-k', 'Pre-K'),
     ('Kindergarten', 'Kindergarten'),
-    ('1st Grage', '1st Grade'),
-    ('2nd Grage', '2nd Grade'),
-    ('3rd Grage', '3rd Grade'),
+    ('1st Grade', '1st Grade'),
+    ('2nd Grade', '2nd Grade'),
+    ('3rd Grade', '3rd Grade'),
 }
 
 class Quiz(models.Model):

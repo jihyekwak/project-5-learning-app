@@ -68,9 +68,9 @@ const QuizForm = () => {
                 <select onChange={(e) => setGrade(e.target.value)}>
                     <option value="Pre-k">Pre-k</option>
                     <option value="Kindergarten">Kindergarten</option>
-                    <option value="1st Grage">1st Grage</option>
-                    <option value="2nd Grage">2nd Grage</option>
-                    <option value="3rd Grage">3rd Grage</option>
+                    <option value="1st Grage">1st Grade</option>
+                    <option value="2nd Grage">2nd Grade</option>
+                    <option value="3rd Grage">3rd Grade</option>
                 </select>
             </label>
             <button type="submit"  onClick={handleSubmit}>Add</button>
