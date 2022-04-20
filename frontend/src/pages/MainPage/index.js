@@ -1,9 +1,50 @@
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Container, Grid, Typography, Button, Card, CardHeader, CardContent } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+    gridContainer: {
+        justifyContent: 'center',
+    },
+    card: {
+        backgroundColor: '#F9D263',
+        padding: '10px',
+        borderRadius: '30px',
+        textAlign: 'center',
+        height: '100%'
+    },
+    tag: {
+        backgroundColor: '#f2e5ca',
+        padding: '3px',
+        borderRadius: '5px',
+        margin: '3px',
+        fontFamily: 'Sniglet',
+    },
+    quizTitle: {
+        textAlign: 'center',
+        fontFamily: 'Cabin Sketch',
+        margin: '25px auto'
+    },
+    button: {
+        backgroundColor: '#F3974F',
+        border: 'none',
+        borderRadius: '15px',
+        fontSize: '17px',
+        padding: '7px',
+        fontFamily: 'Sniglet',
+        "&:hover": {
+            transform: 'scale(1.3)',
+            backgroundColor: '#ea624c',
+            cursor: 'pointer'
+        },
+    },
+}));
 
 const MainPage = () => {
 
+    const classes = useStyles();
     const [quizList, setQuizList] = useState([])
 
     useEffect(() => {
@@ -15,67 +56,36 @@ const MainPage = () => {
         })
         .catch((err) => console.log(err))
     }, [])
-
-    const cardStyle = {
-        backgroundColor: '#F9D263',
-        width: '400px',
-        height: '200px',
-        display: 'inline-block',
-        borderRadius: '30px',
-        padding: '10px',
-        margin: '20px',
-        textAlign: 'center'
-    }
-
-    const titleStyle = {
-        textAlign: 'center',
-        fontFamily: 'Cabin Sketch',
-        fontSize: '50px',
-        margin: '25px auto'
-    }
-
-    const tagStyle = {
-        backgroundColor: '#f2e5ca',
-        padding: '3px',
-        borderRadius: '5px',
-        margin: '3px',
-        fontFamily: 'Sniglet',
-    }
-
-    const buttonStyle = {
-        backgroundColor: '#F3974F',
-        border: 'none',
-        borderRadius: '15px',
-        fontSize: '20px',
-        padding: '5px',
-        fontFamily: 'Sniglet'
-    }
     
     return(
-        <div>
+        <Container fluid>
             <h1 style={{
                 textAlign:'center',
                 fontSize: '50px',
                 fontFamily: 'Staatliches'
             }}>Quiz List</h1>
-            <div>
+            <Grid container spacing={3} className={classes.gridContainer}>
                 {quizList.map((quiz) => {
                     return (
-
-                    <div style={cardStyle} key={quiz.id}>
-                        <div style={{ textAlign: 'right',margin: '10px'}}>
-                            <span style={tagStyle}>{quiz.subject}</span>
-                            <span style={tagStyle}>{quiz.grade}</span>
-                            <span style={tagStyle}>{quiz.difficulty}</span>
-                        </div>
-                        <h2 style={titleStyle}>{quiz.title}</h2>
-                        <Link to={`/quiz/${quiz.id}`}>
-                            <button style={buttonStyle}>Take Quiz</button></Link>
-                    </div>
+                        <Grid item xs={3} zeroMinWidth key={quiz.id}>
+                            <Card className={classes.card}>
+                                <Typography noWrap variant="body2" align="right">
+                                    <span className={classes.tag}>{quiz.subject}</span>
+                                    <span className={classes.tag}>{quiz.grade}</span>
+                                    <span className={classes.tag}>{quiz.difficulty}</span>
+                                </Typography>
+                                <Typography variant="h3" className={classes.quizTitle}>
+                                    {quiz.title}
+                                </Typography>
+                            {/* <Link to={`/quiz/${quiz.id}`}> */}
+                                <Button href={`/quiz/${quiz.id}`} className={classes.button}>Take Quiz</Button>
+                            {/* </Link> */}
+                            </Card>
+                        </Grid>
                     )
                 })}
-            </div>
-        </div>
+            </Grid>
+        </Container>
     )
 }
 export default MainPage;
