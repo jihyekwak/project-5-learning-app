@@ -69,7 +69,7 @@ const MainPage = () => {
     }, [])
     
     return(
-        <Container fluid className={classes.container}>
+        <Container className={classes.container}>
             <h1 className={classes.headerTitle}>Quiz List</h1>
             <Grid container spacing={3} className={classes.gridContainer}>
                 {quizList.map((quiz) => {
@@ -84,9 +84,7 @@ const MainPage = () => {
                                 <Typography variant="h3" className={classes.quizTitle}>
                                     {quiz.title}
                                 </Typography>
-                            {/* <Link to={`/quiz/${quiz.id}`}> */}
                                 <Button href={`/quiz/${quiz.id}`} className={classes.button}>Take Quiz</Button>
-                            {/* </Link> */}
                             </Card>
                         </Grid>
                     )

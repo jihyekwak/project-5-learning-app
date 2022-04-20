@@ -25,9 +25,8 @@ class QuizSerializer(serializers.ModelSerializer):
         model = Quiz
         fields = ('id', 'title', 'subject', 'difficulty', 'grade', 'questions', 'created_at')
 
-# class SubjectSerializer(serializers.ModelSerializer):
-#     quizzes = QuizSerializer(many=True)
+class SubjectSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = Subject
-#         fields = ('id', 'name', 'quizzes')
+    class Meta:
+        model = Subject
+        fields = ('id', 'name')
