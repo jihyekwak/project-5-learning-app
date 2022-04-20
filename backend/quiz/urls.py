@@ -1,6 +1,11 @@
 from django.urls import URLPattern, path, include
+from rest_framework import routers
 from . import views
 
+router = routers.DefaultRouter()
+router.register(r'quizzes', views.QuizView, 'quiz')
+
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', include(router.urls)),
+    path('home/', views.home, name='home'),
 ]

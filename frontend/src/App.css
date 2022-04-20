@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@700&family=Comfortaa:wght@700&family=Happy+Monkey&family=Sniglet&family=Staatliches&family=Viga&display=swap');
+
+body {
+  background-color: #9ad4c7;
+  /* background-color: #9ad2a9; */
+  font-family: 'Sniglet', cursive;
+  /* font-family: 'Staatliches', cursive; */
+  /* font-family: 'Cabin Sketch', cursive; */
+  /* font-family: 'Comfortaa', cursive; */
+  /* font-family: 'Happy Monkey', cursive; */
+  /* font-family: 'Viga', sans-serif; */
+}
