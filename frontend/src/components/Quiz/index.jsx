@@ -5,6 +5,9 @@ import { Container, Grid, Typography, Button, Card, Dialog, DialogContent, Dialo
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+    container: {
+        marginTop: '100px' 
+    },
     gridContainer: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -95,7 +98,7 @@ const Quiz = () => {
     }
 
     return(
-        <Container>
+        <Container className={classes.container}>
             {showScore ? (
                 <Dialog open={true}>
                     <Typography align='center' className={classes.score} >

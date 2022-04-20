@@ -4,6 +4,15 @@ import { Container, Grid, Typography, Button, Card} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+    container: {
+        marginTop: '100px' 
+    },
+    headerTitle: {
+        textAlign:'center',
+        fontSize: '45px',
+        fontFamily: 'Staatliches',
+        // color: '#0B5688'
+    },
     gridContainer: {
         justifyContent: 'center',
     },
@@ -60,12 +69,8 @@ const MainPage = () => {
     }, [])
     
     return(
-        <Container fluid>
-            <h1 style={{
-                textAlign:'center',
-                fontSize: '50px',
-                fontFamily: 'Staatliches'
-            }}>Quiz List</h1>
+        <Container fluid className={classes.container}>
+            <h1 className={classes.headerTitle}>Quiz List</h1>
             <Grid container spacing={3} className={classes.gridContainer}>
                 {quizList.map((quiz) => {
                     return (
