@@ -1,26 +1,28 @@
 import { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
 import axios from "axios";
-import { Container, Grid, Typography, Button, Card, CardHeader, CardContent } from "@material-ui/core";
+import { Container, Grid, Typography, Button, Card} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     gridContainer: {
         justifyContent: 'center',
     },
+    grid: {
+        margin: '11px 0'
+    },
     card: {
         backgroundColor: '#F9D263',
         padding: '10px',
-        borderRadius: '30px',
+        // borderRadius: '20px',
         textAlign: 'center',
-        height: '100%'
+        height: '100%',
     },
     tag: {
         backgroundColor: '#f2e5ca',
         padding: '3px',
         borderRadius: '5px',
         margin: '3px',
-        fontFamily: 'Sniglet',
+        fontFamily: 'Viga',
     },
     quizTitle: {
         textAlign: 'center',
@@ -30,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
     button: {
         backgroundColor: '#F3974F',
         border: 'none',
-        borderRadius: '15px',
+        borderRadius: '10px',
         fontSize: '17px',
         padding: '7px',
-        fontFamily: 'Sniglet',
+        fontFamily: 'Viga',
         "&:hover": {
             transform: 'scale(1.3)',
             backgroundColor: '#ea624c',
@@ -67,7 +69,7 @@ const MainPage = () => {
             <Grid container spacing={3} className={classes.gridContainer}>
                 {quizList.map((quiz) => {
                     return (
-                        <Grid item xs={3} zeroMinWidth key={quiz.id}>
+                        <Grid item xs={4} zeroMinWidth key={quiz.id} className={classes.grid}>
                             <Card className={classes.card}>
                                 <Typography noWrap variant="body2" align="right">
                                     <span className={classes.tag}>{quiz.subject}</span>
