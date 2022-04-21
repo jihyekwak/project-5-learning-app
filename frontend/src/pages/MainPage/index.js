@@ -1,21 +1,40 @@
 import { useState, useEffect } from 'react';
-import { Container, Grid, Card } from "@material-ui/core";
+import { Container, Grid, Card, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../api/quiz.service";
-import QuizCard from '../../components/QuizCard';
+import QuizList from '../../components/QuizList';
 
 const useStyles = makeStyles((theme) => ({
     container: {
         marginTop: '100px' 
     },
+    button : {
+        backgroundColor: '#0B568850',
+        color: '#0B5688',
+        fontFamily: 'Viga',
+        fontSize: '15px',
+        margin: '25px 10px',
+        padding: '10px',
+        width: '130px',
+        "&:hover": {
+            transform: 'scale(1.1)',
+            backgroundColor: '#0B5688',
+            color: 'white',
+            cursor: 'pointer'
+        },
+    },
     headerTitle: {
         textAlign:'center',
-        fontSize: '45px',
+        fontSize: '40px',
         fontFamily: 'Staatliches',
-        // color: '#0B5688'
+        // color: '#0B5688',
+        color: '#0B5688',
+        letterSpacing:'1px',
+        margin: '30px 0'
     },
     gridContainer: {
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        marginTop: '20px'
     },
     grid: {
         margin: '11px 0'
@@ -33,6 +52,8 @@ const MainPage = () => {
 
     const classes = useStyles();
     const [quizList, setQuizList] = useState([])
+    const [subject, setSubject] = useState([])
+    const [filter, setFilter] = useState(false)
 
     const fetchQuizzes = async () => {
         await quizService.getAll().then((res) => {
@@ -43,20 +64,36 @@ const MainPage = () => {
     useEffect(() => {
         fetchQuizzes()
     }, [])
+
+    const handleFilter = (subject) => {
+        setFilter(true);
+        setSubject(subject);
+    }
     
+    const subjects = [...new Set(quizList.map(({subject}) => subject))]
+
     return(
         <Container className={classes.container}>
-            <h1 className={classes.headerTitle}>Quiz List</h1>
-            <Grid container spacing={3} className={classes.gridContainer}>
-                {quizList.map((quiz) => {
-                    return (
-                        <Grid item xs={4} zeroMinWidth key={quiz.id} className={classes.grid}>
-                            <Card className={classes.card}>
-                                <QuizCard quiz={quiz}/>
-                            </Card>
-                        </Grid>
+            <Grid container spacing={2} className={classes.gridContainer}>
+            <Button onClick={()=> setFilter(false)} className={classes.button}>All</Button>
+                {subjects.map((subject)=> {
+                    return(
+                    <Button onClick={()=> handleFilter(subject)} className={classes.button}>{subject}</Button>
                     )
                 })}
+            </Grid>
+
+            <h1 className={classes.headerTitle}>Let's Take Quizzes!! Have Fun :)</h1>
+            <Grid container spacing={4} className={classes.gridContainer}>
+                {filter? (quizList.filter(q => q.subject === subject).map((quiz) => {
+                    return (
+                        <QuizList quiz={quiz}/>
+                    )
+                })) : (quizList.map((quiz) => {
+                    return (
+                        <QuizList quiz={quiz}/>
+                    )
+                }))}
             </Grid>
         </Container>
     )
