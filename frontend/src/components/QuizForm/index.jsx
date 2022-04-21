@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import * as quizService from "../../api/quiz.service";
+import * as subjectService from "../../api/subject.service";
 
 const QuizForm = () => {
 
@@ -9,27 +10,24 @@ const QuizForm = () => {
     const [difficulty, setDifficulty] = useState();
     const [grade, setGrade] = useState();
     
-    useEffect(() => {
-        axios
-        .get("/api/subjects/")
-        .then((res)=> {
-            console.log(res.data)
+    const fetchSubjects = async () => {
+        await subjectService.getAll().then((res) => {
             SetSubjectList(res.data)
         })
+    }
+
+    useEffect(() => {
+        fetchSubjects();
     }, [])
 
-
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-
+    const handleSubmit = async () => {
         let newQuiz = {title, subject, difficulty, grade};
         console.log(newQuiz);
-
-        try {
-            let res = await axios.post("http://localhost:8000/api/quizzes/", {newQuiz})
-            console.log(res)
-        } catch (err) {
-            console.log(err)
+        let res = await quizService.create(newQuiz).then(() => {
+            document.location = "/main"
+        })
+        if (!res===201) {
+            alert(`ERROR! It was code: ${res.status}`)
         }
     }
     
@@ -73,9 +71,9 @@ const QuizForm = () => {
                     <option value="3rd Grade">3rd Grade</option>
                 </select>
             </label>
-            
+            <button type="submit"  onClick={handleSubmit}>Add</button>  
         </form>
-        <button type="submit"  onClick={handleSubmit}>Add</button>
+
     </div>
     )
 }

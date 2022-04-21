@@ -17,6 +17,7 @@ class QuizView(viewsets.ModelViewSet):
     serializer_class = QuizSerializer
     queryset = Quiz.objects.all()
 
+
     # def get_queryset(self):
     #     qs = super().get_queryset()
 

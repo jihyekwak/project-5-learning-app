@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import axios from "axios";
 import { Container, Grid, Typography, Button, Card} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import * as quizService from "../../api/quiz.service";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -58,14 +58,14 @@ const MainPage = () => {
     const classes = useStyles();
     const [quizList, setQuizList] = useState([])
 
-    useEffect(() => {
-        axios
-        .get("/api/quizzes/")
-        .then((res)=> {
-            console.log(res.data)
+    const fetchQuizzes = async () => {
+        await quizService.getAll().then((res) => {
             setQuizList(res.data)
         })
-        .catch((err) => console.log(err))
+    };
+
+    useEffect(() => {
+        fetchQuizzes()
     }, [])
     
     return(
