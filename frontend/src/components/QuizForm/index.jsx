@@ -1,40 +1,29 @@
 import { useEffect, useState } from "react";
 import * as quizService from "../../api/quiz.service";
-import * as subjectService from "../../api/subject.service";
 
 const QuizForm = () => {
 
-    const [subjectList, setSubjectList] = useState([]);
     const [title, setTitle] = useState();
     const [subject, setSubject] = useState();
     const [difficulty, setDifficulty] = useState();
     const [grade, setGrade] = useState();
-    
-    const fetchSubjects = async () => {
-        await subjectService.getAll().then((res) => {
-            setSubjectList(res.data)
-        })
-    }
-
-    useEffect(() => {
-        fetchSubjects();
-    }, [])
 
     const handleSubmit = async () => {
         let newQuiz = {title, subject, difficulty, grade};
         console.log(newQuiz);
         let res = await quizService.create(newQuiz).then(() => {
             setTitle("");
+            console.log("created")
         })
         if (!res===201) {
             alert(`ERROR! It was code: ${res.status}`)
         }
     }
-    
+
     return(
     <div>
-        Quiz Form
-        <form>
+        Quiz Create Form
+        <form style={{border: '2px solid black'}}>
             <label>
             Title:
                 <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -43,11 +32,12 @@ const QuizForm = () => {
             Subject:
                 <select onChange={(e) => setSubject(e.target.value)}>
                     <option>select</option>
-                    {subjectList?.map(({id, name}, i) => {
-                        return(
-                            <option key={i} value={id}>{name}</option>
-                        )
-                    })}
+                    <option value="Math">Math</option>
+                    <option value="English">English</option>
+                    <option value="Spanish">Spanish</option>
+                    <option value="Korean">Korean</option>
+                    <option value="Science">Science</option>
+                    <option value="diffSocial Studiesicult">Social Studies</option>
                     
                 </select>
             </label>

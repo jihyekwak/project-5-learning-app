@@ -6,7 +6,6 @@ appname = "quiz"
 
 router = routers.DefaultRouter()
 router.register(r'quizzes', views.QuizView, 'quiz')
-router.register(r'subjects', views.SubjectView, 'subject')
 
 urlpatterns = [
     path('', include(router.urls)),

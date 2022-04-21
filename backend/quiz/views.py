@@ -1,17 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework import viewsets
-from .serializers import SubjectSerializer, QuizSerializer, QuestionSerializer, AnswerSerializer
-from .models import Subject, Quiz, Question, Answer
+from .serializers import QuizSerializer, QuestionSerializer, AnswerSerializer
+from .models import Quiz, Question, Answer
 
 # Create your views here.
 
 def home(request):
     return HttpResponse("Backend Home")
-
-class SubjectView(viewsets.ModelViewSet):
-    serializer_class = SubjectSerializer
-    queryset = Subject.objects.all()
 
 class QuizView(viewsets.ModelViewSet):
     serializer_class = QuizSerializer

@@ -2,11 +2,14 @@ from django.db import models
 
 # Create your models here.
 
-class Subject(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
+SUBJECT_CHOICES = {
+    ('Math', 'Math'),
+    ('English', 'English'),
+    ('Spanish', 'Spanish'),
+    ('Korean', 'Korean'), 
+    ('Science', 'Science'),
+    ('Social Studies', 'Social Studies')
+}
 
 DIFFICULTY_CHOICES = {
     ('easy', 'easy'),
@@ -24,7 +27,7 @@ GRADE_CHOICES = {
 
 class Quiz(models.Model):
     title = models.CharField(max_length=250)
-    subject = models.ForeignKey(Subject, related_name='quizzes', on_delete=models.CASCADE)
+    subject = models.CharField(max_length=20, choices=SUBJECT_CHOICES, blank = True)
     difficulty = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES, blank = True)
     grade = models.CharField(max_length=50, choices=GRADE_CHOICES, blank = True)
     created_at = models.DateTimeField(auto_now_add=True)

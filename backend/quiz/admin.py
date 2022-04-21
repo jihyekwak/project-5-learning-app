@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Subject, Quiz, Question, Answer
+from .models import Quiz, Question, Answer
 
 # Register your models here.
 
@@ -33,15 +33,7 @@ class QuizAdmin(admin.ModelAdmin):
 
 class QuizAdminInline(admin.TabularInline):
     model = Quiz
-    fk_name = "subject"
 
-class SubjectAdmin(admin.ModelAdmin):
-    inlines = [QuizAdminInline]
-
-    list_display = ['name']
-    list_display_links = ['name']
-
-admin.site.register(Subject, SubjectAdmin)
 admin.site.register(Quiz, QuizAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer, AnswerAdmin)
