@@ -22,10 +22,10 @@ class QuizView(viewsets.ModelViewSet):
     #         qs = qs.filter(title_icontains = search)
     #     return qs
 
-# class QuestionView(viewsets.ModelViewSet):
-#     serializer_class = QuestionSerializer
-#     queryset = Question.objects.all()
+class QuestionView(viewsets.ModelViewSet):
+    serializer_class = QuestionSerializer
+    queryset = Question.objects.all()
 
-# class AnswerView(viewsets.ModelViewSet):
-#     serializer_class = AnswerSerializer
-#     queryset = Answer.objects.all()
+class AnswerView(viewsets.ModelViewSet):
+    serializer_class = AnswerSerializer
+    queryset = Answer.objects.all()
