@@ -16,11 +16,11 @@ GRADE_CHOICES = {
 }
 
 class Student(models.Model):
-    instuctor = models.ForeignKey(User, related_name='children', on_delete = models.CASCADE)
+    instuctor = models.ForeignKey(User, related_name='students', on_delete = models.CASCADE)
     name = models.CharField(max_length=50)
     avatar = models.CharField(max_length=50, choices=AVATAR_CHOICES)
     grade = models.CharField(max_length=50, choices=GRADE_CHOICES)
-    reward = models.IntegerField
+    reward = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
