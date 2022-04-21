@@ -10,3 +10,7 @@ body {
   /* font-family: 'Happy Monkey', cursive; */
   /* font-family: 'Viga', sans-serif; */
 }
+
+.MuiContainer-root {
+  margin-top: 100px;
+}

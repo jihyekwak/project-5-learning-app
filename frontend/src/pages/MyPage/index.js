@@ -4,9 +4,7 @@ import QuizForm from "../../components/QuizForm";
 import QuizListTable from "../../components/QuizListTable";
 
 const useStyles = makeStyles((theme) => ({
-    container: {
-        marginTop: '100px' 
-    }
+
 }))
 
 const MyPage = () => {
@@ -14,7 +12,7 @@ const MyPage = () => {
     const classes = useStyles();
 
     return(
-        <Container className={classes.container}>
+        <Container>
             <QuizForm />
             {/* <QuizListTable /> */}
         </Container>

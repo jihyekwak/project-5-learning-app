@@ -3,6 +3,8 @@ import './App.css';
 import WelcomePage from './pages/WelcomePage';
 import NavBar from './components/NavBar';
 import Quiz from './components/Quiz';
+import Login from './components/Login';
+import Register from './components/Register';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
 
@@ -16,6 +18,8 @@ function App() {
         <Route path="main" element={<MainPage />} />
         <Route path="mypage" element={<MyPage />} />
         <Route path="quiz/:id" element={<Quiz/>} />
+        <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/register" element={<Register />} />
       </Routes>
     </div>
   );

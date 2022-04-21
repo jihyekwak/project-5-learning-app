@@ -5,9 +5,6 @@ import * as quizService from "../../api/quiz.service";
 import QuizList from '../../components/QuizList';
 
 const useStyles = makeStyles((theme) => ({
-    container: {
-        marginTop: '100px' 
-    },
     button : {
         backgroundColor: '#0B568850',
         color: '#0B5688',
@@ -73,7 +70,7 @@ const MainPage = () => {
     const subjects = [...new Set(quizList.map(({subject}) => subject))]
 
     return(
-        <Container className={classes.container}>
+        <Container>
             <Grid container spacing={2} className={classes.gridContainer}>
             <Button onClick={()=> setFilter(false)} className={classes.button}>All</Button>
                 {subjects.map((subject)=> {

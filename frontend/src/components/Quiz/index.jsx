@@ -99,7 +99,7 @@ const Quiz = () => {
     }
 
     return(
-        <Container className={classes.container}>
+        <Container>
             {showScore ? (
                 <Dialog open={true}>
                     <Typography align='center' className={classes.score} >
