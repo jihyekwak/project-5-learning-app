@@ -4,7 +4,7 @@ import * as subjectService from "../../api/subject.service";
 
 const QuizForm = () => {
 
-    const [subjectList, SetSubjectList] = useState([]);
+    const [subjectList, setSubjectList] = useState([]);
     const [title, setTitle] = useState();
     const [subject, setSubject] = useState();
     const [difficulty, setDifficulty] = useState();
@@ -12,7 +12,7 @@ const QuizForm = () => {
     
     const fetchSubjects = async () => {
         await subjectService.getAll().then((res) => {
-            SetSubjectList(res.data)
+            setSubjectList(res.data)
         })
     }
 
@@ -24,7 +24,7 @@ const QuizForm = () => {
         let newQuiz = {title, subject, difficulty, grade};
         console.log(newQuiz);
         let res = await quizService.create(newQuiz).then(() => {
-            document.location = "/main"
+            setTitle("");
         })
         if (!res===201) {
             alert(`ERROR! It was code: ${res.status}`)
