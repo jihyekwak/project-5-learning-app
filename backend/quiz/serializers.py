@@ -1,6 +1,6 @@
 from dataclasses import field
 from rest_framework import serializers
-from .models import Subject, Quiz, Question, Answer
+from .models import Quiz, Question, Answer
 
 class AnswerSerializer(serializers.ModelSerializer):
     # question = serializers.CharField()
@@ -18,16 +18,8 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = ('id', 'text', 'answers')
 
 class QuizSerializer(serializers.ModelSerializer):
-    questions = QuestionSerializer(many=True)
-    subject = serializers.CharField()
+    questions = QuestionSerializer(many=True, read_only = True)
 
     class Meta:
         model = Quiz
-        fields = ('id', 'title', 'subject', 'difficulty', 'grade', 'questions', 'created_at')
-
-# class SubjectSerializer(serializers.ModelSerializer):
-#     quizzes = QuizSerializer(many=True)
-
-#     class Meta:
-#         model = Subject
-#         fields = ('id', 'name', 'quizzes')
+        fields = ('id', 'title', 'subject', 'difficulty', 'questions', 'grade', 'created_at')

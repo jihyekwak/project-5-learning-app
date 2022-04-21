@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import axios from "axios";
 import { useParams} from "react-router-dom";
-import { Container, Grid, Typography, Button, Card, Dialog, DialogContent, DialogActions, DialogTitle, ButtonGroup} from "@material-ui/core";
+import { Container, Grid, Typography, Button, Dialog} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import * as quizService from "../../api/quiz.service";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -63,14 +63,15 @@ const Quiz = () => {
     const [score, setScore] = useState(0);
     const [showScore, setShowScore] = useState(false);
 
-    useEffect(() => {
-        axios
-        .get(`/api/quizzes/${id}`)
-        .then((res)=> {
-            console.log(res.data.questions)
+    const fetchQuiz = async () => {
+        await quizService.getOne(`${id}`).then((res) => {
+            console.log(res.data)
             setQuestionList(res.data.questions)
         })
-        .catch((err) => console.log(err))
+    }
+
+    useEffect(() => {
+        fetchQuiz()
     }, [])
 
     const handleSelection = (correct) => {
