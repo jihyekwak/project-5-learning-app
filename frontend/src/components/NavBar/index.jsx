@@ -33,6 +33,8 @@ const NavBar = () => {
                 <NavLink to='/' className={classes.navlink}>Logo</NavLink>
                 <NavLink to='/main' className={classes.navlink}>Main</NavLink>
                 <NavLink to='/mypage' className={classes.navlink}>MyPage</NavLink>
+                <NavLink to='/auth/login' className={classes.navlink}>Login</NavLink>
+                <NavLink to='/auth/register' className={classes.navlink}>Register</NavLink>
             </Toolbar>
         </AppBar>
     )
