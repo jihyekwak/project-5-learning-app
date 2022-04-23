@@ -17,7 +17,7 @@ const login = async (username, password) => {
         .then((res) => {
             console.log(res)
             if(res.data.token) {
-                localStorage.setItem("user", JSON.stringify(res.data.toekn))
+                localStorage.setItem("user", JSON.stringify(res.data.token))
             }
             return res.data.token
         })
@@ -35,4 +35,8 @@ const getProfile = () => {
     
 }
 
-export {login, currentUser, getProfile}
+const logout = () => {
+    localStorage.removeItem("user")
+}
+
+export {login, currentUser, getProfile, logout}

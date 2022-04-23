@@ -48,10 +48,9 @@ const Login = () => {
     useEffect(() => {
         if (localStorage.getItem('user') !== null) {
             navigate("/main")
-        } else {
-            navigate("/login")
+            navigate(0)
         }
-    })
+    },)
 
     return(
         <Container maxWidth="xs">
