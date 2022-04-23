@@ -1,8 +1,8 @@
-from django.shortcuts import render
 from rest_framework import viewsets
 from .serializers import StudentSerializer, UserSerializer
 from django.contrib.auth.models import User
 from .models import Student, TakenQuiz
+from rest_framework.authentication import TokenAuthentication
 
 # Create your views here.
 
