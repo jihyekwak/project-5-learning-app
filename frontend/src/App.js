@@ -18,8 +18,8 @@ function App() {
         <Route path="main" element={<MainPage />} />
         <Route path="mypage" element={<MyPage />} />
         <Route path="quiz/:id" element={<Quiz/>} />
-        <Route path="/auth/login" element={<Login />} />
-        <Route path="/auth/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );

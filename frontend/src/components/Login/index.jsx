@@ -1,5 +1,8 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Grid, Card, Button, Box, Typography, TextField, FormControlLabel, Link, CssBaseline } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import * as authService from '../../api/auth.service'
 
 const useStyles = makeStyles((theme) => ({
     box: {
@@ -29,12 +32,26 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
 
     const classes = useStyles();
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const navigate = useNavigate()
 
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
+        await authService.login(username, password).then(() => {
+            setUsername("")
+            setPassword("")
+        })
+        .catch(err => console.log(err))
     }
+
+    useEffect(() => {
+        if (localStorage.getItem('user') !== null) {
+            navigate("/main")
+        } else {
+            navigate("/login")
+        }
+    })
 
     return(
         <Container maxWidth="xs">
@@ -47,14 +64,16 @@ const Login = () => {
                 <TextField
                     className={classes.input}
                     required
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
                     autoFocus
                     variant="filled"
                     size="small"
                     margin="normal"
+                    value = {username}
+                    onChange={(e)=> setUsername(e.target.value)}
                     />
                 <TextField
                     className={classes.input}
@@ -67,6 +86,8 @@ const Login = () => {
                     variant="filled"
                     size="small"
                     margin="normal"
+                    value = {password}
+                    onChange={(e)=> setPassword(e.target.value)}
                     />
                 <Button
                     className={classes.button}
