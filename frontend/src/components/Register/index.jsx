@@ -1,5 +1,8 @@
-import { Container, Grid, Card, Button, Box, Typography, TextField, FormControlLabel, Link, CssBaseline, Avatar,  Checkbox } from "@material-ui/core";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Container, Grid, Button, Box, Typography, TextField, Link, CssBaseline} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import * as authService from '../../api/auth.service';
 
 const useStyles = makeStyles((theme) => ({
     box: {
@@ -29,11 +32,28 @@ const useStyles = makeStyles((theme) => ({
 const Register = () => {
 
     const classes = useStyles();
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    // const [email, setEmail] = useState("")
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [passwordConfirmation, setPaswordConfirmation] = useState("")
+    const navigate = useNavigate()
 
-    const handleSubmit = (e) => {
+    const newUser = {firstName, lastName, username, password, passwordConfirmation}
+    const handleSubmit = async(e) => {
         e.preventDefault();
-
+        await authService.register(newUser).then((res)=>{
+            console.log(res)
+            authService.login(username, password).then((res)=> {
+                console.log(res)
+                navigate("/mypage")
+                navigate(0)
+            })
+        })
+        .catch(err => console.log(err))
     }
+
 
     return(
         <Container maxWidth="xs">
@@ -48,16 +68,15 @@ const Register = () => {
                         <TextField
                             className={classes.input}
                             autoComplete="given-name"
-                            name="firstName"
+                            name="first_name"
                             required
                             id="firstName"
                             label="First Name"
                             autoFocus
                             variant="filled"
                             size="small"
-
-                            // value={name}
-                            // onChange={handleChange} 
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)} 
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -67,24 +86,26 @@ const Register = () => {
                             fullWidth
                             id="lastName"
                             label="Last Name"
-                            name="lastName"
+                            name="last_name"
                             autoComplete="family-name"
                             variant="filled"
                             size="small" 
- 
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)} 
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
                             className={classes.input}
                             required
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
+                            id="username"
+                            label="username"
+                            name="username"
+                            autoComplete="username"
                             variant="filled" 
                             size="small"
-
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)} 
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -98,7 +119,23 @@ const Register = () => {
                             autoComplete="new-password"
                             variant="filled"
                             size="small"
-
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)} 
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            className={classes.input}
+                            required
+                            name="password_confirmation"
+                            label="Password Confirmation"
+                            type="password"
+                            id="password_confirmation"
+                            autoComplete="new-password"
+                            variant="filled"
+                            size="small"
+                            value={passwordConfirmation}
+                            onChange={(e) => setPaswordConfirmation(e.target.value)} 
                         />
                     </Grid>
                 </Grid>

@@ -2,13 +2,13 @@ import tellLearningAppTo from "./axios.config";
 
 const auth = "/auth"
 
-// const register = async (data) => {
-//     return tellLearningAppTo
-//             .post(`${auth}/register`, data)
-//             .then((res)=> {
-//                 console.log(res)
-//             })
-// }
+const register = async (data) => {
+    return tellLearningAppTo
+            .post(`${auth}/register`, data)
+            .then((res)=> {
+                console.log(res)
+            })
+}
 
 const login = async (username, password) => {
     try {
@@ -39,4 +39,4 @@ const logout = () => {
     localStorage.removeItem("user")
 }
 
-export {login, currentUser, getProfile, logout}
+export {register, login, currentUser, getProfile, logout}
