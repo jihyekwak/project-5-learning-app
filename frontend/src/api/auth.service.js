@@ -33,7 +33,7 @@ const currentUser = () => {
 }
 
 const getProfile = () => {
-    
+    return tellLearningAppTo.get(`${user}/profile/`)
 }
 
 const logout = () => {
