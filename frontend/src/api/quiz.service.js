@@ -1,13 +1,13 @@
 import tellLearningAppTo from "./axios.config";
 
-const quizzes = "/api/quizzes";
+const quizzes = "/quizzes";
 
 const getAll = () => {
     return tellLearningAppTo.get(`${quizzes}/`);
 };
 
 const getOne = (id) => {
-    return tellLearningAppTo.get(`${quizzes}/${id}`)
+    return tellLearningAppTo.get(`${quizzes}/${id}/`)
 }
 
 const create = (data) => {

@@ -1,10 +1,11 @@
 import tellLearningAppTo from "./axios.config";
 
-const auth = "/auth"
+const user = "/user"
+const token = "/token"
 
 const register = async (data) => {
     return tellLearningAppTo
-            .post(`${auth}/register`, data)
+            .post(`${user}/`, data)
             .then((res)=> {
                 console.log(res)
             })
@@ -13,13 +14,13 @@ const register = async (data) => {
 const login = async (username, password) => {
     try {
         return tellLearningAppTo
-        .post(`${auth}/`, {username, password})
+        .post(`${token}/`, {username, password})
         .then((res) => {
             console.log(res)
-            if(res.data.token) {
-                localStorage.setItem("user", JSON.stringify(res.data.token))
-            }
-            return res.data.token
+            localStorage.setItem('access_token', res.data.access);
+            localStorage.setItem('refresh_token', res.data.refresh);
+            tellLearningAppTo.defaults.headers['Authorization'] = 
+                'JWT' + localStorage.getItem('access_token');
         })
     } catch (err) {
         console.log(err)
