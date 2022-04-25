@@ -13,25 +13,25 @@ import * as authService from "./api/auth.service";
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [profile, setProfile] = useState("");
+  const [profile, setProfile] = useState("");
 
   const userActive = () => {
     if(authService.currentUser() !== null) {
       console.log('currentUser')
         setIsLoggedIn(true);
-        // fetchProfile();
+        fetchProfile();
     } else {
       console.log('no currentuser')
         setIsLoggedIn(false);
     }
   }
 
-  // const fetchProfile = async () => {
-  //   await authService.getProfile().then((res) => {
-  //     console.log(res.data)
-  //     setProfile(res.data)
-  //   })
-  // }
+  const fetchProfile = async () => {
+    await authService.getProfile().then((res) => {
+      console.log(res)
+      // setProfile(res.data)
+    })
+  }
 
   useEffect(()=>{
     userActive();
@@ -43,7 +43,7 @@ function App() {
       <NavBar/>
       <Routes>
         <Route path="main" element={<MainPage />} />
-        <Route path="mypage" element={<MyPage/>} />
+        <Route path="mypage" element={<MyPage profile={profile}/>} />
         <Route path="/:student/quizzes/:id" element={<Quiz/>} />
         <Route path="/:student/quizzes" element={<MainPage/>} />
       </Routes>

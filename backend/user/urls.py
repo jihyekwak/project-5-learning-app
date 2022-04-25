@@ -5,10 +5,11 @@ from . import views
 appname = "user"
 
 router = routers.DefaultRouter()
-router.register(r'', views.UserView, 'user')
-router.register(r'students', views.StudentView, 'student')
+router.register(r'', views.UserViewSet, 'user')
+# router.register(r'students', views.StudentView, 'student')
 
 urlpatterns = [
     path('', include(router.urls)),
-    # path('profile', views.UserProfileView.as_view())
+    # path('current', views.current_user)
+    path('/profile', views.UserAPI.as_view()),
 ]

@@ -20,10 +20,10 @@ class UserSerializer(serializers.ModelSerializer):
             'required': True
         }}
 
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        Token.objects.create(user=user)
-        return user
+    # def create(self, validated_data):
+    #     user = User.objects.create_user(**validated_data)
+    #     Token.objects.create(user=user)
+    #     return user
 
 # class TakenQuizSerializer(serializers.ModelSerializer):
 
