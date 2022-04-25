@@ -45,13 +45,11 @@ const Register = () => {
         e.preventDefault();
         await authService.register(newUser).then((res)=>{
             console.log(res)
-            navigate("/login")
-            navigate(0)
-            // authService.login(username, password).then((res)=> {
-            //     console.log(res)
-            //     navigate("/mypage")
-            //     navigate(0)
-            // })
+            authService.login(username, password).then((res)=> {
+                console.log(res)
+                navigate("/mypage")
+                navigate(0)
+            })
         })
         .catch(err => console.log(err))
     }

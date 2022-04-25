@@ -16,9 +16,9 @@ const login = async (username, password) => {
         return tellLearningAppTo
         .post(`${token}/`, {username, password})
         .then((res) => {
-            console.log(res)
             localStorage.setItem('access_token', res.data.access);
             localStorage.setItem('refresh_token', res.data.refresh);
+            localStorage.setItem('userId', res.data.access)
             tellLearningAppTo.defaults.headers['Authorization'] = 
                 'JWT' + localStorage.getItem('access_token');
         })
@@ -28,7 +28,7 @@ const login = async (username, password) => {
 }
 
 const currentUser = () => {
-    let user = localStorage.getItem("user")
+    let user = localStorage.getItem("access_token")
     return JSON.parse(user)
 }
 
@@ -37,7 +37,8 @@ const getProfile = () => {
 }
 
 const logout = () => {
-    localStorage.removeItem("user")
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
 }
 
 export {register, login, currentUser, getProfile, logout}
