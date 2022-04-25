@@ -3,6 +3,7 @@ from .serializers import StudentSerializer, UserSerializer
 from django.contrib.auth.models import User
 from .models import Student, TakenQuiz
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import AllowAny
 
 # Create your views here.
 
