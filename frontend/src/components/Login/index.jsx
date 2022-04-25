@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Grid, Card, Button, Box, Typography, TextField, FormControlLabel, Link, CssBaseline } from "@material-ui/core";
+import { Container, Grid, Card, Button, Box, Typography, TextField, Link, CssBaseline } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as authService from '../../api/auth.service'
 
@@ -38,19 +38,14 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await authService.login(username, password).then(() => {
-            setUsername("")
-            setPassword("")
+        await authService.login(username, password).then((res) => {
+            console.log(res)
+            navigate("/main")
+            navigate(0)
         })
         .catch(err => console.log(err))
     }
 
-    useEffect(() => {
-        if (localStorage.getItem('user') !== null) {
-            navigate("/main")
-            navigate(0)
-        }
-    },)
 
     return(
         <Container maxWidth="xs">
@@ -98,7 +93,7 @@ const Login = () => {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link href="/register" variant="body2">
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>
