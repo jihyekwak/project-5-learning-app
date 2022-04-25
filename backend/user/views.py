@@ -13,10 +13,10 @@ class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
-class UserProfileView(APIView):
-    def get(self, request):
-        serializer = UserSerializer(self.request.user)
-        return Response(serializer.data)
+# class UserProfileView(APIView):
+#     def get(self, request):
+#         serializer = UserSerializer(self.request.user)
+#         return Response(serializer.data)
 
 class StudentView(viewsets.ModelViewSet):
     serializer_class = StudentSerializer

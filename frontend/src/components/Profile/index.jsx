@@ -20,12 +20,12 @@ const Profile = ({profile}) => {
     return(
         <>
         Profile
-        {/* <h1>{profile?.username}</h1>
+        <h1>{profile?.username}</h1>
         {profile.students?.map((student) => {
             return(
                 <Button href={`/${student.id}/quizzes`} className={classes.button}>{student.name}</Button>
             )
-        })} */}
+        })}
         </>
     )
 }

@@ -10,5 +10,5 @@ router.register(r'students', views.StudentView, 'student')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('profile/', views.UserProfileView.as_view(), 'profile')
+    # path('profile', views.UserProfileView.as_view())
 ]

@@ -13,58 +13,68 @@ import * as authService from "./api/auth.service";
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [profile, setProfile] = useState("");
 
   const userActive = () => {
-    if(authService.currentUser()) {
+    if(authService.currentUser() !== null) {
       console.log('currentUser')
         setIsLoggedIn(true);
+        // fetchProfile();
     } else {
-      console.log('nocurrentuser')
+      console.log('no currentuser')
         setIsLoggedIn(false);
     }
   }
+
+  // const fetchProfile = async () => {
+  //   await authService.getProfile().then((res) => {
+  //     console.log(res.data)
+  //     setProfile(res.data)
+  //   })
+  // }
 
   useEffect(()=>{
     userActive();
   }, [])
 
-  // if (isLoggedIn) {
-  //   return (
-  //     <div className="App">
-  //     <NavBar/>
-  //     <Routes>
-  //       <Route path="main" element={<MainPage />} />
-  //       <Route path="mypage" element={<MyPage />} />
-  //       <Route path="quiz/:id" element={<Quiz/>} />
-  //     </Routes>
-  //   </div>
-  //   )
-  // } else {
-  //   return(
-  //     <div className="App">
-  //     {/* <NavBar /> */}
-  //     <Routes>
-  //       <Route path="/" element={<WelcomePage />} />
-  //       <Route path="/login" element={<Login />} />
-  //       <Route path="/register" element={<Register />} />
-  //     </Routes>
-  //   </div>
-  //   )
-  // }
-
-  return (
-    <div className="App">
-      <NavBar />
+  if (isLoggedIn) {
+    return (
+      <div className="App">
+      <NavBar/>
+      <Routes>
+        <Route path="main" element={<MainPage />} />
+        <Route path="mypage" element={<MyPage/>} />
+        <Route path="/:student/quizzes/:id" element={<Quiz/>} />
+        <Route path="/:student/quizzes" element={<MainPage/>} />
+      </Routes>
+    </div>
+    )
+  } else {
+    return(
+      <div className="App">
+      {/* <NavBar /> */}
       <Routes>
         <Route path="/" element={<WelcomePage />} />
-        <Route path="main" element={<MainPage />} />
-        <Route path="mypage" element={<MyPage />} />
-        <Route path="quiz/:id" element={<Quiz/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </div>
-  );
+    )
+  }
+
+  // return (
+  //   <div className="App">
+  //     <NavBar />
+  //     <Routes>
+  //       <Route path="/" element={<WelcomePage />} />
+  //       <Route path="main" element={<MainPage />} />
+  //       <Route path="mypage" element={<MyPage />} />
+  //       <Route path="quiz/:id" element={<Quiz/>} />
+  //       <Route path="/login" element={<Login />} />
+  //       <Route path="/register" element={<Register />} />
+  //     </Routes>
+  //   </div>
+  // );
 }
 
 export default App;
