@@ -1,25 +1,29 @@
 import tellLearningAppTo from "./axios.config";
+import jwt_decode from "jwt-decode";
 
-const auth = "/auth"
+const users = "/users"
+const token = "/token"
 
-// const register = async (data) => {
-//     return tellLearningAppTo
-//             .post(`${auth}/register`, data)
-//             .then((res)=> {
-//                 console.log(res)
-//             })
-// }
+const register = async (data) => {
+    return tellLearningAppTo
+            .post(`${users}/`, data)
+            .then((res)=> {
+                console.log(res)
+            })
+}
 
 const login = async (username, password) => {
     try {
         return tellLearningAppTo
-        .post(`${auth}/`, {username, password})
+        .post(`${token}/`, {username, password})
         .then((res) => {
             console.log(res)
-            if(res.data.token) {
-                localStorage.setItem("user", JSON.stringify(res.data.token))
-            }
-            return res.data.token
+            console.log(jwt_decode(res.data.access).user_id)
+            localStorage.setItem('access_token', res.data.access);
+            localStorage.setItem('refresh_token', res.data.refresh);
+            localStorage.setItem('user', jwt_decode(res.data.access).user_id)
+            tellLearningAppTo.defaults.headers['Authorization'] = 
+                'JWT' + localStorage.getItem('access_token');
         })
     } catch (err) {
         console.log(err)
@@ -27,16 +31,19 @@ const login = async (username, password) => {
 }
 
 const currentUser = () => {
-    let user = localStorage.getItem("user")
-    return JSON.parse(user)
+    let user = localStorage.getItem("access_token")
+    return user
 }
 
 const getProfile = () => {
-    
+    let userId = localStorage.getItem('user')
+    return tellLearningAppTo.get(`${users}/${userId}/`)
 }
 
 const logout = () => {
-    localStorage.removeItem("user")
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
+    tellLearningAppTo.defaults.headers['Authorization'] = null;
 }
 
-export {login, currentUser, getProfile, logout}
+export {register, login, currentUser, getProfile, logout}

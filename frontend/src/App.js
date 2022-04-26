@@ -9,19 +9,30 @@ import Register from './components/Register';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
 import * as authService from "./api/auth.service";
+import StudentForm from './components/StudentForm';
+import QuizForm from "./components/QuizForm";
+import Dashboard from './pages/Dashboard';
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profile, setProfile] = useState("");
 
   const userActive = () => {
-    if(authService.currentUser()) {
-      console.log('currentUser')
+    if(authService.currentUser() !== null) {
         setIsLoggedIn(true);
+        fetchProfile();
+        console.log("useractive check")
     } else {
-      console.log('nocurrentuser')
         setIsLoggedIn(false);
     }
+  }
+
+  const fetchProfile = async () => {
+    await authService.getProfile().then((res) => {
+      console.log(res.data)
+      setProfile(res.data)
+    })
   }
 
   useEffect(()=>{
@@ -31,11 +42,15 @@ function App() {
   if (isLoggedIn) {
     return (
       <div className="App">
-      <NavBar/>
+      <NavBar profile={profile}/>
       <Routes>
-        <Route path="main" element={<MainPage />} />
-        <Route path="mypage" element={<MyPage />} />
-        <Route path="quiz/:id" element={<Quiz/>} />
+        <Route path="main" element={<MainPage/>} />
+        <Route path="dashboard" element={<Dashboard profile={profile}/>} />
+        <Route path="mypage" element={<MyPage profile={profile}/>} />
+        <Route path="/:student/quizzes/:id" element={<Quiz/>} />
+        <Route path="/:student/quizzes" element={<MainPage/>} />
+        <Route path="newstudent" element={<StudentForm/>} />
+        <Route path="newquiz" element={<QuizForm/>} />
       </Routes>
     </div>
     )

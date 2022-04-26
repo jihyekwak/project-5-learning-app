@@ -43,7 +43,7 @@ const QuizCard = ({quiz}) => {
             <Typography variant="h3" className={classes.quizTitle}>
                 {quiz.title}
             </Typography>
-            <Button href={`/quiz/${quiz.id}`} className={classes.button}>Take Quiz</Button>
+            <Button href={`quizzes/${quiz.id}`} className={classes.button}>Take Quiz</Button>
         </>
     )
 }
