@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import * as quizService from "../../api/quiz.service";
+import { Container } from "@material-ui/core";
 
 const QuizForm = () => {
 
@@ -21,7 +22,7 @@ const QuizForm = () => {
     }
 
     return(
-    <div>
+    <Container>
         Quiz Create Form
         <form style={{border: '2px solid black'}}>
             <label>
@@ -64,7 +65,7 @@ const QuizForm = () => {
             <button type="submit"  onClick={handleSubmit}>Add</button>  
         </form>
 
-    </div>
+        </Container>
     )
 }
 export default QuizForm;

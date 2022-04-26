@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useParams} from "react-router-dom";
 import { Container, Grid, Card, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../api/quiz.service";
@@ -51,6 +52,7 @@ const MainPage = () => {
     const [quizList, setQuizList] = useState([])
     const [subject, setSubject] = useState([])
     const [filter, setFilter] = useState(false)
+
 
     const fetchQuizzes = async () => {
         await quizService.getAll().then((res) => {

@@ -58,10 +58,12 @@ const Quiz = () => {
 
     const classes = useStyles();
     const {id} =useParams();
+    const {student} =useParams();
     const [questionList, setQuestionList] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
     const [showScore, setShowScore] = useState(false);
+    const [start, setStart] = useState(false)
 
     const fetchQuiz = async () => {
         await quizService.getOne(`${id}`).then((res) => {
@@ -98,42 +100,57 @@ const Quiz = () => {
         setShowScore(false);
     }
 
-    return(
-        <Container>
-            {showScore ? (
-                <Dialog open={true}>
-                    <Typography align='center' className={classes.score} >
-                        <h2>You scored {score} out of {questionList.length}!</h2>
-                    </Typography>
-                    <div style={{margin: 'auto auto'}}>
-                        <Button onClick={() => handleTryAgain()} className={classes.button}>Try Again</Button>
-                        <Button href="/main" className={classes.button}>Quiz List</Button>
-                    </div>
-                </Dialog>
-            ) : (
-                <>
-                    <p>Question {currentQuestion +1 }/{questionList.length}</p>
-                    <Grid container className={classes.gridContainer}>
-                        <Grid item x3={4}>
-                            <Typography variant='h1' className={classes.question}>
-                                {questionList[currentQuestion]?.text}
-                            </Typography>
-                        </Grid>
-                        <Grid item x3={8}>
-                            {questionList[currentQuestion]?.answers?.map(({text, is_correct, id})=> {
-                                return(
-                                    <div key={id}>
-                                        <Button onClick={() => handleSelection(is_correct)} className={classes.selectButton}>{text}</Button>
-                                    </div>
-                                )
-                            })}
-                        </Grid>
-                    </Grid>
-                    <Button href="/main" className={classes.button}>Go Back</Button>
-                </>
-            )}
+    const handleStart = () => {
+        setStart(true)
+        
+    }
 
-        </Container>
-    )
+    if (!start) {
+        return (
+            <Container>
+                <Button onClick={handleStart}>Start</Button>
+            </Container>
+        )
+    } else {
+        return(
+            <Container>
+                {showScore ? (
+                    <Dialog open={true}>
+                        <Typography align='center' className={classes.score} >
+                            <h2>You scored {score} out of {questionList.length}!</h2>
+                        </Typography>
+                        <div style={{margin: 'auto auto'}}>
+                            <Button onClick={() => handleTryAgain()} className={classes.button}>Try Again</Button>
+                            <Button href="/main" className={classes.button}>Quiz List</Button>
+                        </div>
+                    </Dialog>
+                ) : (
+                    <>
+                        <p>Question {currentQuestion +1 }/{questionList.length}</p>
+                        <Grid container className={classes.gridContainer}>
+                            <Grid item x3={4}>
+                                <Typography variant='h1' className={classes.question}>
+                                    {questionList[currentQuestion]?.text}
+                                </Typography>
+                            </Grid>
+                            <Grid item x3={8}>
+                                {questionList[currentQuestion]?.answers?.map(({text, is_correct, id})=> {
+                                    return(
+                                        <div key={id}>
+                                            <Button onClick={() => handleSelection(is_correct)} className={classes.selectButton}>{text}</Button>
+                                        </div>
+                                    )
+                                })}
+                            </Grid>
+                        </Grid>
+                        <Button href="/main" className={classes.button}>Go Back</Button>
+                    </>
+                )}
+    
+            </Container>
+        )
+    }
+
+
 }
 export default Quiz;

@@ -9,6 +9,8 @@ import Register from './components/Register';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
 import * as authService from "./api/auth.service";
+import StudentForm from './components/StudentForm';
+import QuizForm from "./components/QuizForm";
 
 function App() {
 
@@ -19,6 +21,7 @@ function App() {
     if(authService.currentUser() !== null) {
         setIsLoggedIn(true);
         fetchProfile();
+        console.log("useractive check")
     } else {
         setIsLoggedIn(false);
     }
@@ -26,7 +29,7 @@ function App() {
 
   const fetchProfile = async () => {
     await authService.getProfile().then((res) => {
-      console.log(res)
+      console.log(res.data)
       setProfile(res.data)
     })
   }
@@ -40,10 +43,12 @@ function App() {
       <div className="App">
       <NavBar profile={profile}/>
       <Routes>
-        <Route path="main" element={<MainPage />} />
+        <Route path="main" element={<MainPage/>} />
         <Route path="mypage" element={<MyPage profile={profile}/>} />
         <Route path="/:student/quizzes/:id" element={<Quiz/>} />
         <Route path="/:student/quizzes" element={<MainPage/>} />
+        <Route path="newstudent" element={<StudentForm/>} />
+        <Route path="newquiz" element={<QuizForm/>} />
       </Routes>
     </div>
     )
