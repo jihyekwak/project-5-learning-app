@@ -1,11 +1,12 @@
 import tellLearningAppTo from "./axios.config";
+import jwt_decode from "jwt-decode";
 
-const user = "/user"
+const users = "/users"
 const token = "/token"
 
 const register = async (data) => {
     return tellLearningAppTo
-            .post(`${user}/`, data)
+            .post(`${users}/`, data)
             .then((res)=> {
                 console.log(res)
             })
@@ -17,8 +18,10 @@ const login = async (username, password) => {
         .post(`${token}/`, {username, password})
         .then((res) => {
             console.log(res)
+            console.log(jwt_decode(res.data.access).user_id)
             localStorage.setItem('access_token', res.data.access);
             localStorage.setItem('refresh_token', res.data.refresh);
+            localStorage.setItem('user', jwt_decode(res.data.access).user_id)
             tellLearningAppTo.defaults.headers['Authorization'] = 
                 'JWT' + localStorage.getItem('access_token');
         })
@@ -33,7 +36,8 @@ const currentUser = () => {
 }
 
 const getProfile = () => {
-    return tellLearningAppTo.get(`${user}/current/`)
+    let userId = localStorage.getItem('user')
+    return tellLearningAppTo.get(`${users}/${userId}/`)
 }
 
 const logout = () => {

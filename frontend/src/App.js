@@ -17,11 +17,9 @@ function App() {
 
   const userActive = () => {
     if(authService.currentUser() !== null) {
-      console.log('currentUser')
         setIsLoggedIn(true);
         fetchProfile();
     } else {
-      console.log('no currentuser')
         setIsLoggedIn(false);
     }
   }
@@ -29,7 +27,7 @@ function App() {
   const fetchProfile = async () => {
     await authService.getProfile().then((res) => {
       console.log(res)
-      // setProfile(res.data)
+      setProfile(res.data)
     })
   }
 
@@ -40,7 +38,7 @@ function App() {
   if (isLoggedIn) {
     return (
       <div className="App">
-      <NavBar/>
+      <NavBar profile={profile}/>
       <Routes>
         <Route path="main" element={<MainPage />} />
         <Route path="mypage" element={<MyPage profile={profile}/>} />

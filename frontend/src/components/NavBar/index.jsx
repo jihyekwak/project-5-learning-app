@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const NavBar = () => {
+const NavBar = ({profile}) => {
 
     const classes = useStyles();
     return(
@@ -35,6 +35,7 @@ const NavBar = () => {
                 <NavLink to='/main' className={classes.navlink}>Main</NavLink>
                 <NavLink to='/mypage' className={classes.navlink}>MyPage</NavLink>
                 <Logout/>
+                <NavLink to='/mypage' className={classes.navlink}>{profile.username}</NavLink>
             </Toolbar>
         </AppBar>
     )
