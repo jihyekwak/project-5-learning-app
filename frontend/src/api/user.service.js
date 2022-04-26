@@ -1,16 +1,33 @@
 import tellLearningAppTo from "./axios.config";
 
 const students = "/students";
+const takenQuizzes = "/takenquizzes";
 
-const getAll = () => {
+const getAllStudent = () => {
     return tellLearningAppTo.get(`${students}/`);
 };
 
-const getOne = (id) => {
+const getOneStudent = (id) => {
     return tellLearningAppTo.get(`${students}/${id}/`)
 }
 
-const create = (data) => {
-    return tellLearningAppTo.post(`${students}/`, data).then(res => console.log(res))
+const createStudent = (data) => {
+    return tellLearningAppTo.post(`${students}/`, data)
 }
-export {getAll, getOne, create};
+
+const getAllTakenQuiz = () => {
+    return tellLearningAppTo.get(`${takenQuizzes}/`);
+};
+
+const getOneTakenQuiz = (takenId) => {
+    return tellLearningAppTo.get(`${takenQuizzes}/${takenId}/`)
+};
+
+const takenQuizCreate = (takendata) => {
+    return tellLearningAppTo.post(`${takenQuizzes}/`, takendata)
+};
+
+const takenQuizUpdate = (takenId, takendata) => {
+    return tellLearningAppTo.put(`${takenQuizzes}/${takenId}/`, takendata)
+}
+export {getAllStudent, getOneStudent, createStudent, getAllTakenQuiz, getOneTakenQuiz, takenQuizCreate, takenQuizUpdate};

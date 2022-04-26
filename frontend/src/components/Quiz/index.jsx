@@ -3,6 +3,7 @@ import { useParams} from "react-router-dom";
 import { Container, Grid, Typography, Button, Dialog} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../api/quiz.service";
+import * as userService from "../../api/user.service";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -63,7 +64,8 @@ const Quiz = () => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
     const [showScore, setShowScore] = useState(false);
-    const [start, setStart] = useState(false)
+    const [start, setStart] = useState(false);
+    const [takenQuiz, setTakenQuiz] = useState("")
 
     const fetchQuiz = async () => {
         await quizService.getOne(`${id}`).then((res) => {
@@ -75,6 +77,22 @@ const Quiz = () => {
     useEffect(() => {
         fetchQuiz()
     }, [])
+
+    const handleStart = async() => {
+        setStart(true)
+        let newTakenQuiz = {student: `${student}`, quiz: `${id}`, score: 0}
+        console.log(newTakenQuiz)
+        await userService.takenQuizCreate(newTakenQuiz).then((res)=>{
+            console.log(res)
+            setTakenQuiz(res.data.id)
+        })
+    }
+
+    const updateTakenQuiz = async() => {
+        await userService.takenQuizUpdate(`${takenQuiz}`, {student: `${student}`, quiz: `${id}`, score: `${score}`}).then((res) => {
+            console.log(res)
+        })
+    }
 
     const handleSelection = (correct) => {
         console.log("answer clicked");
@@ -90,7 +108,8 @@ const Quiz = () => {
         if (nextQuestion < questionList.length) {
             setCurrentQuestion(nextQuestion);
         } else {
-            setShowScore(true);
+            updateTakenQuiz()
+            setShowScore(true)
         }
     }
 
@@ -100,10 +119,9 @@ const Quiz = () => {
         setShowScore(false);
     }
 
-    const handleStart = () => {
-        setStart(true)
-        
-    }
+
+
+
 
     if (!start) {
         return (

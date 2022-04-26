@@ -32,4 +32,4 @@ class TakenQuizSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TakenQuiz
-        field = ('id', 'quiz', 'score')
+        fields = ('id', 'student', 'quiz', 'score')

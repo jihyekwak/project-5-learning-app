@@ -41,7 +41,7 @@ const StudentForm = () => {
     const handleSubmit = async () => {
         let newStudent = {name, grade, avatar, instuctor : localStorage.getItem('user')}
         console.log(newStudent)
-        await userService.create(newStudent).then((res) => {
+        await userService.createStudent(newStudent).then((res) => {
             console.log(res)
             navigate("/mypage")
             navigate(0)
