@@ -119,10 +119,6 @@ const Quiz = () => {
         setShowScore(false);
     }
 
-
-
-
-
     if (!start) {
         return (
             <Container>
@@ -139,7 +135,7 @@ const Quiz = () => {
                         </Typography>
                         <div style={{margin: 'auto auto'}}>
                             <Button onClick={() => handleTryAgain()} className={classes.button}>Try Again</Button>
-                            <Button href="/main" className={classes.button}>Quiz List</Button>
+                            <Button href={`/${student}/quizzes/${id}`} className={classes.button}>Quiz List</Button>
                         </div>
                     </Dialog>
                 ) : (

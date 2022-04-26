@@ -11,6 +11,7 @@ import MyPage from './pages/MyPage';
 import * as authService from "./api/auth.service";
 import StudentForm from './components/StudentForm';
 import QuizForm from "./components/QuizForm";
+import Dashboard from './pages/Dashboard';
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
       <NavBar profile={profile}/>
       <Routes>
         <Route path="main" element={<MainPage/>} />
+        <Route path="dashboard" element={<Dashboard profile={profile}/>} />
         <Route path="mypage" element={<MyPage profile={profile}/>} />
         <Route path="/:student/quizzes/:id" element={<Quiz/>} />
         <Route path="/:student/quizzes" element={<MainPage/>} />

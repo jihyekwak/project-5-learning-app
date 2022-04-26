@@ -40,7 +40,7 @@ const Login = () => {
         e.preventDefault();
         await authService.login(username, password).then((res) => {
             console.log(res)
-            navigate("/mypage")
+            navigate("/dashboard")
             navigate(0)
         })
         .catch(err => console.log(err))

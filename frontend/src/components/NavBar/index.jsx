@@ -33,9 +33,9 @@ const NavBar = ({profile}) => {
             <Toolbar className={classes.toolbar}>
                 <NavLink to='/' className={classes.navlink}>Logo</NavLink>
                 <NavLink to='/main' className={classes.navlink}>Main</NavLink>
-                <NavLink to='/mypage' className={classes.navlink}>MyPage</NavLink>
-                <Logout/>
+                <NavLink to='/dashboard' className={classes.navlink}>Dashboard</NavLink>
                 <NavLink to='/mypage' className={classes.navlink}>{profile.username}</NavLink>
+                <Logout/>
             </Toolbar>
         </AppBar>
     )

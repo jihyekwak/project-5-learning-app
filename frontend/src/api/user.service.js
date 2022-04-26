@@ -30,4 +30,5 @@ const takenQuizCreate = (takendata) => {
 const takenQuizUpdate = (takenId, takendata) => {
     return tellLearningAppTo.put(`${takenQuizzes}/${takenId}/`, takendata)
 }
+
 export {getAllStudent, getOneStudent, createStudent, getAllTakenQuiz, getOneTakenQuiz, takenQuizCreate, takenQuizUpdate};

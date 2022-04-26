@@ -16,7 +16,9 @@ const Profile = ({profile}) => {
         <h1 className={classes.text}>{profile.username}</h1>
         {profile.students?.map((student) => {
             return(
-                <p className={classes.text}>{student.name}</p>
+                <div>
+                <Button className={classes.text}>{student.name}</Button>
+                </div>
             )
         })}
         </>
