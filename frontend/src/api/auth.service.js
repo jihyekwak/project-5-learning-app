@@ -16,6 +16,7 @@ const login = async (username, password) => {
         return tellLearningAppTo
         .post(`${token}/`, {username, password})
         .then((res) => {
+            console.log(res)
             localStorage.setItem('access_token', res.data.access);
             localStorage.setItem('refresh_token', res.data.refresh);
             tellLearningAppTo.defaults.headers['Authorization'] = 
@@ -32,7 +33,7 @@ const currentUser = () => {
 }
 
 const getProfile = () => {
-    return tellLearningAppTo.get(`${user}/profile/`)
+    return tellLearningAppTo.get(`${user}/current/`)
 }
 
 const logout = () => {

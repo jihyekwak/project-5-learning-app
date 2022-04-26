@@ -25,8 +25,8 @@ class UserSerializer(serializers.ModelSerializer):
     #     Token.objects.create(user=user)
     #     return user
 
-# class TakenQuizSerializer(serializers.ModelSerializer):
+class TakenQuizSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = TakenQuiz
-#         field = ('id', 'quiz', 'score')
+    class Meta:
+        model = TakenQuiz
+        field = ('id', 'quiz', 'score')
