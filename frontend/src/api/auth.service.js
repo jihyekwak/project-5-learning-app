@@ -43,6 +43,7 @@ const getProfile = () => {
 const logout = () => {
     localStorage.removeItem('access_token')
     localStorage.removeItem('refresh_token')
+    localStorage.removeItem('user')
     tellLearningAppTo.defaults.headers['Authorization'] = null;
 }
 

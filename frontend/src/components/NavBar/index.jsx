@@ -1,21 +1,21 @@
 import { AppBar, Toolbar } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import {NavLink} from 'react-router-dom';
-import Logout from '../../components/Logout'
+import Logout from '../../components/Logout';
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
         // backgroundColor: '#ea624c',
-        backgroundColor: '#53b3ae',
+        backgroundColor: '#87BCC7',
         // backgroundColor: 'white',
-        // backgroundColor: '#f5b120'
+        // backgroundColor: '#f5b120',
     },
     toolbar: {
         justifyContent:'space-evenly'
     },
     navlink: {
         textDecoration: 'none',
-        color: '#0B5688',
+        color: '#23596D',
         fontSize: '25px',
         fontFamily: 'Staatliches',
         "&:hover": {
@@ -32,10 +32,12 @@ const NavBar = ({profile}) => {
         <AppBar className={classes.appbar} position="fixed">
             <Toolbar className={classes.toolbar}>
                 <NavLink to='/' className={classes.navlink}>Logo</NavLink>
-                <NavLink to='/main' className={classes.navlink}>Main</NavLink>
-                <NavLink to='/dashboard' className={classes.navlink}>Dashboard</NavLink>
-                <NavLink to='/mypage' className={classes.navlink}>{profile.username}</NavLink>
-                <Logout/>
+                {profile? <NavLink to='/main' className={classes.navlink}>Main</NavLink>: null }
+                {profile? <NavLink to='/dashboard' className={classes.navlink}>Dashboard</NavLink>: null }
+                {profile? <NavLink to='/mypage' className={classes.navlink}>{profile.username}</NavLink> : null }
+                {profile? null : <NavLink to='/login' className={classes.navlink}>LogIn</NavLink> }
+                {profile? null : <NavLink to='/register' className={classes.navlink}>Register</NavLink> }
+                {profile? <Logout/> : null }
             </Toolbar>
         </AppBar>
     )

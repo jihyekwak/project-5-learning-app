@@ -15,15 +15,15 @@ const useStyles = makeStyles((theme) => ({
         margin: '25px auto'
     },
     button: {
-        backgroundColor: '#F3974F',
+        backgroundColor: '#87bcc780',
         border: 'none',
-        borderRadius: '10px',
         fontSize: '17px',
         padding: '7px',
         fontFamily: 'Viga',
+        margin: '15px 0 0 0',
         "&:hover": {
             transform: 'scale(1.3)',
-            backgroundColor: '#ea624c',
+            backgroundColor: '#87bcc7',
             cursor: 'pointer'
         },
     },
@@ -40,9 +40,11 @@ const QuizCard = ({quiz}) => {
                 <span className={classes.tag}>{quiz.grade}</span>
                 <span className={classes.tag}>{quiz.difficulty}</span>
             </Typography>
+            <hr />
             <Typography variant="h3" className={classes.quizTitle}>
                 {quiz.title}
             </Typography>
+            <hr />
             <Button href={`quizzes/${quiz.id}`} className={classes.button}>Take Quiz</Button>
         </>
     )

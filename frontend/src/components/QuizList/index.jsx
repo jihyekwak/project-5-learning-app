@@ -4,14 +4,17 @@ import QuizCard from '../../components/QuizCard';
 
 const useStyles = makeStyles((theme) => ({
     grid: {
-        margin: '15px 0'
+        margin: '20px 0'
     },
     card: {
-        backgroundColor: '#F9D263',
+        // backgroundColor: '#F9D263',
         padding: '10px',
         // borderRadius: '20px',
         textAlign: 'center',
         height: '100%',
+        "&:hover": {
+            transform: 'scale(1.05)'
+        },
     }
 }));
 

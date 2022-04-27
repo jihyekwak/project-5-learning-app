@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useParams} from "react-router-dom";
-import { Container, Grid, Card, Button } from "@material-ui/core";
+import { Container, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../api/quiz.service";
 import QuizList from '../../components/QuizList';
 
 const useStyles = makeStyles((theme) => ({
     button : {
-        backgroundColor: '#0B568850',
+        backgroundColor: '#87c7b290',
         color: '#0B5688',
         fontFamily: 'Viga',
         fontSize: '15px',
@@ -16,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         width: '130px',
         "&:hover": {
             transform: 'scale(1.1)',
-            backgroundColor: '#0B5688',
+            backgroundColor: '#87c7b2',
             color: 'white',
             cursor: 'pointer'
         },
@@ -25,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
         textAlign:'center',
         fontSize: '40px',
         fontFamily: 'Staatliches',
-        // color: '#0B5688',
         color: '#0B5688',
         letterSpacing:'1px',
         margin: '30px 0'
