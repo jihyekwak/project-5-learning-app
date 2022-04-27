@@ -6,7 +6,7 @@ import Logout from '../../components/Logout';
 const useStyles = makeStyles((theme) => ({
     appbar: {
         // backgroundColor: '#ea624c',
-        backgroundColor: '#53b3ae',
+        backgroundColor: '#87BCC7',
         // backgroundColor: 'white',
         // backgroundColor: '#f5b120',
     },
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
     navlink: {
         textDecoration: 'none',
-        color: '#0B5688',
+        color: '#23596D',
         fontSize: '25px',
         fontFamily: 'Staatliches',
         "&:hover": {

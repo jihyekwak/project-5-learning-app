@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
     component: {
         // backgroundColor: '#F7F7EE',
         padding: '50px',
-        // backgroundColor: '#C3E0E7'
+        backgroundColor: '#23596d'
     },
     headerText : {
         // fontFamily: 'Viga',
