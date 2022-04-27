@@ -40,16 +40,14 @@ const Register = () => {
     const [passwordConfirmation, setPaswordConfirmation] = useState("")
     const navigate = useNavigate()
 
-    const newUser = {firstName, lastName, username, password, passwordConfirmation}
+    const newUser = {first_name: firstName, last_name: lastName, username, password, passworkd_confirmation: passwordConfirmation}
     const handleSubmit = async(e) => {
         e.preventDefault();
-        await authService.register(newUser).then((res)=>{
+        await authService.register(newUser)
+        .then((res)=>{
             console.log(res)
-            authService.login(username, password).then((res)=> {
-                console.log(res)
-                navigate("/dashboard")
-                navigate(0)
-            })
+            navigate("/login")
+            navigate(0)
         })
         .catch(err => console.log(err))
     }
