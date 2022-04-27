@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Button, Container, Grid, Card, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import StudentForm from '../../components/StudentForm';
+// import SettingsIcon from '@mui/icons-material/Settings';
+// import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -89,7 +91,15 @@ const Dashboard = ({profile}) => {
                     return(
                         <Grid item xs={4} zeroMinWidth key={student.id} className={classes.grid}>
                         <Card href={`/${student.id}/quizzes`} className={classes.card}>
-                            <Typography variant='h5' className={classes.text}>{student.grade}</Typography>
+                            <Grid container>
+                                <Grid xs={2}></Grid>
+                                <Grid xs={8}>
+                            <Typography className={classes.text}>{student.grade}</Typography>
+                            </Grid>
+                            <Grid xs={2}>
+                            <Button>setting</Button>
+                            </Grid>
+                            </Grid>
                             <Typography variant='h3' className={classes.text}> {student.name}</Typography>
                             <Button key={student.id} href={`/${student.id}/quizzes`} className={classes.button}>
                                 start
