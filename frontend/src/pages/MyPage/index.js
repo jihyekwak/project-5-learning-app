@@ -3,6 +3,8 @@ import { Avatar, Button, Container, Grid, Drawer, Toolbar, Divider, IconButton, 
 import { makeStyles } from "@material-ui/core/styles";
 import * as userService from "../../api/user.service"
 import * as React from 'react';
+import QuizForm from '../../components/QuizForm';
+import QuizListTable from '../../components/QuizListTable';
 
 const useStyles = makeStyles((theme) => ({
     gridContainer: {
@@ -40,6 +42,9 @@ const MyPage = ({profile}) => {
     const [takenQuiz, setTakenQuiz] = useState([]);
     const [reward, setReward] = useState(0)
 
+    const [profileSetting, setProfileSetting] = useState(false)
+    const [createQuiz, setCreateQuiz] = useState(false)
+
     const handleStudent = async (studentId) => {
         await userService.getOneStudent(studentId).then((res) => {
             setName(res.data.name)
@@ -47,6 +52,8 @@ const MyPage = ({profile}) => {
             setGrade(res.data.grade)
             setTakenQuiz(res.data.quizzes)
             setReward(res.data.reward)
+            setProfileSetting(false)
+            setCreateQuiz(false)
             console.log(takenQuiz)
         })
         
@@ -65,10 +72,21 @@ const MyPage = ({profile}) => {
                             </div>
                     )
                     })}
-                    <h3>Create my own quiz</h3>
-                    <h3>Profile setting</h3>
+                    <Button onClick={()=> {
+                        console.log("clicked!")
+                        setCreateQuiz(true)
+                        setProfileSetting(false)
+                        setName()
+                    }}><h3>Create my own quiz</h3></Button>
+                    <Button onClick={()=> {
+                        console.log("clicked!")
+                        setProfileSetting(true)
+                        setCreateQuiz(false)
+                        setName()
+                    }}><h3>Profile setting</h3></Button>
                 </Grid>
                 <Grid item xs={9}>
+
                     {name? (
                     <>
                         <h1 className={classes.headerTitle}>{name}</h1>
@@ -86,6 +104,17 @@ const MyPage = ({profile}) => {
                             )
                         })}
                     </>): null}
+
+                    {createQuiz? (<>
+                        <h1>CreateQuiz</h1>
+                        <QuizForm />
+                        <br />
+                        <QuizListTable />
+                    </>) : null }
+
+                    {profileSetting? (<>
+                        <h1>Profile setting</h1>
+                    </>) : null }
                 </Grid>
             </Grid>
         </Container>

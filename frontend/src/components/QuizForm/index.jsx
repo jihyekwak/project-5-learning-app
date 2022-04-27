@@ -22,9 +22,10 @@ const QuizForm = () => {
     }
 
     return(
-    <Container>
+    // <Container>
+    <>
         Quiz Create Form
-        <form style={{border: '2px solid black'}}>
+        <form>
             <label>
             Title:
                 <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -64,8 +65,8 @@ const QuizForm = () => {
             </label>
             <button type="submit"  onClick={handleSubmit}>Add</button>  
         </form>
-
-        </Container>
+</>
+        // </Container>
     )
 }
 export default QuizForm;
