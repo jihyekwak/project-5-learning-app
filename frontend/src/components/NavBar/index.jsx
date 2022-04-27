@@ -32,11 +32,12 @@ const NavBar = ({profile}) => {
         <AppBar className={classes.appbar} position="fixed">
             <Toolbar className={classes.toolbar}>
                 <NavLink to='/' className={classes.navlink}>Logo</NavLink>
-                <NavLink to='/main' className={classes.navlink}>Main</NavLink>
-                <NavLink to='/dashboard' className={classes.navlink}>Dashboard</NavLink>
-                <NavLink to='/mypage' className={classes.navlink}>{profile.username}</NavLink>
-                <NavLink to='/login' className={classes.navlink}>LogIn</NavLink>
-                <Logout/>
+                {profile? <NavLink to='/main' className={classes.navlink}>Main</NavLink>: null }
+                {profile? <NavLink to='/dashboard' className={classes.navlink}>Dashboard</NavLink>: null }
+                {profile? <NavLink to='/mypage' className={classes.navlink}>{profile.username}</NavLink> : null }
+                {profile? null : <NavLink to='/login' className={classes.navlink}>LogIn</NavLink> }
+                {profile? null : <NavLink to='/register' className={classes.navlink}>Register</NavLink> }
+                {profile? <Logout/> : null }
             </Toolbar>
         </AppBar>
     )
