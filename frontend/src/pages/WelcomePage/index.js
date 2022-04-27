@@ -1,14 +1,17 @@
-import { Link} from 'react-router-dom';
-import { Container } from "@material-ui/core";
+import Header from '../../components/Header';
+import About from '../../components/About';
+import Footer from '../../components/Footer';
+import GetStarted from '../../components/GetStarted';
 
 const WelcomePage = () => {
 
     return(
-        <Container>
-            <h1>Welcome Page</h1>
-            <Link to='/login'>Login</Link>
-            <Link to='/register'>Register</Link>
-        </Container>
+        <div className='container'>
+            <Header />
+            <About />
+            <GetStarted />
+            <Footer />
+        </div>
     )
 }
 export default WelcomePage;

@@ -47,7 +47,7 @@ const Register = () => {
             console.log(res)
             authService.login(username, password).then((res)=> {
                 console.log(res)
-                navigate("/mypage")
+                navigate("/dashboard")
                 navigate(0)
             })
         })
@@ -144,7 +144,7 @@ const Register = () => {
                     type="submit">Register</Button>
                 <Grid container justifyContent="flex-end">
                     <Grid item>
-                        <Link href="#" variant="body2">
+                        <Link href="/login" variant="body2">
                             Already have an account? Sign in
                         </Link>
                     </Grid>

@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@700&family=Comfortaa:wght@700&family=Happy+Monkey&family=Sniglet&family=Staatliches&family=Viga&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@700&family=Comfortaa:wght@700&family=Happy+Monkey&family=Roboto:wght@300;400&family=Sniglet&family=Staatliches&family=Viga&display=swap');
 
 body {
-  background-color: #9ad4c7;
+  /* background-color: #9ad4c7; */
   /* background-color: #9ad2a9; */
-  font-family: 'Sniglet', cursive;
+  /* font-family: 'Sniglet', cursive; */
+  font-family: 'Roboto', sans-serif;
   /* font-family: 'Staatliches', cursive; */
   /* font-family: 'Cabin Sketch', cursive; */
   /* font-family: 'Comfortaa', cursive; */
@@ -13,4 +14,13 @@ body {
 
 .MuiContainer-root {
   margin-top: 100px;
+}
+
+.container {
+  margin-top: 63px;
+  text-align: center;
+}
+
+* {
+  border: 1px solid black
 }

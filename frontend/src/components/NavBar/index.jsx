@@ -1,14 +1,14 @@
 import { AppBar, Toolbar } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import {NavLink} from 'react-router-dom';
-import Logout from '../../components/Logout'
+import Logout from '../../components/Logout';
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
         // backgroundColor: '#ea624c',
         backgroundColor: '#53b3ae',
         // backgroundColor: 'white',
-        // backgroundColor: '#f5b120'
+        // backgroundColor: '#f5b120',
     },
     toolbar: {
         justifyContent:'space-evenly'
@@ -35,6 +35,7 @@ const NavBar = ({profile}) => {
                 <NavLink to='/main' className={classes.navlink}>Main</NavLink>
                 <NavLink to='/dashboard' className={classes.navlink}>Dashboard</NavLink>
                 <NavLink to='/mypage' className={classes.navlink}>{profile.username}</NavLink>
+                <NavLink to='/login' className={classes.navlink}>LogIn</NavLink>
                 <Logout/>
             </Toolbar>
         </AppBar>

@@ -44,6 +44,7 @@ function App() {
       <div className="App">
       <NavBar profile={profile}/>
       <Routes>
+        <Route path="/" element={<WelcomePage />} />
         <Route path="main" element={<MainPage/>} />
         <Route path="dashboard" element={<Dashboard profile={profile}/>} />
         <Route path="mypage" element={<MyPage profile={profile}/>} />
