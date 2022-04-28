@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from .serializers import QuizSerializer, QuestionSerializer, AnswerSerializer
 from .models import Quiz, Question, Answer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -11,9 +12,15 @@ def home(request):
 
 class QuizView(viewsets.ModelViewSet):
     serializer_class = QuizSerializer
-    queryset = Quiz.objects.all()
+    # queryset = Quiz.objects.all()
     # permission_classes = [IsAuthenticatedOrReadOnly]
 
+    def get_queryset(self):
+        return Quiz.objects.all()
+
+    def get_object(self, queryset=None, **kwargs):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Quiz, pk=pk)
 
     # def get_queryset(self):
     #     qs = super().get_queryset()

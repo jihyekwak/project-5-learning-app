@@ -10,4 +10,4 @@ router.register(r'quizzes', views.QuizView, 'quiz')
 urlpatterns = [
     path('', include(router.urls)),
     path('home/', views.home, name='home'),
-]
+]    

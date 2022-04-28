@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import * as quizService from "../../api/quiz.service";
-import { Container } from "@material-ui/core";
+import { Container, Button, IconButton } from "@material-ui/core";
+import QuizListTable from "../QuizListTable";
+// import { RemoveIcon, AddIcon } from "@mateial-ul/icons";
+// import AddIcon from '@material-ui/icons/Add';
+// import RemoveIcon from '@material-ui/icons/Remove';
+
 
 const QuizForm = () => {
 
@@ -8,12 +13,46 @@ const QuizForm = () => {
     const [subject, setSubject] = useState();
     const [difficulty, setDifficulty] = useState();
     const [grade, setGrade] = useState();
+    const [question1, setQuestion1] = useState();
+    const [answer1, setAnswer1] = useState()
+    const [correctAnswer1, setCorrectAnswer1] = useState(false);
+    const [answer2, setAnswer2] = useState()
+    const [correctAnswer2, setCorrectAnswer2] = useState(false);
+    const [answer3, setAnswer3] = useState()
+    const [correctAnswer3, setCorrectAnswer3] = useState(false);
 
-    const handleSubmit = async () => {
-        let newQuiz = {title, subject, difficulty, grade};
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        let newQuiz = 
+            { 
+                title: title, 
+                subject: subject, 
+                difficulty : difficulty, 
+                grade: grade, 
+                questions: [ 
+                    {
+                        text: question1, 
+                        answers: [ 
+                            {
+                                text: answer1, 
+                                is_correct: correctAnswer1
+                            }, 
+                            {
+                                text: answer2, 
+                                is_correct: correctAnswer2
+                            }, {
+                                text: answer3, 
+                                is_correct: correctAnswer3,
+                            }
+                        ]
+                    }
+                ]
+            };
+
         console.log(newQuiz);
-        let res = await quizService.create(newQuiz).then(() => {
-            setTitle("");
+        let res = await quizService.create(newQuiz).then((res) => {
+            console.log(res)
             console.log("created")
         })
         if (!res===201) {
@@ -22,7 +61,7 @@ const QuizForm = () => {
     }
 
     return(
-    // <Container>
+    <Container>
     <>
         Quiz Create Form
         <form>
@@ -63,10 +102,52 @@ const QuizForm = () => {
                     <option value="3rd Grade">3rd Grade</option>
                 </select>
             </label>
+            <label>
+            Question1:
+                <input type="text" name="text" value={question1} onChange={(e) => setQuestion1(e.target.value)} />
+            </label>
+            <label>
+            Answer1:
+                <input type="text" name="answer" value={answer1} onChange={(e) => setAnswer1(e.target.value)} />
+            </label>
+            <label>
+            correct:
+                <input type="checkbox" name="is_correct" value={correctAnswer1} onChange={() => {
+                    setCorrectAnswer1(!correctAnswer1)
+                }} />
+            </label>
+            <label>
+            Answer2:
+                <input type="text" name="answer" value={answer2} onChange={(e) => setAnswer2(e.target.value)} />
+            </label>
+            <label>
+            correct:
+                <input type="checkbox" name="is_correct" value={correctAnswer2} onChange={() => {
+                    setCorrectAnswer2(!correctAnswer2)
+                }} />
+            </label>
+            <label>
+            Answer3:
+                <input type="text" name="answer" value={answer3} onChange={(e) => setAnswer3(e.target.value)} />
+            </label>
+            <label>
+            correct:
+                <input type="checkbox" name="is_correct" value={correctAnswer3} onChange={() => {
+                    setCorrectAnswer3(!correctAnswer3)
+                }} />
+            </label>
+
             <button type="submit"  onClick={handleSubmit}>Add</button>  
+            {/* <IconButton>
+                <RemoveIcon />
+            </IconButton>
+            <IconButton>
+                <AddIcon />
+            </IconButton> */}
         </form>
 </>
-        // </Container>
+    <QuizListTable />
+     </Container>
     )
 }
 export default QuizForm;

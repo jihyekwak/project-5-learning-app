@@ -1,10 +1,40 @@
 import { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
+import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../api/quiz.service";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import EditIcon from '@material-ui/icons/Edit';
+
+const useStyles = makeStyles((theme) => ({
+	cardMedia: {
+		paddingTop: '56.25%', // 16:9
+	},
+	link: {
+		margin: theme.spacing(1, 1.5),
+	},
+	cardHeader: {
+		backgroundColor:
+			theme.palette.type === 'light'
+				? theme.palette.grey[200]
+				: theme.palette.grey[700],
+	},
+	postTitle: {
+		fontSize: '16px',
+		textAlign: 'left',
+	},
+	postText: {
+		display: 'flex',
+		justifyContent: 'left',
+		alignItems: 'baseline',
+		fontSize: '12px',
+		textAlign: 'left',
+		marginBottom: theme.spacing(2),
+	},
+}));
 
 const QuizListTable= () => {
 
+    const classes = useStyles();
     const [quizList, setQuizList] = useState([])
 
     const fetchQuizzes = async () => {
@@ -24,9 +54,10 @@ const QuizListTable= () => {
                 <TableRow>
                     <TableCell>Title</TableCell>
                     <TableCell align="right">Subject</TableCell>
-                    <TableCell align="right">Grade&nbsp;(g)</TableCell>
-                    <TableCell align="right">Difficulty&nbsp;(g)</TableCell>
-                    <TableCell align="right">Created_at&nbsp;(g)</TableCell>
+                    <TableCell align="right">Grade</TableCell>
+                    <TableCell align="right">Difficulty</TableCell>
+                    <TableCell align="right">Created_at</TableCell>
+                    <TableCell>Action</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -41,6 +72,15 @@ const QuizListTable= () => {
                     <TableCell align="right">{quiz.grade}</TableCell>
                     <TableCell align="right">{quiz.difficulty}</TableCell>
                     <TableCell align="right">{quiz.created_at}</TableCell>
+                    <TableCell>
+                        <Link 
+                            color="textPrimary"
+							href={`/quiz/${quiz.id}/edit`}
+							className={classes.link}><EditIcon></EditIcon></Link>
+                        <Link 
+                            color="textPrimary"
+							className={classes.link}><DeleteForeverIcon></DeleteForeverIcon></Link>
+                    </TableCell>
                 </TableRow>
             ))}
             </TableBody>
