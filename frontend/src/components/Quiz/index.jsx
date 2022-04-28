@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams} from "react-router-dom";
-import { Container, Grid, Typography, Button, Dialog} from "@material-ui/core";
+import { Container, Grid, Typography, Button, Dialog, Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../api/quiz.service";
 import * as userService from "../../api/user.service";
+import LearnerNavBar from '../LearnerNavBar/inex';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -52,6 +53,16 @@ const useStyles = makeStyles((theme) => ({
             color: 'white',
             cursor: 'pointer'
         },
+    },
+    card: {
+        // backgroundColor: '#F9D263',
+        padding: '10px',
+        // borderRadius: '20px',
+        textAlign: 'center',
+        height: '100%',
+        "&:hover": {
+            transform: 'scale(1.05)'
+        },
     }
 }))
 
@@ -60,6 +71,7 @@ const Quiz = () => {
     const classes = useStyles();
     const {id} =useParams();
     const {student} =useParams();
+    const [quizTitle, setQuizTitle] = useState("")
     const [questionList, setQuestionList] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
@@ -69,7 +81,7 @@ const Quiz = () => {
 
     const fetchQuiz = async () => {
         await quizService.getOne(`${id}`).then((res) => {
-            console.log(res.data)
+            setQuizTitle(res.data.title)
             setQuestionList(res.data.questions)
         })
     }
@@ -121,13 +133,27 @@ const Quiz = () => {
 
     if (!start) {
         return (
+            <>
+            {/* <LearnerNavBar /> */}
             <Container>
-                <Button onClick={handleStart}>Start</Button>
+                <Card className={classes.card}>
+
+                    <Typography variant='h3'>{quizTitle}</Typography>
+
+                <Button onClick={handleStart} className={classes.button}>Start</Button>
+                <Button href="/1/quizzes" className={classes.button}>Go Back</Button>
+
+                </Card>
+                
             </Container>
+            </>
+
         )
     } else {
         return(
-            <Container>
+            <>
+            {/* <LearnerNavBar /> */}
+             <Container>
                 {showScore ? (
                     <Dialog open={true}>
                         <Typography align='center' className={classes.score} >
@@ -157,11 +183,13 @@ const Quiz = () => {
                                 })}
                             </Grid>
                         </Grid>
-                        <Button href="/main" className={classes.button}>Go Back</Button>
+                        <Button href="/1/quizzes" className={classes.button}>Go Back</Button>
                     </>
                 )}
     
             </Container>
+            </>
+           
         )
     }
 

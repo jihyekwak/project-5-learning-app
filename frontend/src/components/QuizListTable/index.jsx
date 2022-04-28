@@ -56,8 +56,9 @@ const QuizListTable= () => {
                     <TableCell align="right">Subject</TableCell>
                     <TableCell align="right">Grade</TableCell>
                     <TableCell align="right">Difficulty</TableCell>
+                    <TableCell align="right">Number of Questions</TableCell>
                     <TableCell align="right">Created_at</TableCell>
-                    <TableCell>Action</TableCell>
+                    <TableCell align="right">Action</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -71,8 +72,9 @@ const QuizListTable= () => {
                     <TableCell align="right">{quiz.subject}</TableCell>
                     <TableCell align="right">{quiz.grade}</TableCell>
                     <TableCell align="right">{quiz.difficulty}</TableCell>
+                    <TableCell align="right">{quiz.questions.length}</TableCell>
                     <TableCell align="right">{quiz.created_at}</TableCell>
-                    <TableCell>
+                    <TableCell align="right">
                         <Link 
                             color="textPrimary"
 							href={`/quiz/${quiz.id}/edit`}

@@ -1,6 +1,7 @@
 import tellLearningAppTo from "./axios.config";
 
 const quizzes = "/quizzes";
+const questions = "/questions";
 
 const getAll = () => {
     return tellLearningAppTo.get(`${quizzes}/`);
@@ -13,4 +14,8 @@ const getOne = (id) => {
 const create = (data) => {
     return tellLearningAppTo.post(`${quizzes}/`, data)
 }
-export {getAll, getOne, create};
+
+const questionCreate = (data) => {
+    return tellLearningAppTo.post(`${questions}/`, data)
+}
+export {getAll, getOne, create, questionCreate};

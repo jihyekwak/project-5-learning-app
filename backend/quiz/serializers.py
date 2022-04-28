@@ -1,24 +1,19 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from .models import Quiz, Question, Answer
 
 class AnswerSerializer(serializers.ModelSerializer):
-    # question = serializers.CharField()
-    # id = serializers.IntegerField(required = False)
 
     class Meta:
         model = Answer
         fields = ('id', 'text', 'is_correct')
-        depth = 2
 
 class QuestionSerializer(serializers.ModelSerializer):
     answers = AnswerSerializer(many=True)
-    # quiz = serializers.CharField()
-    # id = serializers.IntegerField(required = False)
 
     class Meta:
         model = Question
-        fields = ('id', 'text', 'answers')
-        depth = 1
+        fields = ('id', 'text', 'answers', 'quiz')
 
     def create(self, validated_data):
         answers = validated_data.pop('answers')
@@ -28,23 +23,22 @@ class QuestionSerializer(serializers.ModelSerializer):
         return Question
 
 class QuizSerializer(serializers.ModelSerializer):
-    questions = QuestionSerializer(many=True)
-
+    questions = QuestionSerializer(many=True, read_only=True)
 
     class Meta:
         model = Quiz
         fields = ('id', 'title', 'subject', 'difficulty', 'grade', 'questions', 'created_at')
 
-    def create(self, validated_data):
-        questions = validated_data.pop('questions')
-        quiz = Quiz.objects.create(**validated_data)
+    # def create(self, validated_data):
+    #     questions = validated_data.pop('questions')
+    #     quiz = Quiz.objects.create(**validated_data)
 
-        for question in questions:
-            answers = question.pop('answers')
-            Question.objects.create(quiz = quiz, **question)
-            for answer in answers:
-                Answer.objects.create(question = question, **answer)
-                return quiz
+    #     for question in questions:
+    #         answers = question.pop('answers')
+    #         Question.objects.create(quiz = quiz, **question)
+    #         for answer in answers:
+    #             Answer.objects.create(question = question, **answer)
+    #         return quiz
 
     # def update(self, instance, validated_data):
     #     questions = validated_data.pop('questions')

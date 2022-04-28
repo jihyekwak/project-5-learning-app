@@ -3,6 +3,7 @@ import { Container, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../api/quiz.service";
 import QuizList from '../../components/QuizList';
+import LearnerNavBar from '../../components/LearnerNavBar/inex';
 
 const useStyles = makeStyles((theme) => ({
     button : {
@@ -70,7 +71,10 @@ const MainPage = () => {
     const subjects = [...new Set(quizList.map(({subject}) => subject))]
 
     return(
+        <>
+        <LearnerNavBar />
         <Container>
+                                    {/* <Button href="/dashboard" className={classes.button}>Go Back</Button> */}
             <Grid container spacing={2} className={classes.gridContainer}>
             <Button onClick={()=> setFilter(false)} className={classes.button}>All</Button>
                 {subjects.map((subject)=> {
@@ -80,7 +84,7 @@ const MainPage = () => {
                 })}
             </Grid>
 
-            <h1 className={classes.headerTitle}>Let's Take Quizzes!! Have Fun :)</h1>
+            {/* <h1 className={classes.headerTitle}>Let's Take Quizzes!! Have Fun :)</h1> */}
             <Grid container spacing={4} className={classes.gridContainer}>
                 {filter? (quizList.filter(q => q.subject === subject).map((quiz) => {
                     return (
@@ -93,6 +97,9 @@ const MainPage = () => {
                 }))}
             </Grid>
         </Container>
+        
+        </>
+        
     )
 }
 export default MainPage;

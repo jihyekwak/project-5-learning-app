@@ -13,47 +13,20 @@ const QuizForm = () => {
     const [subject, setSubject] = useState();
     const [difficulty, setDifficulty] = useState();
     const [grade, setGrade] = useState();
-    const [question1, setQuestion1] = useState();
-    const [answer1, setAnswer1] = useState()
-    const [correctAnswer1, setCorrectAnswer1] = useState(false);
-    const [answer2, setAnswer2] = useState()
-    const [correctAnswer2, setCorrectAnswer2] = useState(false);
-    const [answer3, setAnswer3] = useState()
-    const [correctAnswer3, setCorrectAnswer3] = useState(false);
+    // const [question1, setQuestion1] = useState();
+    // const [answer1, setAnswer1] = useState()
+    // const [correctAnswer1, setCorrectAnswer1] = useState(false);
+    // const [answer2, setAnswer2] = useState()
+    // const [correctAnswer2, setCorrectAnswer2] = useState(false);
+    // const [answer3, setAnswer3] = useState()
+    // const [correctAnswer3, setCorrectAnswer3] = useState(false);
 
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        let newQuiz = 
-            { 
-                title: title, 
-                subject: subject, 
-                difficulty : difficulty, 
-                grade: grade, 
-                questions: [ 
-                    {
-                        text: question1, 
-                        answers: [ 
-                            {
-                                text: answer1, 
-                                is_correct: correctAnswer1
-                            }, 
-                            {
-                                text: answer2, 
-                                is_correct: correctAnswer2
-                            }, {
-                                text: answer3, 
-                                is_correct: correctAnswer3,
-                            }
-                        ]
-                    }
-                ]
-            };
-
-        console.log(newQuiz);
+        let newQuiz = {title, subject, difficulty, grade}
         let res = await quizService.create(newQuiz).then((res) => {
             console.log(res)
-            console.log("created")
         })
         if (!res===201) {
             alert(`ERROR! It was code: ${res.status}`)
@@ -102,7 +75,7 @@ const QuizForm = () => {
                     <option value="3rd Grade">3rd Grade</option>
                 </select>
             </label>
-            <label>
+            {/* <label>
             Question1:
                 <input type="text" name="text" value={question1} onChange={(e) => setQuestion1(e.target.value)} />
             </label>
@@ -135,7 +108,7 @@ const QuizForm = () => {
                 <input type="checkbox" name="is_correct" value={correctAnswer3} onChange={() => {
                     setCorrectAnswer3(!correctAnswer3)
                 }} />
-            </label>
+            </label> */}
 
             <button type="submit"  onClick={handleSubmit}>Add</button>  
             {/* <IconButton>

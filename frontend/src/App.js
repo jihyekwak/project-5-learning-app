@@ -12,6 +12,8 @@ import * as authService from "./api/auth.service";
 import StudentForm from './components/StudentForm';
 import QuizForm from "./components/QuizForm";
 import Dashboard from './pages/Dashboard';
+import QuestionForm from './components/QuestionForm';
+import LearnerNavBar from './components/LearnerNavBar/inex';
 
 function App() {
 
@@ -42,7 +44,8 @@ function App() {
   if (isLoggedIn) {
     return (
       <div className="App">
-      <NavBar profile={profile}/>
+      {/* <NavBar profile={profile}/> */}
+
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="main" element={<MainPage/>} />
@@ -52,13 +55,14 @@ function App() {
         <Route path="/:student/quizzes" element={<MainPage/>} />
         <Route path="newstudent" element={<StudentForm/>} />
         <Route path="newquiz" element={<QuizForm/>} />
+        <Route path="/quiz/:id/edit" element={<QuestionForm />} />
       </Routes>
     </div>
     )
   } else {
     return(
       <div className="App">
-      <NavBar />
+      {/* <NavBar /> */}
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<Login />} />
