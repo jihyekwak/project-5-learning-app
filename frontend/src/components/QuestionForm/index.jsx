@@ -1,44 +1,17 @@
 import { useEffect, useState } from "react";
-import { useParams} from "react-router-dom";
 import * as quizService from "../../api/quiz.service";
-import { Typography, Button, Container, Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
+import { Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles((theme) => ({
-	cardMedia: {
-		paddingTop: '56.25%', // 16:9
-	},
-	link: {
-		margin: theme.spacing(1, 1.5),
-	},
-	cardHeader: {
-		backgroundColor:
-			theme.palette.type === 'light'
-				? theme.palette.grey[200]
-				: theme.palette.grey[700],
-	},
-	postTitle: {
-		fontSize: '16px',
-		textAlign: 'left',
-	},
-	postText: {
-		display: 'flex',
-		justifyContent: 'left',
-		alignItems: 'baseline',
-		fontSize: '12px',
-		textAlign: 'left',
-		marginBottom: theme.spacing(2),
-	},
+
 }));
 
-const QuestionForm = () => {
+const QuestionForm = (props) => {
 
-    const classes = useStyles();
-    const {id} =useParams();
+    // const classes = useStyles();
     const [quiz, setQuiz] = useState([]);
-    const [questionList, setQuestionList] = useState([])
     const [question, setQuestion] = useState("");
     const [answer1, setAnswer1] = useState("")
     const [correctAnswer1, setCorrectAnswer1] = useState(false);
@@ -46,19 +19,28 @@ const QuestionForm = () => {
     const [correctAnswer2, setCorrectAnswer2] = useState(false);
     const [answer3, setAnswer3] = useState("")
     const [correctAnswer3, setCorrectAnswer3] = useState(false);
+    const [create, setCreate] = useState(false)
 
     const fetchQuiz = async () => {
-        await quizService.getOne(`${id}`).then((res) => {
+        await quizService.getOne(props.editQuiz.id).then((res) => {
             setQuiz(res.data)
-            setQuestionList(res.data.questions)
+            setCreate(false)
+            setQuestion("")
+            setAnswer1("")
+            setCorrectAnswer1(false)
+            setAnswer2("")
+            setCorrectAnswer2(false)
+            setAnswer3("")
+            setCorrectAnswer3(false)
         })
     }
 
     useEffect(() => {
         fetchQuiz()
-    }, [])
+    }, [create])
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
         let newQuestion = 
         {   
             text: question,
@@ -75,35 +57,31 @@ const QuestionForm = () => {
                     is_correct: correctAnswer3,
                 }
             ],
-            quiz: `${quiz.id}`
+            quiz: quiz.id
         }
 
         console.log(newQuestion);
-        let res = await quizService.questionCreate(newQuestion).then((res) => {
-            console.log(res)
-            console.log("created")
+        setCreate(true)
+        await quizService.questionCreate(newQuestion).then(() => {
+            fetchQuiz()
         })
-        if (!res===201) {
-            alert(`ERROR! It was code: ${res.status}`)
-        }
     }
 
-    const handleDelete = async (id) => {
-        await quizService.questionDestroy(id).then((res) => {
+    const handleDelete = async (question) => {
+        await quizService.questionDestroy(question).then(() => {
             fetchQuiz()
         })
     }
 
     return(
-    <Container>
     <>
-        <Button href="/mypage">go back</Button>
+        <Button onClick={()=>props.handleCompleteEditQuiz()}>go back</Button>
         <Paper>
             <h1>{quiz.title}</h1>
             <p>{quiz.subject} / {quiz.grade} / {quiz.difficulty}</p>
         </Paper>
         <Paper>
-        <Typography variant="h6">Create New Quiz</Typography>
+        <Typography variant="h6">Create New Question</Typography>
         <form>
             <label>Question:</label>
             <input type="text" name="text" value={question} onChange={(e) => setQuestion(e.target.value)} />
@@ -128,11 +106,9 @@ const QuestionForm = () => {
             
             <button type="submit"  onClick={handleSubmit}>Submit</button>  
         </form>
-
         </Paper>
 
         <br />
-
 
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -147,7 +123,7 @@ const QuestionForm = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                {questionList.map((question, index) => (
+                {quiz.questions?.map((question, index) => (
                     <TableRow key={index}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                         <TableCell component="th" scope="row">{index + 1}</TableCell>
@@ -158,7 +134,7 @@ const QuestionForm = () => {
                             )
                         })}
                         <TableCell align="right">
-                            <Link color="textPrimary" href={`/quiz/edit`} className={classes.link}><EditIcon></EditIcon></Link>
+                            {/* <Link color="textPrimary" href={`/quiz/edit`} className={classes.link}><EditIcon></EditIcon></Link> */}
                             <DeleteForeverIcon onClick={()=> handleDelete(question.id)}></DeleteForeverIcon>
                         </TableCell>
                     </TableRow>
@@ -166,9 +142,7 @@ const QuestionForm = () => {
                 </TableBody>
             </Table>
         </TableContainer>
-
-</>
-     </Container>
+    </>
     )
 }
 export default QuestionForm;

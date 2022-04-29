@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Button, Container, Grid, Paper, Divider, IconButton, List, Typography,  } from "@material-ui/core";
+import { Button, Container, Grid, Paper, Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as userService from "../../api/user.service"
 import * as React from 'react';
 import QuizForm from '../../components/QuizForm';
 import NavBar from '../../components/NavBar';
+import QuestionForm from '../../components/QuestionForm';
 
 const useStyles = makeStyles((theme) => ({
     gridContainer: {
@@ -44,6 +45,8 @@ const MyPage = ({profile}) => {
 
     const [profileSetting, setProfileSetting] = useState(false)
     const [createQuiz, setCreateQuiz] = useState(false)
+    const [editQuiz, setEditQuiz] = useState(false)
+    const [editQuizData, setEditQuizData] = useState()
 
     const handleStudent = async (studentId) => {
         await userService.getOneStudent(studentId).then((res) => {
@@ -51,10 +54,23 @@ const MyPage = ({profile}) => {
             setTakenQuizzes(res.data.quizzes)
             setProfileSetting(false)
             setCreateQuiz(false)
+            setEditQuiz(false)
         })
         
     }
 
+    const handleEditQuiz = (quiz) => {
+        setEditQuiz(true)
+        setCreateQuiz(false)
+        setEditQuizData(quiz)
+        console.log(editQuiz)
+        console.log(editQuizData)
+    }
+
+    const handleCompleteEditQuiz = () => {
+        setEditQuiz(false)
+        setCreateQuiz(true)
+    }
     return(
         <>
         <NavBar profile={profile}/>
@@ -76,11 +92,10 @@ const MyPage = ({profile}) => {
                     <Button onClick={()=> {
                         console.log("clicked!")
                         setCreateQuiz(true)
+                        setEditQuiz(false)
                         setProfileSetting(false)
                         setStudent()
                     }}>Create my own quiz</Button>
-
-
 
                         <Divider></Divider>
                         <Typography variant='h6'>Profile</Typography>
@@ -88,6 +103,7 @@ const MyPage = ({profile}) => {
                         console.log("clicked!")
                         setProfileSetting(true)
                         setCreateQuiz(false)
+                        setEditQuiz(false)                        
                         setStudent()
                     }}>setting</Button>
                     
@@ -117,8 +133,12 @@ const MyPage = ({profile}) => {
                     </>): null}
 
                     {createQuiz? (<>
-                        <QuizForm />
+                        <QuizForm handleEditQuiz={handleEditQuiz}/>
                     </>) : null }
+
+                    {editQuiz? (<>
+                        <QuestionForm handleCompleteEditQuiz={handleCompleteEditQuiz} editQuiz={editQuizData}/>
+                    </>): null}
 
                     {profileSetting? (<>
                         <h1>Profile setting</h1>

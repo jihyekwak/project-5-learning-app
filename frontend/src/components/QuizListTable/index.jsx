@@ -32,24 +32,38 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const QuizListTable= () => {
+const QuizListTable= (props) => {
 
     const classes = useStyles();
-    const [quizList, setQuizList] = useState([])
+    // const [quizList, setQuizList] = useState([])
+    const [edit, setEdit] = useState(false)
+    const [editQuiz, setEditQuiz] = useState()
 
-    const fetchQuizzes = async () => {
-        await quizService.getAll().then((res) => {
-            setQuizList(res.data)
-        })
-    };
+    // const fetchQuizzes = async () => {
+    //     await quizService.getAll().then((res) => {
+    //         setQuizList(res.data)
+    //     })
+    // };
 
     useEffect(() => {
-        fetchQuizzes()
+        props.fetchQuizzes()
         console.log('fetched quizlist at table')
     }, [] )
 
+    const handleEdit = (quiz) => {
+        // setEdit(true)
+        // setEditQuiz(quiz)
+    }
+
+    const handleDelete = async (id) => {
+        await quizService.destroy(id).then((res) => {
+            console.log("deleted")
+            props.fetchQuizzes()
+        })
+    }
+
     return(
-    <TableContainer component={Paper}>
+        <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
                 <TableRow>
@@ -63,26 +77,22 @@ const QuizListTable= () => {
                 </TableRow>
             </TableHead>
             <TableBody>
-            {quizList.map((quiz) => (
+            {props.quizList.map((quiz) => (
                 <TableRow key={quiz.id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                    <TableCell component="th" scope="row">
-                        {quiz.title}
-                    </TableCell>
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    <TableCell component="th" scope="row">{quiz.title}</TableCell>
                     <TableCell align="right">{quiz.subject}</TableCell>
                     <TableCell align="right">{quiz.grade}</TableCell>
                     <TableCell align="right">{quiz.difficulty}</TableCell>
                     <TableCell align="right">{quiz.questions.length}</TableCell>
                     <TableCell align="right">{quiz.created_at}</TableCell>
                     <TableCell align="right">
-                        <Link 
-                            color="textPrimary"
-							href={`/quiz/${quiz.id}/edit`}
-							className={classes.link}><EditIcon></EditIcon></Link>
-                        <Link 
-                            color="textPrimary"
-							className={classes.link}><DeleteForeverIcon></DeleteForeverIcon></Link>
+
+                        <EditIcon onClick={() => {
+                            console.log("edit btn")
+                            props.handleEditQuiz(quiz)}
+                            }></EditIcon>
+                        <DeleteForeverIcon onClick={()=> handleDelete(quiz.id)}></DeleteForeverIcon>
                     </TableCell>
                 </TableRow>
             ))}
