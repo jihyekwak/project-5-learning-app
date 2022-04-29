@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams} from "react-router-dom";
 import { Container, Grid, Typography, Button, Dialog, Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import * as quizService from "../../api/quiz.service";
+import * as quizService from "../../api/quiz.service"
 import * as userService from "../../api/user.service";
-import LearnerNavBar from '../LearnerNavBar/inex';
+
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const Quiz = () => {
+const TakeQuizPage = () => {
 
     const classes = useStyles();
     const {id} =useParams();
@@ -195,4 +195,4 @@ const Quiz = () => {
 
 
 }
-export default Quiz;
+export default TakeQuizPage;

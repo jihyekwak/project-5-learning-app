@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Container, Grid, Button } from "@material-ui/core";
+import { Card, Container, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../api/quiz.service";
-import QuizList from '../../components/QuizList';
 import LearnerNavBar from '../../components/LearnerNavBar/inex';
+import QuizCard from '../../components/QuizCard';
 
 const useStyles = makeStyles((theme) => ({
     button : {
@@ -34,18 +34,21 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '20px'
     },
     grid: {
-        margin: '11px 0'
+        margin: '20px 0'
     },
     card: {
-        backgroundColor: '#F9D263',
+        // backgroundColor: '#F9D263',
         padding: '10px',
         // borderRadius: '20px',
         textAlign: 'center',
         height: '100%',
+        "&:hover": {
+            transform: 'scale(1.05)'
+        },
     }
 }));
 
-const MainPage = () => {
+const QuizPage = () => {
 
     const classes = useStyles();
     const [quizList, setQuizList] = useState([])
@@ -74,7 +77,6 @@ const MainPage = () => {
         <>
         <LearnerNavBar />
         <Container>
-                                    {/* <Button href="/dashboard" className={classes.button}>Go Back</Button> */}
             <Grid container spacing={2} className={classes.gridContainer}>
             <Button onClick={()=> setFilter(false)} className={classes.button}>All</Button>
                 {subjects.map((subject)=> {
@@ -84,22 +86,31 @@ const MainPage = () => {
                 })}
             </Grid>
 
-            {/* <h1 className={classes.headerTitle}>Let's Take Quizzes!! Have Fun :)</h1> */}
             <Grid container spacing={4} className={classes.gridContainer}>
                 {filter? (quizList.filter(q => q.subject === subject).map((quiz) => {
                     return (
-                        <QuizList quiz={quiz}/>
+                    <>
+                        <Grid item xs={4} zeroMinWidth key={quiz.id} className={classes.grid}>
+                            <Card className={classes.card}>
+                                <QuizCard quiz={quiz}/>
+                            </Card>
+                        </Grid>
+                    </>
                     )
                 })) : (quizList.map((quiz) => {
                     return (
-                        <QuizList quiz={quiz}/>
+                    <>
+                        <Grid item xs={4} zeroMinWidth key={quiz.id} className={classes.grid}>
+                            <Card className={classes.card}>
+                                <QuizCard quiz={quiz}/>
+                            </Card>
+                        </Grid>
+                    </>
                     )
                 }))}
             </Grid>
         </Container>
-        
-        </>
-        
+        </>    
     )
 }
-export default MainPage;
+export default QuizPage;

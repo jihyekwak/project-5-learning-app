@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Container, Grid, Card, Typography, Paper } from "@material-ui/core";
+import { Button, Container, Grid, Card, Typography} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import StudentForm from '../../components/StudentForm';
 import NavBar from '../../components/NavBar';
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const Dashboard = ({profile}) => {
+const StartPage = ({profile}) => {
 
     const classes = useStyles();
     const [addStudent, setAddStudent] = useState(false)
@@ -85,8 +85,7 @@ const Dashboard = ({profile}) => {
         <>
         <NavBar profile={profile}/>
         <Container>
-            <Typography variant='h3' className={classes.headerTitle}>Dashboard</Typography>
-            <Typography variant='h5' className={classes.headerTitle}>Children</Typography>
+            <Typography variant='h3' className={classes.headerTitle}>Choose Student</Typography>
             <Grid container spacing={4} className={classes.gridContainer}>
                 {profile.students?.map((student) => {
                     return(
@@ -103,22 +102,9 @@ const Dashboard = ({profile}) => {
                 })}
             </Grid>
             <Button onClick={handleSubmit} className={classes.addbutton}>+ New Student</Button>
-            {/* <Grid container>
-                <Grid xs={3}>
-                    <Paper>
-                        <Typography variant='h6'>Report</Typography>
-                    </Paper>
-                </Grid>
-
-                <Grid xs={3}>
-                    <Paper>
-                    <Typography variant='h6'>My Quiz</Typography>
-                    </Paper>
-                </Grid>
-            </Grid> */}
         </Container>
         </>
         
     )
 }
-export default Dashboard
+export default StartPage;

@@ -33,8 +33,8 @@ const NavBar = ({profile}) => {
             <Toolbar className={classes.toolbar}>
                 {profile? <NavLink to='#' className={classes.navlink}>Welcome, {profile.username}</NavLink>: null }
                 {profile? null : <NavLink to='/' className={classes.navlink}>Logo</NavLink>}
-                {profile? <NavLink to='/dashboard' className={classes.navlink}>Dashboard</NavLink>: null }
-                {profile? <NavLink to='/mypage' className={classes.navlink}>My Page</NavLink> : null }
+                {profile? <NavLink to='/student' className={classes.navlink}>Student</NavLink> : null }
+                {profile? <NavLink to='/dashboard' className={classes.navlink}>Parent</NavLink>: null }
                 {profile? null : <NavLink to='/login' className={classes.navlink}>LogIn</NavLink> }
                 {profile? null : <NavLink to='/register' className={classes.navlink}>Register</NavLink> }
                 {profile? <Logout/> : null }

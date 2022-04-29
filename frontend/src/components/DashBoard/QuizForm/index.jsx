@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import * as quizService from "../../api/quiz.service";
+import * as quizService from "../../../api/quiz.service";
 import { Table, TableContainer, Paper, Button, Typography } from "@material-ui/core";
 import QuizListTable from "../QuizListTable";
 import { makeStyles } from "@material-ui/core/styles";

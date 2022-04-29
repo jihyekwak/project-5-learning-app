@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import * as quizService from "../../api/quiz.service";
+import * as quizService from "../../../api/quiz.service";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 

@@ -50,10 +50,11 @@ const LearnerNavBar = ({profile}) => {
     return(
         <AppBar className={classes.appbar} position="fixed">
             <Toolbar className={classes.toolbar}>
+                <NavLink to='/student' className={classes.navlink}>Student</NavLink>
                 <NavLink to='#' className={classes.navlink}>Welcome Yoon</NavLink>
                 <NavLink to='#' className={classes.navlink}>DailyProgressBar 4/10</NavLink>
                 <NavLink to='#' className={classes.navlink}>Reward 4000</NavLink> 
-                <Button href="/dashboard" className={classes.button}>Quit</Button>
+                <Button href="/dashboard" className={classes.button}>Parent</Button>
             </Toolbar>
         </AppBar>
     )

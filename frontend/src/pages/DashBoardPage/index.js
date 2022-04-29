@@ -3,9 +3,9 @@ import { Button, Container, Grid, Paper, Divider, Typography } from "@material-u
 import { makeStyles } from "@material-ui/core/styles";
 import * as userService from "../../api/user.service"
 import * as React from 'react';
-import QuizForm from '../../components/QuizForm';
 import NavBar from '../../components/NavBar';
-import QuestionForm from '../../components/QuestionForm';
+import QuizForm from '../../components/DashBoard/QuizForm';
+import QuestionForm from '../../components/DashBoard/QuestionForm';
 
 const useStyles = makeStyles((theme) => ({
     gridContainer: {
@@ -26,18 +26,17 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     headerTitle: {
-        fontSize: '40px',
         fontFamily: 'Staatliches',
         color: '#0B5688',
         letterSpacing:'1px',
-        margin: '30px 0'
+        margin: '20px 0'
     },
     // container: {
     //     marginTop: '90px'
     // },
 }))
 
-const MyPage = ({profile}) => {
+const Dashboard = ({profile}) => {
 
     const classes = useStyles();
     const [student, setStudent] = useState()
@@ -75,6 +74,7 @@ const MyPage = ({profile}) => {
         <>
         <NavBar profile={profile}/>
         <Container>
+        <Typography variant='h3' className={classes.headerTitle}>Parent Dashboard</Typography>
             <Grid container className={classes.gridContainer}>
                 <Grid xs={2}>
                     <Paper>
@@ -149,4 +149,4 @@ const MyPage = ({profile}) => {
     </>
     )
 }
-export default MyPage
+export default Dashboard
