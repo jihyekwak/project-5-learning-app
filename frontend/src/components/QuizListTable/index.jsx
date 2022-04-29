@@ -45,7 +45,8 @@ const QuizListTable= () => {
 
     useEffect(() => {
         fetchQuizzes()
-    }, [])
+        console.log('fetched quizlist at table')
+    }, [] )
 
     return(
     <TableContainer component={Paper}>

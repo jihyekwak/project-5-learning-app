@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Avatar, Button, Container, Grid, Paper, Drawer, Toolbar, Divider, IconButton, List,  } from "@material-ui/core";
+import { Button, Container, Grid, Paper, Divider, IconButton, List, Typography,  } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as userService from "../../api/user.service"
 import * as React from 'react';
 import QuizForm from '../../components/QuizForm';
 import QuizListTable from '../../components/QuizListTable';
+import NavBar from '../../components/NavBar';
 
 const useStyles = makeStyles((theme) => ({
     gridContainer: {
@@ -31,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
         letterSpacing:'1px',
         margin: '30px 0'
     },
+    // container: {
+    //     marginTop: '90px'
+    // },
 }))
 
 const MyPage = ({profile}) => {
@@ -60,50 +64,60 @@ const MyPage = ({profile}) => {
     }
 
     return(
+        <>
+        <NavBar profile={profile}/>
         <Container>
             <Grid container className={classes.gridContainer}>
-                <Grid item xs={2} >
+                <Grid xs={2}>
                     <Paper>
-                    <h1 className={classes.headerTitle}>{profile.username}</h1>
-                    <h3>Students</h3>
-                    {profile.students?.map((student) => {
-                        return(
-                            <div>
-                                <Button key={student.id} onClick={() => handleStudent(student.id)} className={classes.text}>{student.name}</Button>
-                            </div>
-                    )
-                    })}
+
+                        <Typography variant='h6'>Students</Typography>
+                        {profile.students?.map((student) => {
+                            return(
+                                <div>
+                                    <Button key={student.id} onClick={() => handleStudent(student.id)}>{student.name}</Button>
+                                </div>
+                            )
+                        })}
+                    <Divider></Divider>
+                    <Typography variant='h6'>My Quiz</Typography>
                     <Button onClick={()=> {
                         console.log("clicked!")
                         setCreateQuiz(true)
                         setProfileSetting(false)
                         setName()
-                    }}><h3>Create my own quiz</h3></Button>
+                    }}>Create my own quiz</Button>
+
+
+
+                        <Divider></Divider>
+                        <Typography variant='h6'>Profile</Typography>
                     <Button onClick={()=> {
                         console.log("clicked!")
                         setProfileSetting(true)
                         setCreateQuiz(false)
                         setName()
-                    }}><h3>Profile setting</h3></Button>
+                    }}>setting</Button>
+                    
                     </Paper>
                 </Grid>
-                <Grid item xs={9}>
 
-                    {name? (
+                <Grid xs={9}>
+                {name? (
                     <>
                     <Paper>
-                        <h1 className={classes.headerTitle}>{name}</h1>
+                        <Typography variant='h5'>{name}</Typography>
                         <p>Avatar: {avatar}</p>
                         <p>Grade: {grade} </p>
                         <p>Taken Quizzes : {takenQuizzes.length}</p>
                         <p>Reward: {reward}</p>
                     </Paper>
                     <Paper>
-                        <h2>Recent Quizzes</h2>
+                        <Typography variant='h5'>Recent Quizzes</Typography>
                         {takenQuizzes.map(({quiz, score, id}) => {
                             return(
                                 <>
-                                <p key={id}>Quiz: {quiz.title} Score: {score}</p>
+                                <p key={id}>Quiz: {quiz} Score: {score}</p>
                                 </>
                             )
                         })}
@@ -111,10 +125,7 @@ const MyPage = ({profile}) => {
                     </>): null}
 
                     {createQuiz? (<>
-                        <h1>CreateQuiz</h1>
                         <QuizForm />
-                        <br />
-                        <QuizListTable />
                     </>) : null }
 
                     {profileSetting? (<>
@@ -123,6 +134,7 @@ const MyPage = ({profile}) => {
                 </Grid>
             </Grid>
         </Container>
+    </>
     )
 }
 export default MyPage

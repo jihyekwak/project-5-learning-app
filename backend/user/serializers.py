@@ -6,14 +6,14 @@ from quiz.serializers import QuizSerializer
 
 class TakenQuizSerializer(serializers.ModelSerializer):
 
-    quiz = QuizSerializer()
+    # quiz = QuizSerializer()
 
     class Meta:
         model = TakenQuiz
         fields = ('id', 'student', 'quiz', 'score', 'is_completed', 'created_at')
 
-    def create(self, validated_data):
-        return TakenQuiz(**validated_data)
+    # def create(self, validated_data):
+    #     return TakenQuiz(**validated_data)
 
 class StudentSerializer(serializers.ModelSerializer):
     # instuctor = UserSerializer(read_only=True)

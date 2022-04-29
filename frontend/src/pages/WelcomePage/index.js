@@ -8,7 +8,6 @@ const WelcomePage = () => {
 
     return(
         <div className='container'>
-            <NavBar />
             <Header />
             <About />
             <GetStarted />

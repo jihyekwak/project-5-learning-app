@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Container, Grid, Card, Typography } from "@material-ui/core";
+import { Button, Container, Grid, Card, Typography, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import StudentForm from '../../components/StudentForm';
 import NavBar from '../../components/NavBar';
@@ -51,11 +51,10 @@ const useStyles = makeStyles((theme) => ({
         margin: '20px 0'
     },
     headerTitle: {
-        fontSize: '40px',
         fontFamily: 'Staatliches',
         color: '#0B5688',
         letterSpacing:'1px',
-        margin: '30px 0'
+        margin: '20px 0'
     },
     text: {
         fontFamily: 'Viga',
@@ -67,14 +66,14 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = ({profile}) => {
 
     const classes = useStyles();
-    const [add, setAdd] = useState(false)
+    const [addStudent, setAddStudent] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setAdd(true)
+        setAddStudent(true)
     }
 
-    if (add) {
+    if (addStudent) {
         return(
             <Container>
                 <StudentForm/>
@@ -86,7 +85,8 @@ const Dashboard = ({profile}) => {
         <>
         <NavBar profile={profile}/>
         <Container>
-            <Typography variant='h5' className={classes.headerTitle}>Welcome {profile.username}</Typography>
+            <Typography variant='h3' className={classes.headerTitle}>Dashboard</Typography>
+            <Typography variant='h5' className={classes.headerTitle}>Children</Typography>
             <Grid container spacing={4} className={classes.gridContainer}>
                 {profile.students?.map((student) => {
                     return(
@@ -103,6 +103,19 @@ const Dashboard = ({profile}) => {
                 })}
             </Grid>
             <Button onClick={handleSubmit} className={classes.addbutton}>+ New Student</Button>
+            {/* <Grid container>
+                <Grid xs={3}>
+                    <Paper>
+                        <Typography variant='h6'>Report</Typography>
+                    </Paper>
+                </Grid>
+
+                <Grid xs={3}>
+                    <Paper>
+                    <Typography variant='h6'>My Quiz</Typography>
+                    </Paper>
+                </Grid>
+            </Grid> */}
         </Container>
         </>
         

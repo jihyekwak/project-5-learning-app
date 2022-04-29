@@ -92,7 +92,7 @@ const Quiz = () => {
 
     const handleStart = async() => {
         setStart(true)
-        let newTakenQuiz = {student: `${student}`, quiz: `${id}`, score: 0}
+        let newTakenQuiz = {student: `${student}`, quiz: `${id}`, is_completed: false, score: 0}
         console.log(newTakenQuiz)
         await userService.takenQuizCreate(newTakenQuiz).then((res)=>{
             console.log(res)

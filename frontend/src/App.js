@@ -62,7 +62,7 @@ function App() {
   } else {
     return(
       <div className="App">
-      {/* <NavBar /> */}
+      <NavBar />
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<Login />} />
