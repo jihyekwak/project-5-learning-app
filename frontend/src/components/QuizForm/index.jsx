@@ -72,6 +72,12 @@ const QuizForm = () => {
         }
     }
 
+    const handleDelete = async (id) => {
+        await quizService.destroy(id).then((res) => {
+            fetchQuizzes()
+        })
+    }
+
     return(
     <>
         <Paper>
@@ -169,14 +175,13 @@ const QuizForm = () => {
                         <TableCell align="right">{quiz.created_at}</TableCell>
                         <TableCell align="right">
                             <Link color="textPrimary" href={`/quiz/${quiz.id}/edit`} className={classes.link}><EditIcon></EditIcon></Link>
-                            <Link color="textPrimary" className={classes.link}><DeleteForeverIcon></DeleteForeverIcon></Link>
+                            <DeleteForeverIcon onClick={()=> handleDelete(quiz.id)}></DeleteForeverIcon>
                         </TableCell>
                     </TableRow>
                 ))}
                 </TableBody>
             </Table>
         </TableContainer>
-{/* <QuizListTable /> */}
 </>
     )
 }

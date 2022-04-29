@@ -15,7 +15,15 @@ const create = (data) => {
     return tellLearningAppTo.post(`${quizzes}/`, data)
 }
 
+const destroy = (id) => {
+    return tellLearningAppTo.delete(`${quizzes}/${id}/`)
+}
+
 const questionCreate = (data) => {
     return tellLearningAppTo.post(`${questions}/`, data)
 }
-export {getAll, getOne, create, questionCreate};
+
+const questionDestroy = (id) => {
+    return tellLearningAppTo.delete(`${questions}/${id}/`)
+}
+export {getAll, getOne, create, destroy, questionCreate, questionDestroy};

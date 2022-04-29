@@ -88,6 +88,12 @@ const QuestionForm = () => {
         }
     }
 
+    const handleDelete = async (id) => {
+        await quizService.questionDestroy(id).then((res) => {
+            fetchQuiz()
+        })
+    }
+
     return(
     <Container>
     <>
@@ -143,7 +149,7 @@ const QuestionForm = () => {
                         })}
                         <TableCell align="right">
                             <Link color="textPrimary" href={`/quiz/edit`} className={classes.link}><EditIcon></EditIcon></Link>
-                            <Link color="textPrimary"className={classes.link}><DeleteForeverIcon></DeleteForeverIcon></Link>
+                            <DeleteForeverIcon onClick={()=> handleDelete(question.id)}></DeleteForeverIcon>
                         </TableCell>
                     </TableRow>
                 ))}
