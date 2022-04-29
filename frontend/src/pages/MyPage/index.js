@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import * as userService from "../../api/user.service"
 import * as React from 'react';
 import QuizForm from '../../components/QuizForm';
-import QuizListTable from '../../components/QuizListTable';
 import NavBar from '../../components/NavBar';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,25 +39,18 @@ const useStyles = makeStyles((theme) => ({
 const MyPage = ({profile}) => {
 
     const classes = useStyles();
-    const [name, setName] = useState("");
-    const [avatar, setAvatar] = useState("");
-    const [grade, setGrade] = useState("")
+    const [student, setStudent] = useState()
     const [takenQuizzes, setTakenQuizzes] = useState([]);
-    const [reward, setReward] = useState(0)
 
     const [profileSetting, setProfileSetting] = useState(false)
     const [createQuiz, setCreateQuiz] = useState(false)
 
     const handleStudent = async (studentId) => {
         await userService.getOneStudent(studentId).then((res) => {
-            setName(res.data.name)
-            setAvatar(res.data.avatar)
-            setGrade(res.data.grade)
+            setStudent(res.data)
             setTakenQuizzes(res.data.quizzes)
-            setReward(res.data.reward)
             setProfileSetting(false)
             setCreateQuiz(false)
-            console.log(takenQuizzes)
         })
         
     }
@@ -72,10 +64,10 @@ const MyPage = ({profile}) => {
                     <Paper>
 
                         <Typography variant='h6'>Students</Typography>
-                        {profile.students?.map((student) => {
+                        {profile.students?.map((student, index) => {
                             return(
                                 <div>
-                                    <Button key={student.id} onClick={() => handleStudent(student.id)}>{student.name}</Button>
+                                    <Button key={index} onClick={() => handleStudent(student.id)}>{student.name}</Button>
                                 </div>
                             )
                         })}
@@ -85,7 +77,7 @@ const MyPage = ({profile}) => {
                         console.log("clicked!")
                         setCreateQuiz(true)
                         setProfileSetting(false)
-                        setName()
+                        setStudent()
                     }}>Create my own quiz</Button>
 
 
@@ -96,28 +88,28 @@ const MyPage = ({profile}) => {
                         console.log("clicked!")
                         setProfileSetting(true)
                         setCreateQuiz(false)
-                        setName()
+                        setStudent()
                     }}>setting</Button>
                     
                     </Paper>
                 </Grid>
 
                 <Grid xs={9}>
-                {name? (
+                {student? (
                     <>
                     <Paper>
-                        <Typography variant='h5'>{name}</Typography>
-                        <p>Avatar: {avatar}</p>
-                        <p>Grade: {grade} </p>
+                        <Typography variant='h5'>{student.name}</Typography>
+                        <p>Avatar: {student.avatar}</p>
+                        <p>Grade: {student.grade} </p>
                         <p>Taken Quizzes : {takenQuizzes.length}</p>
-                        <p>Reward: {reward}</p>
+                        <p>Reward: {student.reward}</p>
                     </Paper>
                     <Paper>
                         <Typography variant='h5'>Recent Quizzes</Typography>
-                        {takenQuizzes.map(({quiz, score, id}) => {
+                        {takenQuizzes?.map(({quiz, score}, index) => {
                             return(
                                 <>
-                                <p key={id}>Quiz: {quiz} Score: {score}</p>
+                                <p key={index}>Quiz: {quiz} Score: {score}</p>
                                 </>
                             )
                         })}

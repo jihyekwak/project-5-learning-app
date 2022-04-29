@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams} from "react-router-dom";
 import * as quizService from "../../api/quiz.service";
-import { Button, Container, Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
+import { Typography, Button, Container, Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
@@ -98,7 +98,12 @@ const QuestionForm = () => {
     <Container>
     <>
         <Button href="/mypage">go back</Button>
-        <h1>{quiz.title}</h1>
+        <Paper>
+            <h1>{quiz.title}</h1>
+            <p>{quiz.subject} / {quiz.grade} / {quiz.difficulty}</p>
+        </Paper>
+        <Paper>
+        <Typography variant="h6">Create New Quiz</Typography>
         <form>
             <label>Question:</label>
             <input type="text" name="text" value={question} onChange={(e) => setQuestion(e.target.value)} />
@@ -123,6 +128,11 @@ const QuestionForm = () => {
             
             <button type="submit"  onClick={handleSubmit}>Submit</button>  
         </form>
+
+        </Paper>
+
+        <br />
+
 
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">

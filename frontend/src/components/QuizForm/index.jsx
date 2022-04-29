@@ -39,8 +39,8 @@ const QuizForm = () => {
     const [quizList, setQuizList] = useState([])
     const [title, setTitle] = useState();
     const [subject, setSubject] = useState();
-    const [difficulty, setDifficulty] = useState();
     const [grade, setGrade] = useState();
+    const [difficulty, setDifficulty] = useState();
     // const [question1, setQuestion1] = useState();
     // const [answer1, setAnswer1] = useState()
     // const [correctAnswer1, setCorrectAnswer1] = useState(false);
@@ -61,7 +61,7 @@ const QuizForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        let newQuiz = {title, subject, difficulty, grade}
+        let newQuiz = {title, subject, grade, difficulty}
         let res = await quizService.create(newQuiz).then((res) => {
             console.log(res)
             fetchQuizzes()
@@ -95,15 +95,7 @@ const QuizForm = () => {
                 <option value="Social Studies">Social Studies</option>
             </select>
 
-            <label>Difficulty</label>
-            <select value={difficulty} onChange={(e)=> setDifficulty(e.target.value)}>
-                <option>---</option>
-                <option value="easy">easy</option>
-                <option value="medium">medium</option>
-                <option value="difficult">difficult</option>
-            </select>
-
-            <label>Difficulty</label>
+            <label>Grade</label>
             <select value={grade} onChange={(e)=> setGrade(e.target.value)}>
                 <option>---</option>
                 <option value="Pre-K">Pre-K</option>
@@ -112,6 +104,15 @@ const QuizForm = () => {
                 <option value="2nd Grade">2nd Grade</option>
                 <option value="3rd Grade">3rd Grade</option>
             </select>
+
+            <label>Difficulty</label>
+            <select value={difficulty} onChange={(e)=> setDifficulty(e.target.value)}>
+                <option>---</option>
+                <option value="easy">easy</option>
+                <option value="medium">medium</option>
+                <option value="difficult">difficult</option>
+            </select>
+
             {/* <label>
             Question1:
                 <input type="text" name="text" value={question1} onChange={(e) => setQuestion1(e.target.value)} />
