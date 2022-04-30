@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Container, Grid, Card, Typography} from "@material-ui/core";
+import { Dialog, Button, Container, Grid, Card, Typography} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import StudentForm from '../../components/StudentForm';
 import NavBar from '../../components/NavBar';
@@ -68,18 +68,13 @@ const StartPage = ({profile}) => {
     const classes = useStyles();
     const [addStudent, setAddStudent] = useState(false)
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    const handleOpen = () => {
         setAddStudent(true)
     }
 
-    if (addStudent) {
-        return(
-            <Container>
-                <StudentForm/>
-            </Container>
-        )
-    } 
+    const handleClose = () => {
+        setAddStudent(false);
+    };
 
     return(
         <>
@@ -101,10 +96,14 @@ const StartPage = ({profile}) => {
                     )
                 })}
             </Grid>
-            <Button onClick={handleSubmit} className={classes.addbutton}>+ New Student</Button>
+            <Button onClick={handleOpen} className={classes.addbutton}>+ New Student</Button>
+
+            <Dialog open={addStudent} fullWidth='true'>
+                <StudentForm handleClose={handleClose}/>
+            </Dialog>
+
         </Container>
-        </>
-        
+        </>    
     )
 }
 export default StartPage;
