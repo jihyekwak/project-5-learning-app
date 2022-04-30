@@ -119,40 +119,6 @@ const QuizForm = ({handleEditQuiz}) => {
         </Paper>
 
         <br />
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                {/* <TableHead>
-                    <TableRow>
-                        <TableCell>Title</TableCell>
-                        <TableCell align="right">Subject</TableCell>
-                        <TableCell align="right">Grade</TableCell>
-                        <TableCell align="right">Difficulty</TableCell>
-                        <TableCell align="right">Number of Questions</TableCell>
-                        <TableCell align="right">Created_at</TableCell>
-                        <TableCell align="right">Action</TableCell>
-                    </TableRow>
-                </TableHead> */}
-                {/* <TableBody>
-                {quizList.map((quiz) => (
-                    <TableRow key={quiz.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                        <TableCell component="th" scope="row">{quiz.title}</TableCell>
-                        <TableCell align="right">{quiz.subject}</TableCell>
-                        <TableCell align="right">{quiz.grade}</TableCell>
-                        <TableCell align="right">{quiz.difficulty}</TableCell>
-                        <TableCell align="right">{quiz.questions.length}</TableCell>
-                        <TableCell align="right">{quiz.created_at}</TableCell>
-                        <TableCell align="right">
- 
-                            <EditIcon onClick={() => handleEdit(quiz)}></EditIcon>
-                            <DeleteForeverIcon onClick={()=> handleDelete(quiz)}></DeleteForeverIcon>
-                        </TableCell>
-                    </TableRow>
-                ))}
-                </TableBody> */}
-            </Table>
-        </TableContainer>
-
         <QuizListTable quizList={quizList} fetchQuizzes={fetchQuizzes} handleEditQuiz={handleEditQuiz}/>
 
                                    {/* <Link color="textPrimary" href={`/quiz/${quiz.id}/edit`} className={classes.link}><EditIcon onClick={handleEdit}></EditIcon></Link> */}

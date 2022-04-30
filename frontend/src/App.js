@@ -1,5 +1,5 @@
 import { Routes, Route} from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useInsertionEffect } from 'react';
 import './App.css';
 import WelcomePage from './pages/WelcomePage';
 import DashboardPage from './pages/DashBoardPage';
@@ -35,6 +35,10 @@ function App() {
 
   useEffect(()=>{
     userActive();
+  }, [])
+
+  useEffect(()=>{
+    fetchProfile();
   }, [])
 
   if (isLoggedIn) {

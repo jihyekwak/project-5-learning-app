@@ -30,24 +30,21 @@ const StudentEditForm = (props) => {
     const [name, setName] = useState('')
     const [grade, setGrade] = useState('')
     const [avatar, setAvatar] = useState('')
-    const navigate = useNavigate()
 
-    const handleSubmit = async () => {
-        let UpdateStudent = {name, grade, avatar, instuctor : localStorage.getItem('user')}
-        console.log(UpdateStudent)
-        await userService.editStudent(props.editStudentData.id, UpdateStudent).then((res) => {
-            // console.log(res)
-            navigate(0)
+    let UpdateStudent = {name, grade, avatar, instuctor : localStorage.getItem('user')}
+
+    const handelEditStudent = async() => {
+        await userService.editStudent(props.student.id, UpdateStudent).then((res)=> {
+            console.log(res)
         })
-        .catch(err => console.log(err))
     }
 
     return (
     <>
         <DialogTitle align="center">
-            <Typography variant='h5'>Edit Student</Typography>
+            <Typography variant='h5'>Edit {props.student.name}</Typography>
         </DialogTitle>
-        <Box className={classes.box} component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box className={classes.box} component="form" noValidate onSubmit={()=> {handelEditStudent()}} sx={{ mt: 3 }}>
             <InputLabel className={classes.form}>Name</InputLabel>
             <TextField
                 className={classes.form}
@@ -57,7 +54,7 @@ const StudentEditForm = (props) => {
                 variant='filled'
                 margin="normal"
                 value = {name}
-                placeholder = {props.editStudentData.name}
+                placeholder = {props.student.name}
                 onChange={(e)=> setName(e.target.value)}/>
             <InputLabel className={classes.form}>Grade</InputLabel>
             <Select 

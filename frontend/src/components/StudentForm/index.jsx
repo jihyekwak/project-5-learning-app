@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { InputLabel, Select, Button, Box, Typography, TextField, Link, CssBaseline, DialogTitle } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as userService from '../../api/user.service';
@@ -30,14 +29,11 @@ const StudentForm = (props) => {
     const [name, setName] = useState('')
     const [grade, setGrade] = useState('')
     const [avatar, setAvatar] = useState('')
-    const navigate = useNavigate()
 
     const handleSubmit = async () => {
         let newStudent = {name, grade, avatar, instuctor : localStorage.getItem('user')}
         console.log(newStudent)
         await userService.createStudent(newStudent).then((res) => {
-            console.log(res)
-            navigate(0)
         })
         .catch(err => console.log(err))
     }
