@@ -40,6 +40,15 @@ const getProfile = () => {
     return tellLearningAppTo.get(`${users}/${userId}/`)
 }
 
+const editProfile = (id, data) => {
+    // let userId = localStorage.getItem('user')
+    return tellLearningAppTo
+            .put(`${users}/${id}/`, data)
+            .then((res) => {
+                console.log(res)
+            })
+}
+
 const logout = () => {
     localStorage.removeItem('access_token')
     localStorage.removeItem('refresh_token')
@@ -47,4 +56,4 @@ const logout = () => {
     tellLearningAppTo.defaults.headers['Authorization'] = null;
 }
 
-export {register, login, currentUser, getProfile, logout}
+export {register, login, currentUser, getProfile, editProfile, logout}

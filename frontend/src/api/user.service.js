@@ -15,6 +15,14 @@ const createStudent = (data) => {
     return tellLearningAppTo.post(`${students}/`, data)
 }
 
+const editStudent = (id, data) => {
+    return tellLearningAppTo.put(`${students}/${id}/`, data)
+}
+
+const destroyStudent = (id) => {
+    return tellLearningAppTo.delete(`${students}/${id}/`)
+}
+
 const getAllTakenQuiz = () => {
     return tellLearningAppTo.get(`${takenQuizzes}/`);
 };
@@ -31,4 +39,4 @@ const takenQuizUpdate = (takenId, takendata) => {
     return tellLearningAppTo.put(`${takenQuizzes}/${takenId}/`, takendata)
 }
 
-export {getAllStudent, getOneStudent, createStudent, getAllTakenQuiz, getOneTakenQuiz, takenQuizCreate, takenQuizUpdate};
+export {getAllStudent, getOneStudent, createStudent, editStudent, destroyStudent, getAllTakenQuiz, getOneTakenQuiz, takenQuizCreate, takenQuizUpdate};

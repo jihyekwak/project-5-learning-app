@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Button, Container, Grid, Paper, Divider, Typography } from "@material-ui/core";
+import { Dialog, Button, Container, Grid, Paper, Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as userService from "../../api/user.service"
 import * as React from 'react';
 import NavBar from '../../components/NavBar';
 import QuizForm from '../../components/DashBoard/QuizForm';
 import QuestionForm from '../../components/DashBoard/QuestionForm';
+import Profile from '../../components/Profile';
+import StudentEditForm from '../../components/StudentEditForm';
 
 const useStyles = makeStyles((theme) => ({
     gridContainer: {
@@ -46,6 +48,8 @@ const Dashboard = ({profile}) => {
     const [createQuiz, setCreateQuiz] = useState(false)
     const [editQuiz, setEditQuiz] = useState(false)
     const [editQuizData, setEditQuizData] = useState()
+    const [editStudent, setEditStudent] = useState(false)
+    const [editStudentData, setEditStudentData] = useState()
 
     const handleStudent = async (studentId) => {
         await userService.getOneStudent(studentId).then((res) => {
@@ -70,6 +74,16 @@ const Dashboard = ({profile}) => {
         setEditQuiz(false)
         setCreateQuiz(true)
     }
+
+    const handleEditStudent = (student) => {
+        setEditStudent(true)
+        setEditStudentData(student)
+    }
+
+    const handleClose = () => {
+        setEditStudent(false);
+    };
+
     return(
         <>
         <NavBar profile={profile}/>
@@ -119,6 +133,15 @@ const Dashboard = ({profile}) => {
                         <p>Grade: {student.grade} </p>
                         <p>Taken Quizzes : {takenQuizzes.length}</p>
                         <p>Reward: {student.reward}</p>
+                        <Button
+                variant="contained"
+                type="submit"
+                onClick={()=> {handleEditStudent(student)}}>Edit</Button>
+
+            <Dialog open={editStudent} fullWidth='true'>
+                <StudentEditForm handleClose={handleClose} editStudentData={editStudentData}/>
+            </Dialog>
+
                     </Paper>
                     <Paper>
                         <Typography variant='h5'>Recent Quizzes</Typography>
@@ -141,7 +164,7 @@ const Dashboard = ({profile}) => {
                     </>): null}
 
                     {profileSetting? (<>
-                        <h1>Profile setting</h1>
+                        <Profile profile={profile}/>
                     </>) : null }
                 </Grid>
             </Grid>

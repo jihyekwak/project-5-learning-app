@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-const StudentForm = (props) => {
+const StudentEditForm = (props) => {
 
     const classes = useStyles();
     const [name, setName] = useState('')
@@ -33,10 +33,10 @@ const StudentForm = (props) => {
     const navigate = useNavigate()
 
     const handleSubmit = async () => {
-        let newStudent = {name, grade, avatar, instuctor : localStorage.getItem('user')}
-        console.log(newStudent)
-        await userService.createStudent(newStudent).then((res) => {
-            console.log(res)
+        let UpdateStudent = {name, grade, avatar, instuctor : localStorage.getItem('user')}
+        console.log(UpdateStudent)
+        await userService.editStudent(props.editStudentData.id, UpdateStudent).then((res) => {
+            // console.log(res)
             navigate(0)
         })
         .catch(err => console.log(err))
@@ -45,40 +45,42 @@ const StudentForm = (props) => {
     return (
     <>
         <DialogTitle align="center">
-            <Typography variant='h5'>Add Student</Typography>
+            <Typography variant='h5'>Edit Student</Typography>
         </DialogTitle>
         <Box className={classes.box} component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <InputLabel className={classes.form}>Name</InputLabel>
             <TextField
                 className={classes.form}
                 required
-                id="name"
-                label="name"
                 name="name"
                 autoFocus
                 variant='filled'
                 margin="normal"
                 value = {name}
+                placeholder = {props.editStudentData.name}
                 onChange={(e)=> setName(e.target.value)}/>
             <InputLabel className={classes.form}>Grade</InputLabel>
             <Select 
                 className={classes.form}
                 native value={grade}
                 variant='filled'
+                required
                 onChange={(e)=> setGrade(e.target.value)}>
-                <option>select</option>
+                <option>---</option>
                 <option value="Pre-K">Pre-K</option>
                 <option value="Kindergarten">Kindergarten</option>
                 <option value="1st Grade">1st Grade</option>
                 <option value="2nd Grade">2nd Grade</option>
                 <option value="3rd Grade">3rd Grade</option>
             </Select>
-            <InputLabel className={classes.form}>Avatar</InputLabel>
+            <InputLabel className={classes.form} >Avatar</InputLabel>
             <Select 
                 className={classes.form}
                 native value={avatar}
                 variant='filled'
+                required
                 onChange={(e)=> setAvatar(e.target.value)}>
-                <option>select</option>
+                <option>---</option>
                 <option value="1">avatar1</option>
             </Select>
             <div>
@@ -91,4 +93,4 @@ const StudentForm = (props) => {
     )
 }
 
-export default StudentForm
+export default StudentEditForm;

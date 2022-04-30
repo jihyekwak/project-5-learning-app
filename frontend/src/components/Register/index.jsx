@@ -65,6 +65,7 @@ const Register = () => {
                     <Grid item xs={12} sm={6}>
                         <TextField
                             className={classes.input}
+                            fullWidth
                             autoComplete="given-name"
                             name="first_name"
                             required
