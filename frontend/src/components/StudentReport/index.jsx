@@ -1,11 +1,10 @@
+import { useState } from 'react';
 import { Dialog, Button, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as userService from "../../api/user.service"
-import * as React from 'react';
 import StudentEditForm from "../StudentEditForm";
-import { useState } from 'react';
 
-const StudentReport = ({student, setStudent, fetchprofile}) => {
+const StudentReport = ({student, setStudent, fetchProfile}) => {
 
     const [editStudent, setEditStudent] = useState(false)
 
@@ -16,7 +15,7 @@ const StudentReport = ({student, setStudent, fetchprofile}) => {
     const handleDeleteStudent = async(student) => {
         await userService.destroyStudent(student).then(() => {
             setStudent()
-            fetchprofile()
+            fetchProfile()
         })
     }
 

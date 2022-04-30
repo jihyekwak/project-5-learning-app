@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     // },
 }))
 
-const Dashboard = ({profile, fetchprofile}) => {
+const Dashboard = ({profile, fetchProfile}) => {
 
     const classes = useStyles();
     const [student, setStudent] = useState()
@@ -116,7 +116,7 @@ const Dashboard = ({profile, fetchprofile}) => {
                         <StudentReport 
                             student={student}
                             setStudent={setStudent}
-                            fetchprofile={fetchprofile}
+                            fetchProfile={fetchProfile}
                             handleStudent={handleStudent}
                             />
                     </>): null }
@@ -132,7 +132,7 @@ const Dashboard = ({profile, fetchprofile}) => {
                     </>): null }
 
                     {profileSetting? (<>
-                        <Profile profile={profile}/>
+                        <Profile profile={profile} fetchProfile={fetchProfile}/>
                     </>) : null}
                 </Grid>
             </Grid>

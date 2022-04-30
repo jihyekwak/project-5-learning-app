@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-const StudentEditForm = (props) => {
+const StudentEditForm = ({student, handleClose}) => {
 
     const classes = useStyles();
     const [name, setName] = useState('')
@@ -34,7 +34,7 @@ const StudentEditForm = (props) => {
     let UpdateStudent = {name, grade, avatar, instuctor : localStorage.getItem('user')}
 
     const handelEditStudent = async() => {
-        await userService.editStudent(props.student.id, UpdateStudent).then((res)=> {
+        await userService.editStudent(student.id, UpdateStudent).then((res)=> {
             console.log(res)
         })
     }
@@ -42,7 +42,7 @@ const StudentEditForm = (props) => {
     return (
     <>
         <DialogTitle align="center">
-            <Typography variant='h5'>Edit {props.student.name}</Typography>
+            <Typography variant='h5'>Edit {student.name}</Typography>
         </DialogTitle>
         <Box className={classes.box} component="form" noValidate onSubmit={()=> {handelEditStudent()}} sx={{ mt: 3 }}>
             <InputLabel className={classes.form}>Name</InputLabel>
@@ -54,7 +54,7 @@ const StudentEditForm = (props) => {
                 variant='filled'
                 margin="normal"
                 value = {name}
-                placeholder = {props.student.name}
+                placeholder = {student.name}
                 onChange={(e)=> setName(e.target.value)}/>
             <InputLabel className={classes.form}>Grade</InputLabel>
             <Select 
@@ -83,7 +83,7 @@ const StudentEditForm = (props) => {
             <div>
                 <Button className={classes.button} type="submit">Edit</Button>
             </div>
-            <Link onClick={props.handleClose}>Cancel</Link>
+            <Link onClick={handleClose}>Cancel</Link>
         </Box>
     </>
     
