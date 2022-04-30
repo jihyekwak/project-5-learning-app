@@ -84,7 +84,7 @@ const StudentEditForm = (props) => {
                 <option value="1">avatar1</option>
             </Select>
             <div>
-                <Button className={classes.button} type="submit">Add</Button>
+                <Button className={classes.button} type="submit">Edit</Button>
             </div>
             <Link onClick={props.handleClose}>Cancel</Link>
         </Box>

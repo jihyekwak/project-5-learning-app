@@ -46,7 +46,7 @@ function App() {
         {/* <Route path="/" element={<WelcomePage />} /> */}
         {/* <Route path="main" element={<MainPage/>} /> */}
         <Route path="student" element={<StartPage profile={profile}/>} />
-        <Route path="dashboard" element={<DashboardPage profile={profile}/>} />
+        <Route path="dashboard" element={<DashboardPage profile={profile} fetchprofile={fetchProfile}/>} />
         <Route path=":student/quizzes/:id" element={<TakeQuizPage/>} />
         <Route path=":student/quizzes" element={<QuizPage/>} />
         <Route path="newstudent" element={<StudentForm/>} />

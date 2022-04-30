@@ -8,6 +8,7 @@ import QuizForm from '../../components/DashBoard/QuizForm';
 import QuestionForm from '../../components/DashBoard/QuestionForm';
 import Profile from '../../components/Profile';
 import StudentEditForm from '../../components/StudentEditForm';
+import { Navigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     gridContainer: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     // },
 }))
 
-const Dashboard = ({profile}) => {
+const Dashboard = ({profile, fetchprofile}) => {
 
     const classes = useStyles();
     const [student, setStudent] = useState()
@@ -78,6 +79,13 @@ const Dashboard = ({profile}) => {
     const handleEditStudent = (student) => {
         setEditStudent(true)
         setEditStudentData(student)
+    }
+
+    const handleDeleteStudent = async(student) => {
+        await userService.destroyStudent(student).then(() => {
+            setStudent(false)
+            fetchprofile()
+        })
     }
 
     const handleClose = () => {
@@ -133,16 +141,20 @@ const Dashboard = ({profile}) => {
                         <p>Grade: {student.grade} </p>
                         <p>Taken Quizzes : {takenQuizzes.length}</p>
                         <p>Reward: {student.reward}</p>
+                        <Button 
+                            variant="contained"
+                            type="submit"
+                            onClick={()=> {handleEditStudent(student)}}>Edit</Button>
                         <Button
-                variant="contained"
-                type="submit"
-                onClick={()=> {handleEditStudent(student)}}>Edit</Button>
-
-            <Dialog open={editStudent} fullWidth='true'>
-                <StudentEditForm handleClose={handleClose} editStudentData={editStudentData}/>
-            </Dialog>
-
+                            variant="contained"
+                            type="submit"
+                            onClick={()=> {handleDeleteStudent(student.id)}}>Delete</Button>
                     </Paper>
+
+                    <Dialog open={editStudent} fullWidth='true'>
+                        <StudentEditForm handleClose={handleClose} editStudentData={editStudentData}/>
+                    </Dialog>
+
                     <Paper>
                         <Typography variant='h5'>Recent Quizzes</Typography>
                         {takenQuizzes?.map(({quiz, score}, index) => {
