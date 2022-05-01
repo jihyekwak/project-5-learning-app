@@ -29,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: 'left',
 		marginBottom: theme.spacing(2),
 	},
+    paper: {
+        margin: "15px 0",
+        padding: "15px"
+    },
 }));
 
 const QuizForm = ({handleEditQuiz}) => {
@@ -64,26 +68,9 @@ const QuizForm = ({handleEditQuiz}) => {
         }
     }
 
-    // const handleEdit = (quiz) => {
-    //     setEdit(true)
-    //     setEditQuiz(quiz)
-    // }
-
-    // const handleDelete = async (id) => {
-    //     await quizService.destroy(id).then((res) => {
-    //         fetchQuizzes()
-    //     })
-    // }
-
-    // if (edit) {
-    //     return (
-    //         <QuestionForm quiz={editQuiz}/>
-    //     )
-    // }
-
     return(
     <>
-        <Paper>
+        <Paper className={classes.paper}>
             <Typography variant="h6">Create New Quiz</Typography>
             <label>Title:</label>
             <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -118,10 +105,7 @@ const QuizForm = ({handleEditQuiz}) => {
             <Button type="submit"  onClick={handleSubmit}>Submit</Button>  
         </Paper>
 
-        <br />
         <QuizListTable quizList={quizList} fetchQuizzes={fetchQuizzes} handleEditQuiz={handleEditQuiz}/>
-
-                                   {/* <Link color="textPrimary" href={`/quiz/${quiz.id}/edit`} className={classes.link}><EditIcon onClick={handleEdit}></EditIcon></Link> */}
     </>
     )
 }

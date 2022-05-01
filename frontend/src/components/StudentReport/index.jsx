@@ -46,8 +46,7 @@ const StudentReport = ({student, setStudent, fetchProfile}) => {
                     <EditIcon fontSize="small" onClick={()=> {setEditStudent(true)}}></EditIcon>
                 </Grid>
                 <Grid item xe={0.5}>
-                    <DeleteForeverIcon 
-                        fontSize="small" 
+                    <DeleteForeverIcon fontSize="small"
                         onClick={()=> {handleDeleteStudent(student.id)}}>
                     </DeleteForeverIcon>
                 </Grid>

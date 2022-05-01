@@ -1,14 +1,20 @@
 import { useState } from 'react';
-import { Dialog, Button, Paper, Card, Typography, Grid} from "@material-ui/core";
+import { Dialog, Button, Paper, Card, Typography, Grid, Divider} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as userService from '../../api/user.service';
 import ProfileEditForm from '../ProfileEditForm';
 import StudentEditForm from '../StudentEditForm';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles((theme) => ({
     text:{
         fontFamily: 'Viga',
-    }
+    },
+    paper: {
+        margin: "15px 0",
+        padding: "15px"
+    },
 }))
 
 const Profile = ({profile, fetchprofile}) => {
@@ -35,13 +41,21 @@ const Profile = ({profile, fetchprofile}) => {
 
     return(
     <>
-
-    <Paper>
-        <Typography variant='h5'>{profile.username}</Typography>
-        <Typography>First Name: {profile.first_name}</Typography>
-        <Typography>Last Name: {profile.last_name}</Typography>
-        <Typography>Email Address: {profile.email}</Typography>
-        <Button onClick={()=>setEditProfile(true)}>Edit</Button>
+    <Typography variant='h5'>Parent</Typography>
+    <Paper className={classes.paper}>
+        <Grid container>
+            <Grid item xs={11}>
+                <Typography variant='h5'>{profile.username}</Typography>
+                <Divider></Divider>
+                <br />
+                <Typography variant='body1'>First Name: {profile.first_name}</Typography>
+                <Typography variant='body1'>Last Name: {profile.last_name}</Typography>
+                <Typography variant='body1'>Email Address: {profile.email}</Typography>
+            </Grid>
+            <Grid item xs={1}>
+                <Button variant='contained' onClick={()=>setEditProfile(true)}>Edit</Button>
+            </Grid>
+        </Grid>
     </Paper>
 
     <Dialog open={editProfile} fullWidth='true'>
@@ -50,33 +64,33 @@ const Profile = ({profile, fetchprofile}) => {
             handleProfileEditClose={handleProfileEditClose}/>
     </Dialog> 
 
-    <h4>Student</h4>
+    <Typography variant='h5'>Student</Typography>
     {profile.students?.map((student) => {
         return(
         <>
-            <Card>
+            <Card className={classes.paper}>
                 <Grid container>
-                    <Grid xs={10}>
+                    <Grid xs={11}>
                         <Typography variant='h5'>{student.name}</Typography>
                             <p>{student.grade}</p>
                     </Grid>
-                    <Grid xs={2}>
-                        <Button
+                    <Grid xs={1}>
+                        <EditIcon
+                            font='small'
                             className={classes.button}
-                            variant="contained"
                             type="submit"
                             onClick={()=> {
                                 setEditStudent(true)
                                 setStudent(student)
-                            }}>Edit</Button>
-                        <Button
+                            }}>Edit</EditIcon>
+                        <DeleteForeverIcon
+                            font='small'
                             className={classes.button}
-                            variant="contained"
                             type="submit"
-                            onClick={()=> handleDeleteStudent(student.id)}>Delete</Button>
-                        </Grid>
+                            onClick={()=> handleDeleteStudent(student.id)}>Delete</DeleteForeverIcon>
                     </Grid>
-                </Card>                  
+                </Grid>
+            </Card>                  
         </>
         )
     })}
