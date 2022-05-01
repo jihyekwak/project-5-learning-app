@@ -31,4 +31,4 @@ class TakenQuiz(models.Model):
     quiz = models.ForeignKey(Quiz, related_name='taken_quizzes', on_delete = models.CASCADE )
     score = models.IntegerField()
     is_completed = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateField(auto_now_add=True)
