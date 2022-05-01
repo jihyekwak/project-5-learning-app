@@ -1,7 +1,8 @@
-import Header from '../../components/Header';
-import About from '../../components/About';
-import Footer from '../../components/Footer';
-import GetStarted from '../../components/GetStarted';
+import Header from '../../components/Welcome/Header';
+import About from '../../components/Welcome/About';
+import Footer from '../../components/Welcome/Footer';
+import GetStarted from '../../components/Welcome/GetStarted';
+import NavBar from '../../components/NavBar';
 
 const WelcomePage = () => {
 

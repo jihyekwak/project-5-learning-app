@@ -20,6 +20,7 @@ class Student(models.Model):
     name = models.CharField(max_length=50)
     avatar = models.CharField(max_length=50, choices=AVATAR_CHOICES)
     grade = models.CharField(max_length=50, choices=GRADE_CHOICES)
+    level = models.IntegerField(default=1)
     reward = models.IntegerField(default=0)
 
     def __str__(self):
@@ -29,3 +30,5 @@ class TakenQuiz(models.Model):
     student = models.ForeignKey(Student, related_name='quizzes', on_delete = models.CASCADE )
     quiz = models.ForeignKey(Quiz, related_name='taken_quizzes', on_delete = models.CASCADE )
     score = models.IntegerField()
+    is_completed = models.BooleanField(default=False)
+    created_at = models.DateField(auto_now_add=True)

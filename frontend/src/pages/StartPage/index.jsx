@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Button, Container, Grid, Card, Typography } from "@material-ui/core";
+import { Dialog, Button, Container, Grid, Card, Typography} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import StudentForm from '../../components/StudentForm';
-// import SettingsIcon from '@mui/icons-material/Settings';
-// import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import NavBar from '../../components/NavBar';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -52,11 +51,10 @@ const useStyles = makeStyles((theme) => ({
         margin: '20px 0'
     },
     headerTitle: {
-        fontSize: '40px',
         fontFamily: 'Staatliches',
         color: '#0B5688',
         letterSpacing:'1px',
-        margin: '30px 0'
+        margin: '20px 0'
     },
     text: {
         fontFamily: 'Viga',
@@ -65,43 +63,32 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const Dashboard = ({profile}) => {
+const StartPage = ({profile}) => {
 
     const classes = useStyles();
-    const [add, setAdd] = useState(false)
+    const [addStudent, setAddStudent] = useState(false)
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        setAdd(true)
+    const handleOpen = () => {
+        setAddStudent(true)
     }
 
-    if (add) {
-        return(
-            <Container>
-                <StudentForm/>
-            </Container>
-        )
-    } 
+    const handleClose = () => {
+        setAddStudent(false);
+    };
 
     return(
+        <>
+        <NavBar profile={profile}/>
         <Container>
-            <Typography variant='h5' className={classes.headerTitle}>Welcome {profile.username}</Typography>
+            <Typography variant='h3' className={classes.headerTitle}>Choose Student</Typography>
             <Grid container spacing={4} className={classes.gridContainer}>
                 {profile.students?.map((student) => {
                     return(
                         <Grid item xs={4} zeroMinWidth key={student.id} className={classes.grid}>
-                        <Card href={`/${student.id}/quizzes`} className={classes.card}>
-                            <Grid container>
-                                <Grid xs={2}></Grid>
-                                <Grid xs={8}>
+                        <Card className={classes.card}>
                             <Typography className={classes.text}>{student.grade}</Typography>
-                            </Grid>
-                            <Grid xs={2}>
-                            <Button>setting</Button>
-                            </Grid>
-                            </Grid>
                             <Typography variant='h3' className={classes.text}> {student.name}</Typography>
-                            <Button key={student.id} href={`/${student.id}/quizzes`} className={classes.button}>
+                            <Button key={student.id} href={`student/${student.id}/`} className={classes.button}>
                                 start
                             </Button>
                         </Card>
@@ -109,8 +96,14 @@ const Dashboard = ({profile}) => {
                     )
                 })}
             </Grid>
-            <Button onClick={handleSubmit} className={classes.addbutton}>+ New Student</Button>
+            <Button onClick={handleOpen} className={classes.addbutton}>+ New Student</Button>
+
+            <Dialog open={addStudent} fullWidth='true'>
+                <StudentForm handleClose={handleClose}/>
+            </Dialog>
+
         </Container>
+        </>    
     )
 }
-export default Dashboard
+export default StartPage;

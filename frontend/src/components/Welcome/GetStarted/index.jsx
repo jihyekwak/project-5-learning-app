@@ -1,6 +1,6 @@
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
-import GetStartedBtn from '../GetStartedBtn';
+import GetStartedBtn from '../GetStartedBtn'
 
 const useStyles = makeStyles((theme) => ({
     component: {

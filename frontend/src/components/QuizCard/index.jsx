@@ -45,7 +45,7 @@ const QuizCard = ({quiz}) => {
                 {quiz.title}
             </Typography>
             <hr />
-            <Button href={`quizzes/${quiz.id}`} className={classes.button}>Take Quiz</Button>
+            <Button href={`quizzes/${quiz.id}/`} className={classes.button}>Take Quiz</Button>
         </>
     )
 }

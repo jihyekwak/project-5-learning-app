@@ -1,17 +1,17 @@
 import { Routes, Route} from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useInsertionEffect } from 'react';
 import './App.css';
 import WelcomePage from './pages/WelcomePage';
+import DashboardPage from './pages/DashBoardPage';
+import StartPage from './pages/StartPage';
+import QuizPage from './pages/QuizPage';
+import TakeQuizPage from './pages/TakeQuizPage';
 import NavBar from './components/NavBar';
-import Quiz from './components/Quiz';
 import Login from './components/Login';
 import Register from './components/Register';
-import MainPage from './pages/MainPage';
-import MyPage from './pages/MyPage';
-import * as authService from "./api/auth.service";
 import StudentForm from './components/StudentForm';
-import QuizForm from "./components/QuizForm";
-import Dashboard from './pages/Dashboard';
+import QuizForm from "./components/DashBoard/QuizForm";
+import * as authService from "./api/auth.service";
 
 function App() {
 
@@ -22,7 +22,6 @@ function App() {
     if(authService.currentUser() !== null) {
         setIsLoggedIn(true);
         fetchProfile();
-        console.log("useractive check")
     } else {
         setIsLoggedIn(false);
     }
@@ -30,7 +29,6 @@ function App() {
 
   const fetchProfile = async () => {
     await authService.getProfile().then((res) => {
-      console.log(res.data)
       setProfile(res.data)
     })
   }
@@ -39,19 +37,25 @@ function App() {
     userActive();
   }, [])
 
+  useEffect(()=>{
+    fetchProfile();
+  }, [])
+
   if (isLoggedIn) {
     return (
       <div className="App">
-      <NavBar profile={profile}/>
+      {/* <NavBar profile={profile}/> */}
+
       <Routes>
-        <Route path="/" element={<WelcomePage />} />
-        <Route path="main" element={<MainPage/>} />
-        <Route path="dashboard" element={<Dashboard profile={profile}/>} />
-        <Route path="mypage" element={<MyPage profile={profile}/>} />
-        <Route path="/:student/quizzes/:id" element={<Quiz/>} />
-        <Route path="/:student/quizzes" element={<MainPage/>} />
+        {/* <Route path="/" element={<WelcomePage />} /> */}
+        {/* <Route path="main" element={<MainPage/>} /> */}
+        <Route path="student" element={<StartPage profile={profile}/>} />
+        <Route path="dashboard" element={<DashboardPage profile={profile} fetchProfile={fetchProfile}/>} />
+        <Route path="/student/:student/quizzes/:id/" element={<TakeQuizPage/>} />
+        <Route path="/student/:student/" element={<QuizPage/>} />
         <Route path="newstudent" element={<StudentForm/>} />
-        <Route path="newquiz" element={<QuizForm/>} />
+        {/* <Route path="newquiz" element={<QuizForm/>} /> */}
+        {/* <Route path="/quiz/:id/edit" element={<QuestionForm />} /> */}
       </Routes>
     </div>
     )

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { InputLabel, Select, Button, Box, Typography, TextField, Link, CssBaseline, DialogTitle } from "@material-ui/core";
+import { InputLabel, Select, Button, Box, Typography, TextField, Link, DialogTitle } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as userService from '../../api/user.service';
 
@@ -19,72 +19,79 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
+    },
+    link: {
+        "&:hover": {
+            cursor: 'pointer'
+        },
     }
 }))
 
 
-const StudentForm = (props) => {
+const StudentEditForm = (props) => {
 
     const classes = useStyles();
     const [name, setName] = useState('')
     const [grade, setGrade] = useState('')
     const [avatar, setAvatar] = useState('')
 
-    const handleSubmit = async () => {
-        let newStudent = {name, grade, avatar, instuctor : localStorage.getItem('user')}
-        console.log(newStudent)
-        await userService.createStudent(newStudent).then((res) => {
+    let UpdateStudent = {name, grade, avatar, instuctor : localStorage.getItem('user')}
+
+    const handelEditStudent = async() => {
+        await userService.editStudent(props.student.id, UpdateStudent).then((res)=> {
+            console.log(res)
         })
-        .catch(err => console.log(err))
     }
 
     return (
     <>
         <DialogTitle align="center">
-            <Typography variant='h5'>Add Student</Typography>
+            <Typography variant='h5'>Edit {props.student.name}</Typography>
         </DialogTitle>
-        <Box className={classes.box} component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box className={classes.box} component="form" noValidate onSubmit={()=> {handelEditStudent()}} sx={{ mt: 3 }}>
+            <InputLabel className={classes.form}>Name</InputLabel>
             <TextField
                 className={classes.form}
                 required
-                id="name"
-                label="name"
                 name="name"
                 autoFocus
                 variant='filled'
                 margin="normal"
                 value = {name}
+                placeholder = {props.student.name}
                 onChange={(e)=> setName(e.target.value)}/>
             <InputLabel className={classes.form}>Grade</InputLabel>
             <Select 
                 className={classes.form}
                 native value={grade}
                 variant='filled'
+                required
                 onChange={(e)=> setGrade(e.target.value)}>
-                <option>select</option>
+                <option>---</option>
                 <option value="Pre-K">Pre-K</option>
                 <option value="Kindergarten">Kindergarten</option>
                 <option value="1st Grade">1st Grade</option>
                 <option value="2nd Grade">2nd Grade</option>
                 <option value="3rd Grade">3rd Grade</option>
             </Select>
-            <InputLabel className={classes.form}>Avatar</InputLabel>
+            <InputLabel className={classes.form} >Avatar</InputLabel>
             <Select 
                 className={classes.form}
                 native value={avatar}
                 variant='filled'
+                required
                 onChange={(e)=> setAvatar(e.target.value)}>
-                <option>select</option>
+                <option>---</option>
                 <option value="1">avatar1</option>
             </Select>
             <div>
-                <Button className={classes.button} type="submit">Add</Button>
+                <Button className={classes.button} type="submit">Edit</Button>
             </div>
-            <Link onClick={props.handleClose}>Cancel</Link>
+            <Link className={classes.link} onClick={props.handleClose}>Cancel</Link>
         </Box>
     </>
     
     )
 }
 
-export default StudentForm
+export default StudentEditForm;
