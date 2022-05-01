@@ -25,9 +25,13 @@ const Profile = ({profile, fetchprofile}) => {
         })
     }
 
-    const handleClose = () => {
-        setEditStudent(false);
+    const handleProfileEditClose = () => {
+        setEditProfile(false);
     };
+
+    const handleStudentEditClose = () => {
+        setEditStudent(false)
+    }
 
     return(
     <>
@@ -43,8 +47,7 @@ const Profile = ({profile, fetchprofile}) => {
     <Dialog open={editProfile} fullWidth='true'>
         <ProfileEditForm 
             profile={profile}
-            handleClose={handleClose}
-            fetchprofile={fetchprofile}/>
+            handleProfileEditClose={handleProfileEditClose}/>
     </Dialog> 
 
     <h4>Student</h4>
@@ -81,7 +84,7 @@ const Profile = ({profile, fetchprofile}) => {
         <Dialog open={editStudent} fullWidth='true'>
             <StudentEditForm 
                 student={student}
-                handleClose={handleClose}/>
+                handleClose={handleStudentEditClose}/>
         </Dialog>  
 
     </>

@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { InputLabel, Select, Button, Box, Typography, TextField, Link, CssBaseline, DialogTitle } from "@material-ui/core";
+import { InputLabel, Select, Button, Box, Typography, TextField, Link, DialogTitle } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as userService from '../../api/user.service';
 
@@ -20,11 +19,16 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
+    },
+    link: {
+        "&:hover": {
+            cursor: 'pointer'
+        },
     }
 }))
 
 
-const StudentEditForm = ({student, handleClose}) => {
+const StudentEditForm = (props) => {
 
     const classes = useStyles();
     const [name, setName] = useState('')
@@ -34,7 +38,7 @@ const StudentEditForm = ({student, handleClose}) => {
     let UpdateStudent = {name, grade, avatar, instuctor : localStorage.getItem('user')}
 
     const handelEditStudent = async() => {
-        await userService.editStudent(student.id, UpdateStudent).then((res)=> {
+        await userService.editStudent(props.student.id, UpdateStudent).then((res)=> {
             console.log(res)
         })
     }
@@ -42,7 +46,7 @@ const StudentEditForm = ({student, handleClose}) => {
     return (
     <>
         <DialogTitle align="center">
-            <Typography variant='h5'>Edit {student.name}</Typography>
+            <Typography variant='h5'>Edit {props.student.name}</Typography>
         </DialogTitle>
         <Box className={classes.box} component="form" noValidate onSubmit={()=> {handelEditStudent()}} sx={{ mt: 3 }}>
             <InputLabel className={classes.form}>Name</InputLabel>
@@ -54,7 +58,7 @@ const StudentEditForm = ({student, handleClose}) => {
                 variant='filled'
                 margin="normal"
                 value = {name}
-                placeholder = {student.name}
+                placeholder = {props.student.name}
                 onChange={(e)=> setName(e.target.value)}/>
             <InputLabel className={classes.form}>Grade</InputLabel>
             <Select 
@@ -83,7 +87,7 @@ const StudentEditForm = ({student, handleClose}) => {
             <div>
                 <Button className={classes.button} type="submit">Edit</Button>
             </div>
-            <Link onClick={handleClose}>Cancel</Link>
+            <Link className={classes.link} onClick={props.handleClose}>Cancel</Link>
         </Box>
     </>
     
