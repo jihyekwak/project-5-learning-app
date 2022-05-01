@@ -85,10 +85,10 @@ const StartPage = ({profile}) => {
                 {profile.students?.map((student) => {
                     return(
                         <Grid item xs={4} zeroMinWidth key={student.id} className={classes.grid}>
-                        <Card href={`/${student.id}/quizzes`} className={classes.card}>
+                        <Card className={classes.card}>
                             <Typography className={classes.text}>{student.grade}</Typography>
                             <Typography variant='h3' className={classes.text}> {student.name}</Typography>
-                            <Button key={student.id} href={`/${student.id}/quizzes`} className={classes.button}>
+                            <Button key={student.id} href={`student/${student.id}/`} className={classes.button}>
                                 start
                             </Button>
                         </Card>

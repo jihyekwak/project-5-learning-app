@@ -70,7 +70,7 @@ const TakeQuizPage = () => {
 
     const classes = useStyles();
     const {id} =useParams();
-    const {student} =useParams();
+    const {student} = useParams();
     const [quizTitle, setQuizTitle] = useState("")
     const [questionList, setQuestionList] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -78,6 +78,7 @@ const TakeQuizPage = () => {
     const [showScore, setShowScore] = useState(false);
     const [start, setStart] = useState(false);
     const [takenQuiz, setTakenQuiz] = useState("")
+    const [isCompleted, setIsCompleted] = useState(false)
 
     const fetchQuiz = async () => {
         await quizService.getOne(`${id}`).then((res) => {
@@ -92,42 +93,39 @@ const TakeQuizPage = () => {
 
     const handleStart = async() => {
         setStart(true)
-        let newTakenQuiz = {student: `${student}`, quiz: `${id}`, is_completed: false, score: 0}
+        let newTakenQuiz = {student: `${student}`, quiz_id: `${id}`, is_completed: false, score: 0}
         console.log(newTakenQuiz)
         await userService.takenQuizCreate(newTakenQuiz).then((res)=>{
-            console.log(res)
             setTakenQuiz(res.data.id)
         })
     }
 
     const updateTakenQuiz = async() => {
-        await userService.takenQuizUpdate(`${takenQuiz}`, {student: `${student}`, quiz: `${id}`, score: `${score}`}).then((res) => {
+        await userService.takenQuizUpdate(`${takenQuiz}`, {student: `${student}`, quiz_id: `${id}`, is_completed: isCompleted, score: `${score}`}).then((res) => {
             console.log(res)
         })
     }
 
     const handleSelection = (correct) => {
-        console.log("answer clicked");
 
         if (correct) {
-            console.log("correct");
             setScore(score + 1);
-        } else {
-            console.log("wrong");
         }
 
         const nextQuestion = currentQuestion+ 1;
         if (nextQuestion < questionList.length) {
             setCurrentQuestion(nextQuestion);
         } else {
-            updateTakenQuiz()
+            setIsCompleted(true)
             setShowScore(true)
+            // updateTakenQuiz()
         }
     }
 
     const handleTryAgain = () => {
         setCurrentQuestion(0);
         setScore(0);
+        setIsCompleted(false);
         setShowScore(false);
     }
 
@@ -137,11 +135,9 @@ const TakeQuizPage = () => {
             {/* <LearnerNavBar /> */}
             <Container>
                 <Card className={classes.card}>
-
                     <Typography variant='h3'>{quizTitle}</Typography>
-
                 <Button onClick={handleStart} className={classes.button}>Start</Button>
-                <Button href="/1/quizzes" className={classes.button}>Go Back</Button>
+                <Button href={`/student/${student}/`} className={classes.button}>Go Back</Button>
 
                 </Card>
                 
@@ -153,7 +149,7 @@ const TakeQuizPage = () => {
         return(
             <>
             {/* <LearnerNavBar /> */}
-             <Container>
+            <Container>
                 {showScore ? (
                     <Dialog open={true}>
                         <Typography align='center' className={classes.score} >
@@ -161,7 +157,7 @@ const TakeQuizPage = () => {
                         </Typography>
                         <div style={{margin: 'auto auto'}}>
                             <Button onClick={() => handleTryAgain()} className={classes.button}>Try Again</Button>
-                            <Button href={`/${student}/quizzes/`} className={classes.button}>Quiz List</Button>
+                            <Button href={`/student/${student}/`} onClick={()=>updateTakenQuiz()}className={classes.button}>Quiz List</Button>
                         </div>
                     </Dialog>
                 ) : (
@@ -183,7 +179,7 @@ const TakeQuizPage = () => {
                                 })}
                             </Grid>
                         </Grid>
-                        <Button href="/1/quizzes" className={classes.button}>Go Back</Button>
+                        <Button href={`/student/${student}/`} onClick={()=> updateTakenQuiz()} className={classes.button}>Go Back</Button>
                     </>
                 )}
     

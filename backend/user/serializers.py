@@ -2,18 +2,21 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.authtoken.views import Token
 from .models import Student, TakenQuiz
+from quiz.models import Quiz
 from quiz.serializers import QuizSerializer
 
 class TakenQuizSerializer(serializers.ModelSerializer):
 
-    # quiz = QuizSerializer()
+    quiz = QuizSerializer(read_only=True)
+    quiz_id = serializers.IntegerField(write_only = True)
 
     class Meta:
         model = TakenQuiz
-        fields = ('id', 'student', 'quiz', 'score', 'is_completed', 'created_at')
+        fields = ('id', 'student', 'quiz', 'quiz_id', 'score', 'is_completed', 'created_at')
 
     # def create(self, validated_data):
-    #     return TakenQuiz(**validated_data)
+    #     quiz = Quiz.objects.get(id=validated_data['quiz'])
+    #     return TakenQuiz.objects.create(**validated_data, quiz = quiz)
 
 class StudentSerializer(serializers.ModelSerializer):
     # instuctor = UserSerializer(read_only=True)
