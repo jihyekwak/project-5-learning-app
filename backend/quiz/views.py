@@ -12,7 +12,7 @@ def home(request):
 
 class QuizView(viewsets.ModelViewSet):
     serializer_class = QuizSerializer
-    queryset = Quiz.objects.all()
+    queryset = Quiz.objects.order_by('-created_at')
     # permission_classes = [IsAuthenticatedOrReadOnly]
 
     # def get_queryset(self):

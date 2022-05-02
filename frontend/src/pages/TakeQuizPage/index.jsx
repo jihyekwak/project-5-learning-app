@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams} from "react-router-dom";
 import { Container, Grid, Typography, Button, Dialog, Card } from "@material-ui/core";
+import { Alert, AlertTitle } from "@material-ui/lab"
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../api/quiz.service"
 import * as userService from "../../api/user.service";
+import LearnerNavBar from '../../components/LearnerNavBar/inex';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,10 +77,14 @@ const TakeQuizPage = () => {
     const [questionList, setQuestionList] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
-    const [showScore, setShowScore] = useState(false);
-    const [start, setStart] = useState(false);
-    const [takenQuiz, setTakenQuiz] = useState("")
     const [isCompleted, setIsCompleted] = useState(false)
+    const [takenQuiz, setTakenQuiz] = useState("")
+
+    const [start, setStart] = useState(false);
+    const [alertShow, setAlerShow] = useState(false)
+    const [showScore, setShowScore] = useState(false);
+    const [tryAgain, setTryAgain] = useState(false)
+
 
     const fetchQuiz = async () => {
         await quizService.getOne(`${id}`).then((res) => {
@@ -107,22 +113,33 @@ const TakeQuizPage = () => {
     }
 
     const handleSelection = (correct) => {
-
-        if (correct) {
-            setScore(score + 1);
-        }
-
         const nextQuestion = currentQuestion+ 1;
-        if (nextQuestion < questionList.length) {
-            setCurrentQuestion(nextQuestion);
+        if (!correct) {
+            setAlerShow(true)
+            setCurrentQuestion(currentQuestion)
+            setTryAgain(true)
+        } else if (correct && tryAgain) {
+            setTryAgain(false)
+            if (nextQuestion < questionList.length) {
+                setCurrentQuestion(nextQuestion);
+            } else {
+                setIsCompleted(true)
+                setShowScore(true)
+            }
         } else {
-            setIsCompleted(true)
-            setShowScore(true)
-            // updateTakenQuiz()
+            setScore(score + 1);
+            if (nextQuestion < questionList.length) {
+                setCurrentQuestion(nextQuestion);
+            } else {
+                setIsCompleted(true)
+                setShowScore(true)
+            }
         }
     }
 
     const handleTryAgain = () => {
+        updateTakenQuiz()
+        setStart(false)
         setCurrentQuestion(0);
         setScore(0);
         setIsCompleted(false);
@@ -132,7 +149,7 @@ const TakeQuizPage = () => {
     if (!start) {
         return (
             <>
-            {/* <LearnerNavBar /> */}
+            <LearnerNavBar />
             <Container>
                 <Card className={classes.card}>
                     <Typography variant='h3'>{quizTitle}</Typography>
@@ -148,44 +165,44 @@ const TakeQuizPage = () => {
     } else {
         return(
             <>
-            {/* <LearnerNavBar /> */}
+            <LearnerNavBar />
             <Container>
-                {showScore ? (
-                    <Dialog open={true}>
-                        <Typography align='center' className={classes.score} >
-                            <h2>You scored {score} out of {questionList.length}!</h2>
+                <Typography variant='body1'>Question {currentQuestion +1 }/{questionList.length}</Typography>
+                <Grid container className={classes.gridContainer}>
+                    <Grid item x3={4}>
+                        <Typography variant='h1' className={classes.question}>
+                            {questionList[currentQuestion]?.text}
                         </Typography>
-                        <div style={{margin: 'auto auto'}}>
-                            <Button onClick={() => handleTryAgain()} className={classes.button}>Try Again</Button>
-                            <Button href={`/student/${student}/`} onClick={()=>updateTakenQuiz()}className={classes.button}>Quiz List</Button>
-                        </div>
-                    </Dialog>
-                ) : (
-                    <>
-                        <p>Question {currentQuestion +1 }/{questionList.length}</p>
-                        <Grid container className={classes.gridContainer}>
-                            <Grid item x3={4}>
-                                <Typography variant='h1' className={classes.question}>
-                                    {questionList[currentQuestion]?.text}
-                                </Typography>
-                            </Grid>
-                            <Grid item x3={8}>
-                                {questionList[currentQuestion]?.answers?.map(({text, is_correct, id})=> {
-                                    return(
-                                        <div key={id}>
-                                            <Button onClick={() => handleSelection(is_correct)} className={classes.selectButton}>{text}</Button>
-                                        </div>
-                                    )
-                                })}
-                            </Grid>
-                        </Grid>
-                        <Button href={`/student/${student}/`} onClick={()=> updateTakenQuiz()} className={classes.button}>Go Back</Button>
-                    </>
-                )}
-    
+                    </Grid>
+                    <Grid item x3={8}>
+                        {questionList[currentQuestion]?.answers?.map(({text, is_correct, id})=> {
+                            return(
+                                <div key={id}>
+                                    <Button onClick={() => handleSelection(is_correct)} className={classes.selectButton}>{text}</Button>
+                                </div>
+                            )
+                        })}
+                    </Grid>
+                </Grid>
+
+                <Dialog open={alertShow} >
+                    <Alert severity="warning" onClose={()=> {setAlerShow(false)}}>
+                        <AlertTitle><Typography variant='h6'>Try Again!</Typography></AlertTitle>
+                    </Alert>
+                </Dialog>
+
+                <Dialog open={showScore}>
+                    <Typography variant='h2' align='center' className={classes.score} >
+                        You scored {score} out of {questionList.length}!
+                    </Typography>
+                    <div style={{margin: 'auto auto'}}>
+                        <Button onClick={() => handleTryAgain()} className={classes.button}>Try Again</Button>
+                        <Button href={`/student/${student}/`} onClick={()=>updateTakenQuiz()}className={classes.button}>Quiz List</Button>
+                    </div>
+                </Dialog>
+                <Button href={`/student/${student}/`} onClick={()=> updateTakenQuiz()} className={classes.button}>Go Back</Button>
             </Container>
             </>
-           
         )
     }
 

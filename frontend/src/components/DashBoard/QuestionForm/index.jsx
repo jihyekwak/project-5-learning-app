@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import * as quizService from "../../../api/quiz.service";
-import { Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
+import { Grid, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
@@ -9,6 +9,14 @@ const useStyles = makeStyles((theme) => ({
         margin: "15px 0",
         padding: "15px"
     },
+    gridContainer: {
+        justifyContent: 'space-around'
+    },
+    input: {
+        width: '60%',
+        height: '25px',
+        margin: '5px'
+    }
 }));
 
 const QuestionForm = (props) => {
@@ -79,37 +87,47 @@ const QuestionForm = (props) => {
     return(
     <>
         <Button variant='contained' onClick={()=>props.handleCompleteEditQuiz()}>go back</Button>
-        <Paper className={classes.paper}>
-            <Typography variant="h4">{quiz.title}</Typography>
-            <Typography variant="body1">{quiz.subject} / {quiz.grade} / {quiz.difficulty}</Typography>
-        </Paper>
-        <Paper className={classes.paper}>
-        <Typography variant="h6">Create New Question</Typography>
-        <form>
-            <label>Question:</label>
-            <input type="text" name="text" value={question} onChange={(e) => setQuestion(e.target.value)} />
-            
-            <label>Answer1:</label>
-            <input type="text" name="answer" value={answer1} onChange={(e) => setAnswer1(e.target.value)} />
-            
-            <label>correct:</label>
-            <input type="checkbox" name="is_correct" value={correctAnswer1} onChange={() => setCorrectAnswer1(!correctAnswer1)} />
-            
-            <label>Answer2:</label>
-            <input type="text" name="answer" value={answer2} onChange={(e) => setAnswer2(e.target.value)} />
-            
-            <label>correct:</label>
-            <input type="checkbox" name="is_correct" value={correctAnswer2} onChange={() => setCorrectAnswer2(!correctAnswer2)} />
-            
-            <label>Answer3:</label>
-            <input type="text" name="answer" value={answer3} onChange={(e) => setAnswer3(e.target.value)} />
-            
-            <label>correct:</label>
-            <input type="checkbox" name="is_correct" value={correctAnswer3} onChange={() => setCorrectAnswer3(!correctAnswer3)} />
-            
-            <button type="submit"  onClick={handleSubmit}>Submit</button>  
-        </form>
-        </Paper>
+        <Grid container className={classes.gridContainer}>
+            <Grid item xs={5}>
+                <Paper className={classes.paper}>
+                    <Typography variant="h4">{quiz.title}</Typography>
+                    <br />
+                    <Typography variant="body1">{quiz.subject} / {quiz.grade} / {quiz.difficulty}</Typography>
+                </Paper>
+            </Grid>
+            <Grid item xs={6}>
+                <Paper className={classes.paper}>
+                    <Typography variant="h6">Create New Question</Typography>
+                    <form>
+                        <div>
+                            <label>Question </label>
+                            <input className={classes.input} type="text" name="text" value={question} onChange={(e) => setQuestion(e.target.value)} />
+                        </div>
+                        <div>
+                            <label>Answer1 </label>
+                            <input className={classes.input} type="text" name="answer" value={answer1} onChange={(e) => setAnswer1(e.target.value)} />
+                            <label>correct </label>
+                            <input type="checkbox" name="is_correct" value={correctAnswer1} onChange={() => setCorrectAnswer1(!correctAnswer1)} />
+                        </div>
+                        <div>
+                            <label>Answer2 </label>
+                            <input className={classes.input} type="text" name="answer" value={answer2} onChange={(e) => setAnswer2(e.target.value)} />
+                            <label>correct </label>
+                            <input type="checkbox" name="is_correct" value={correctAnswer2} onChange={() => setCorrectAnswer2(!correctAnswer2)} />
+                        </div>
+                        <div>
+                            <label>Answer3 </label>
+                            <input className={classes.input} type="text" name="answer" value={answer3} onChange={(e) => setAnswer3(e.target.value)} />
+                            <label>correct </label>
+                            <input type="checkbox" name="is_correct" value={correctAnswer3} onChange={() => setCorrectAnswer3(!correctAnswer3)} />
+                        </div>
+                            <Button variant='contained' type="submit"  onClick={handleSubmit}>Submit</Button>  
+                    </form>
+                </Paper>
+            </Grid>
+        </Grid>
+        
+        
 
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">

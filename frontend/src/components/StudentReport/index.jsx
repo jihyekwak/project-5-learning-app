@@ -66,11 +66,12 @@ const StudentReport = ({student, setStudent, fetchProfile}) => {
         
         <Paper className={classes.paper}>
         <TableContainer>
-            <Typography variant='h5'>Recent Quizzes</Typography>
+            <Typography variant='h5'>Taken Quizzes</Typography>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         <TableCell>Title</TableCell>
+                        <TableCell>Subject</TableCell>
                         <TableCell align="right">Score</TableCell>
                         <TableCell align="right">Is Completed</TableCell>
                         <TableCell align="right">Date</TableCell>
@@ -81,11 +82,12 @@ const StudentReport = ({student, setStudent, fetchProfile}) => {
                     <TableRow key={index}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                         <TableCell component="th" scope="row">{takenQuiz.quiz.title}</TableCell>
+                        <TableCell >{takenQuiz.quiz.subject}</TableCell>
                         <TableCell align="right">{takenQuiz.score} / {takenQuiz.quiz.questions.length}</TableCell>
                         <TableCell align="right">{takenQuiz.is_completed ? (<span>complete</span>): null}</TableCell>
                         <TableCell align="right">{takenQuiz.created_at}</TableCell>
                     </TableRow>
-                ))}
+                )).reverse()}
                 </TableBody>
             </Table>
             </TableContainer>
