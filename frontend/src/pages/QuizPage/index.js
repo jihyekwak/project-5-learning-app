@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import {NavLink, useParams} from 'react-router-dom';
 import { Card, Container, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../api/quiz.service";
+import * as userService from "../../api/user.service";
 import LearnerNavBar from '../../components/LearnerNavBar/inex';
 import QuizCard from '../../components/QuizCard';
 
@@ -51,6 +53,8 @@ const useStyles = makeStyles((theme) => ({
 const QuizPage = () => {
 
     const classes = useStyles();
+    // const {studentId} = useParams();
+    // const [student, setStudent] = useState();
     const [quizList, setQuizList] = useState([])
     const [subject, setSubject] = useState([])
     const [filter, setFilter] = useState(false)
@@ -61,10 +65,20 @@ const QuizPage = () => {
             setQuizList(res.data)
         })
     };
+    // const fetchStudent = async () => {
+    //     await userService.getOneStudent(studentId).then((res)=> {
+    //         setStudent(res.data)
+    //     })
+    // }
 
     useEffect(() => {
         fetchQuizzes()
+        // fetchStudent()
     }, [])
+
+    // useEffect(()=> {
+    //     fetchStudent()
+    // }, [])
 
     const handleFilter = (subject) => {
         setFilter(true);
@@ -79,28 +93,28 @@ const QuizPage = () => {
         <Container>
             <Grid container spacing={2} className={classes.gridContainer}>
             <Button onClick={()=> setFilter(false)} className={classes.button}>All</Button>
-                {subjects.map((subject)=> {
+                {subjects.map((subject, index)=> {
                     return(
-                    <Button onClick={()=> handleFilter(subject)} className={classes.button}>{subject}</Button>
+                    <Button key={index} onClick={()=> handleFilter(subject)} className={classes.button}>{subject}</Button>
                     )
                 })}
             </Grid>
 
             <Grid container spacing={4} className={classes.gridContainer}>
-                {filter? (quizList.filter(q => q.subject === subject).map((quiz) => {
+                {filter? (quizList.filter(q => q.subject === subject).map((quiz, index) => {
                     return (
                     <>
-                        <Grid item xs={4} zeroMinWidth key={quiz.id} className={classes.grid}>
+                        <Grid item xs={4} zeroMinWidth key={index} className={classes.grid}>
                             <Card className={classes.card}>
                                 <QuizCard quiz={quiz}/>
                             </Card>
                         </Grid>
                     </>
                     )
-                })) : (quizList.map((quiz) => {
+                })) : (quizList.map((quiz, index) => {
                     return (
                     <>
-                        <Grid item xs={4} zeroMinWidth key={quiz.id} className={classes.grid}>
+                        <Grid item xs={4} zeroMinWidth key={index} className={classes.grid}>
                             <Card className={classes.card}>
                                 <QuizCard quiz={quiz}/>
                             </Card>

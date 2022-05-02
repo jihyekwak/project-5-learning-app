@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Grid, Dialog, Button, Paper, Typography, TableContainer, Table, TableBody, TableCell, TableHead, TableRow, } from "@material-ui/core";
+import { Avatar, Grid, Dialog, Button, Paper, Typography, TableContainer, Table, TableBody, TableCell, TableHead, TableRow, } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as userService from "../../api/user.service"
 import StudentEditForm from "../StudentEditForm";
@@ -12,7 +12,10 @@ const useStyles = makeStyles((theme) => ({
         padding: "15px"
     },
     gridContainer: {
-        justifyContent: 'space-between'
+        justifyContent: 'space-around'
+    },
+    avatar: {
+        maxWidth: '100%'
     }
 }))
 
@@ -52,9 +55,9 @@ const StudentReport = ({student, setStudent, fetchProfile}) => {
                 </Grid>
             </Grid>
 
-            <Grid container>
-                <Grid item xs={4}>
-                    <p>Avatar: {student.avatar}</p>
+            <Grid container className={classes.gridContainer}>
+                <Grid item xs={2}>
+                    <img className={classes.avatar} src={`image/${student.avatar}.png`} alt={`${student.avatar}`} />
                 </Grid>
                 <Grid item xs={8}>
                     <p>Grade: {student.grade} </p>

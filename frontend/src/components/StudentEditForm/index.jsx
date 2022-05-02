@@ -82,7 +82,14 @@ const StudentEditForm = (props) => {
                 required
                 onChange={(e)=> setAvatar(e.target.value)}>
                 <option>---</option>
-                <option value="1">avatar1</option>
+                <option value="boy_avatar1">Boy Avatar1</option>
+                <option value="boy_avatar2">Boy Avatar2</option>
+                <option value="boy_avatar3">Boy Avatar3</option>
+                <option value="boy_avatar4">Boy Avatar4</option>
+                <option value="girl_avatar1">Girl Avatar1</option>
+                <option value="girl_avatar2">Girl Avatar2</option>
+                <option value="girl_avatar3">Girl Avatar3</option>
+                <option value="girl_avatar4">Girl Avatar4</option>
             </Select>
             <div>
                 <Button className={classes.button} type="submit">Edit</Button>

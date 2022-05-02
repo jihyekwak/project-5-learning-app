@@ -51,8 +51,8 @@ function App() {
         {/* <Route path="main" element={<MainPage/>} /> */}
         <Route path="student" element={<StartPage profile={profile}/>} />
         <Route path="dashboard" element={<DashboardPage profile={profile} fetchProfile={fetchProfile}/>} />
-        <Route path="/student/:student/quizzes/:id/" element={<TakeQuizPage/>} />
-        <Route path="/student/:student/" element={<QuizPage/>} />
+        <Route path="/student/:studentId/quizzes/:id/" element={<TakeQuizPage/>} />
+        <Route path="/student/:studentId/" element={<QuizPage/>} />
         <Route path="newstudent" element={<StudentForm/>} />
         {/* <Route path="newquiz" element={<QuizForm/>} /> */}
         {/* <Route path="/quiz/:id/edit" element={<QuestionForm />} /> */}

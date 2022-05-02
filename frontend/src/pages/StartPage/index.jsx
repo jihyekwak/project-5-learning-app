@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Dialog, Button, Container, Grid, Card, Typography} from "@material-ui/core";
+import { Dialog, Button, Container, Grid, Card, Typography, Avatar} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import StudentForm from '../../components/StudentForm';
 import NavBar from '../../components/NavBar';
@@ -60,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Viga',
         margin: '15px  0 5px 0',
         textDecoration: 'underline'
+    },
+    avatar: {
+        maxWidth: "100%"
     }
 }))
 
@@ -86,18 +89,24 @@ const StartPage = ({profile}) => {
                     return(
                         <Grid item xs={4} zeroMinWidth key={student.id} className={classes.grid}>
                         <Card className={classes.card}>
-                            <Typography className={classes.text}>{student.grade}</Typography>
-                            <Typography variant='h3' className={classes.text}> {student.name}</Typography>
-                            <Button key={student.id} href={`student/${student.id}/`} className={classes.button}>
-                                start
-                            </Button>
+                            <Grid container>
+                                <Grid item xs={4}>
+                                    <img className={classes.avatar} src={`image/${student.avatar}.png`} alt={`${student.avatar}`} />
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Typography className={classes.text}>{student.grade}</Typography>
+                                    <Typography variant='h3' className={classes.text}> {student.name}</Typography>
+                                    <Button key={student.id} href={`student/${student.id}/`} className={classes.button}>
+                                        start
+                                    </Button>
+                                </Grid>
+                            </Grid>
                         </Card>
                         </Grid>
                     )
                 })}
             </Grid>
             <Button onClick={handleOpen} className={classes.addbutton}>+ New Student</Button>
-
             <Dialog open={addStudent} fullWidth='true'>
                 <StudentForm handleClose={handleClose}/>
             </Dialog>
