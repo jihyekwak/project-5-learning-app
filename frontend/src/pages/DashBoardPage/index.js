@@ -116,7 +116,7 @@ const Dashboard = ({profile, fetchProfile}) => {
                     </>): null }
 
                     {createQuiz? (<>
-                        <QuizForm handleEditQuiz={handleEditQuiz}/>
+                        <QuizForm handleEditQuiz={handleEditQuiz} profile={profile}/>
                     </>) : null }
 
                     {editQuiz? (<>

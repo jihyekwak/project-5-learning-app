@@ -42,13 +42,15 @@ const useStyles = makeStyles((theme) => ({
         "&:hover": {
             transform: 'scale(1.05)'
         },
+        border: '10px solid #0B568850',
+        borderRadius: '20px'
     },
     gridContainer : {
-        justifyContent: 'space-between',
-        marginTop: '20px'
+        justifyContent: 'space-around',
+        marginTop: '20px',
     },
     grid: {
-        margin: '20px 0'
+        margin: '20px 0',
     },
     headerTitle: {
         fontFamily: 'Staatliches',
@@ -62,7 +64,8 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'underline'
     },
     avatar: {
-        maxWidth: "100%"
+        maxWidth: "100%",
+        marginTop: '25%',
     }
 }))
 
@@ -83,17 +86,17 @@ const StartPage = ({profile}) => {
         <>
         <NavBar profile={profile}/>
         <Container>
-            <Typography variant='h3' className={classes.headerTitle}>Choose Student</Typography>
+            <Typography variant='h3' className={classes.headerTitle}>Choose Student and Start Learning</Typography>
             <Grid container spacing={4} className={classes.gridContainer}>
                 {profile.students?.map((student) => {
                     return(
                         <Grid item xs={4} zeroMinWidth key={student.id} className={classes.grid}>
                         <Card className={classes.card}>
-                            <Grid container>
+                            <Grid container justifyContent='space-evenly'>
                                 <Grid item xs={4}>
                                     <img className={classes.avatar} src={`image/${student.avatar}.png`} alt={`${student.avatar}`} />
                                 </Grid>
-                                <Grid item xs={8}>
+                                <Grid item xs={7}>
                                     <Typography className={classes.text}>{student.grade}</Typography>
                                     <Typography variant='h3' className={classes.text}> {student.name}</Typography>
                                     <Button key={student.id} href={`student/${student.id}/`} className={classes.button}>

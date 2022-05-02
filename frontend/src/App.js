@@ -52,7 +52,7 @@ function App() {
         <Route path="student" element={<StartPage profile={profile}/>} />
         <Route path="dashboard" element={<DashboardPage profile={profile} fetchProfile={fetchProfile}/>} />
         <Route path="/student/:studentId/quizzes/:id/" element={<TakeQuizPage/>} />
-        <Route path="/student/:studentId/" element={<QuizPage/>} />
+        <Route path="/student/:studentId/" element={<QuizPage profile={profile}/>} />
         <Route path="newstudent" element={<StudentForm/>} />
         {/* <Route path="newquiz" element={<QuizForm/>} /> */}
         {/* <Route path="/quiz/:id/edit" element={<QuestionForm />} /> */}

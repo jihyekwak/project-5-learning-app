@@ -31,7 +31,7 @@ const NavBar = ({profile}) => {
     return(
         <AppBar className={classes.appbar} position="fixed">
             <Toolbar className={classes.toolbar}>
-                {profile? <NavLink to='#' className={classes.navlink}>Welcome, {profile.username}</NavLink>: null }
+                {profile? <span className={classes.navlink}>Welcome, {profile.username}</span>: null }
                 {profile? null : <NavLink to='/' className={classes.navlink}>Logo</NavLink>}
                 {profile? <NavLink to='/student' className={classes.navlink}>Student</NavLink> : null }
                 {profile? <NavLink to='/dashboard' className={classes.navlink}>Parent</NavLink>: null }

@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const QuizForm = ({handleEditQuiz}) => {
+const QuizForm = ({handleEditQuiz, profile}) => {
 
     const classes = useStyles();
     const [quizList, setQuizList] = useState([])
@@ -44,6 +44,7 @@ const QuizForm = ({handleEditQuiz}) => {
     const [subject, setSubject] = useState();
     const [grade, setGrade] = useState();
     const [difficulty, setDifficulty] = useState();
+    const [author, setAuthor] = useState("");
 
     const fetchQuizzes = async () => {
         await quizService.getAll().then((res) => {
@@ -57,7 +58,7 @@ const QuizForm = ({handleEditQuiz}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        let newQuiz = {title, subject, grade, difficulty}
+        let newQuiz = {title, subject, grade, difficulty, author: `${profile.id}`}
         let res = await quizService.create(newQuiz).then((res) => {
             console.log(res)
             fetchQuizzes()
@@ -75,7 +76,7 @@ const QuizForm = ({handleEditQuiz}) => {
             <label>Title:</label>
             <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
             <label>Subject</label>
-            <select value={grade} onChange={(e)=> setSubject(e.target.value)}>
+            <select value={subject} onChange={(e)=> setSubject(e.target.value)}>
                 <option>---</option>
                 <option value="Math">Math</option>
                 <option value="English">English</option>
@@ -105,7 +106,7 @@ const QuizForm = ({handleEditQuiz}) => {
             <Button type="submit"  onClick={handleSubmit}>Submit</Button>  
         </Paper>
 
-        <QuizListTable quizList={quizList} fetchQuizzes={fetchQuizzes} handleEditQuiz={handleEditQuiz}/>
+        <QuizListTable quizList={quizList} fetchQuizzes={fetchQuizzes} handleEditQuiz={handleEditQuiz} profile={profile}/>
     </>
     )
 }

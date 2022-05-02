@@ -77,7 +77,7 @@ const QuizListTable= (props) => {
                 </TableRow>
             </TableHead>
             <TableBody>
-            {props.quizList.map((quiz) => (
+            {props.quizList.filter(q => q.author === props.profile.id).map((quiz) => (
                 <TableRow key={quiz.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell component="th" scope="row">{quiz.title}</TableCell>

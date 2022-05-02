@@ -58,14 +58,15 @@ const LearnerNavBar = () => {
     const classes = useStyles();
     const {studentId} = useParams();
     const [student, setStudent] = useState("")
-    const [studentName, setStudentName] = useState("");
-    const [studentAvatar, setStudedntAvatar] = useState("")
+    const current = new Date();
+    const year = current.getFullYear()
+    const month = `${current.getMonth() + 1}`.padStart(2, "0")
+    const day = `${current.getDate()}`.padStart(2, "0")
+    const date = [year, month, day].join("-")
 
     const fetchStudent = async () => {
         await userService.getOneStudent(studentId).then((res)=> {
-            // setStudentName(res.data.name)
             setStudent(res.data)
-            console.log(student)
 
     })}
 
@@ -74,17 +75,23 @@ const LearnerNavBar = () => {
     }, [])
 
 
+
+    // const quizzes = student.quizzes
+    // const today = quizzes?.filter(quiz => quiz.create_at === date)
+    // console.log(today)
+    // console.log(student.quizzes)
+
     return(
         <AppBar className={classes.appbar} position="fixed">
             <Toolbar className={classes.toolbar}>
                 <div className={classes.avatar}>
-                    <Avatar src={`image/${student.avatar}.png`} alt={student.name}/>
+                    <Avatar src={`image/${student.avatar}.png`} alt={student.grade}/>
                     <span className={classes.navlink}>Welcome {student.name}</span>
                 </div>
                 <span className={classes.navlink}>Reward: {student.reward}</span>
-                <span className={classes.navlink}>Daily Progress: 4/10</span>
+                <span className={classes.navlink}>Daily Progress: 4/10 {student.quizzes? student.quizzes.filter(q => q.create_at === date) : null}</span>
                 <div>
-                    <Button to='/student' className={classes.button}>Change Student</Button>
+                    <Button href='/student' className={classes.button}>Change Student</Button>
                     <Button href="/dashboard" className={classes.button}>Parent</Button>
                 </div>
 
