@@ -29,17 +29,6 @@ class QuizSerializer(serializers.ModelSerializer):
         model = Quiz
         fields = ('id', 'title', 'subject', 'difficulty', 'grade', 'questions', 'created_at', 'author')
 
-    # def create(self, validated_data):
-    #     questions = validated_data.pop('questions')
-    #     quiz = Quiz.objects.create(**validated_data)
-
-    #     for question in questions:
-    #         answers = question.pop('answers')
-    #         Question.objects.create(quiz = quiz, **question)
-    #         for answer in answers:
-    #             Answer.objects.create(question = question, **answer)
-    #         return quiz
-
     # def update(self, instance, validated_data):
     #     questions = validated_data.pop('questions')
     #     instance.text = validated_data.get('text', instance.text)

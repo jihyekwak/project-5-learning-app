@@ -172,7 +172,7 @@ const TakeQuizPage = () => {
     return (
         <>
         <LearnerNavBar />
-            <Container maxWidth className={classes.container}>
+            <Container className={classes.container}>
                 <Grid container className={classes.gridFirstContainer}>
                     <Grid item xs={2}>
                         <Paper className={classes.paper}>

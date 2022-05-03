@@ -1,59 +1,29 @@
 import { useState, useEffect } from 'react';
-import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
+import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../../api/quiz.service";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles((theme) => ({
-	cardMedia: {
-		paddingTop: '56.25%', // 16:9
-	},
-	link: {
-		margin: theme.spacing(1, 1.5),
-	},
-	cardHeader: {
-		backgroundColor:
-			theme.palette.type === 'light'
-				? theme.palette.grey[200]
-				: theme.palette.grey[700],
-	},
-	postTitle: {
-		fontSize: '16px',
-		textAlign: 'left',
-	},
-	postText: {
-		display: 'flex',
-		justifyContent: 'left',
-		alignItems: 'baseline',
-		fontSize: '12px',
-		textAlign: 'left',
-		marginBottom: theme.spacing(2),
-	},
+    paper: {
+        margin: "15px 0",
+        padding: "15px"
+    },
+    paperTitle: {
+        color: '#0B5688',
+        fontWeight: 'bold'
+    }
 }));
 
 const QuizListTable= (props) => {
 
     const classes = useStyles();
-    // const [quizList, setQuizList] = useState([])
-    const [edit, setEdit] = useState(false)
-    const [editQuiz, setEditQuiz] = useState()
-
-    // const fetchQuizzes = async () => {
-    //     await quizService.getAll().then((res) => {
-    //         setQuizList(res.data)
-    //     })
-    // };
 
     useEffect(() => {
         props.fetchQuizzes()
         console.log('fetched quizlist at table')
     }, [] )
-
-    const handleEdit = (quiz) => {
-        // setEdit(true)
-        // setEditQuiz(quiz)
-    }
 
     const handleDelete = async (id) => {
         await quizService.destroy(id).then((res) => {
@@ -63,7 +33,8 @@ const QuizListTable= (props) => {
     }
 
     return(
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className={classes.paper}>
+            <Typography className={classes.paperTitle} variant="h6">Quiz List</Typography>
         <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader>
             <TableHead>
                 <TableRow>
@@ -90,6 +61,7 @@ const QuizListTable= (props) => {
 
                         <EditIcon onClick={() => {
                             console.log("edit btn")
+                            console.log(quiz)
                             props.handleEditQuiz(quiz)}
                             }></EditIcon>
                         <DeleteForeverIcon onClick={()=> handleDelete(quiz.id)}></DeleteForeverIcon>

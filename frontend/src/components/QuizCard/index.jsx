@@ -28,11 +28,8 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     card: {
-        // backgroundColor: '#F9D263',
         padding: '10px',
-        // borderRadius: '20px',
         textAlign: 'center',
-        // height: '100%',
         "&:hover": {
             transform: 'scale(1.05)'
         },

@@ -1,16 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@700&family=Comfortaa:wght@700&family=Happy+Monkey&family=Roboto:wght@300;400&family=Sniglet&family=Staatliches&family=Viga&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@700&family=Carme&family=Comfortaa:wght@700&family=Happy+Monkey&family=Hind+Siliguri:wght@700&family=Nunito:wght@600;800&family=Roboto:wght@300;400&family=Rubik:wght@400;500;600&family=Sniglet&family=Staatliches&family=Viga&display=swap');
 
 body {
   background-color: #F6F7FB;
   /* background-color: #9ad2a9; */
   /* background-color: 	#eeecdd; */
   /* font-family: 'Sniglet', cursive; */
-  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
+  /* font-family: 'Nunito', sans-serif;
+  font-family: 'Hind Siliguri', */
   /* font-family: 'Staatliches', cursive; */
   /* font-family: 'Cabin Sketch', cursive; */
   /* font-family: 'Comfortaa', cursive; */
   /* font-family: 'Happy Monkey', cursive; */
   /* font-family: 'Viga', sans-serif; */
+  /* font-family: 'Cabin Sketch', cursive; */
+font-family: 'Carme', sans-serif;
+/* font-family: 'Comfortaa', cursive; */
+/* font-family: 'Happy Monkey', cursive; */
+/* font-family: 'Hind Siliguri', sans-serif; */
+/* font-family: 'Nunito', sans-serif; */
+/* font-family: 'Roboto', sans-serif; */
+/* font-family: 'Rubik', sans-serif; */
+/* font-family: 'Sniglet', cursive; */
+/* font-family: 'Staatliches', cursive; */
+/* font-family: 'Viga', sans-serif; */
 }
 
 .MuiContainer-root {

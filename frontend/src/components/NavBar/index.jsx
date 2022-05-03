@@ -5,25 +5,20 @@ import Logout from '../../components/Logout';
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
-        // backgroundColor: '#ea624c',
         backgroundColor: '#87BCC7',
-        // backgroundColor: 'white',
-        // backgroundColor: '#f5b120',
+        height: '65px'
     },
     toolbar: {
-        justifyContent:'space-evenly',
+        justifyContent:'space-between',
         height: '50px',
     },
     navlink: {
         textDecoration: 'none',
         color: '#23596D',
         fontSize: '25px',
+        margin: '0 40px 0 0',
         fontFamily: 'Staatliches',
-        "&:hover": {
-            transform: 'scale(1.2)',
-            cursor: 'pointer'
-        },
-    }
+    },
 }))
 
 const NavBar = ({profile}) => {
@@ -33,11 +28,14 @@ const NavBar = ({profile}) => {
         <AppBar className={classes.appbar} position="fixed">
             <Toolbar className={classes.toolbar}>
                 {profile? <span className={classes.navlink}>Welcome, {profile.username}</span>: null }
-                {profile? null : <NavLink to='/' className={classes.navlink}>Logo</NavLink>}
-                {profile? <NavLink to='/student' className={classes.navlink}>Student</NavLink> : null }
-                {profile? <NavLink to='/dashboard' className={classes.navlink}>Parent</NavLink>: null }
-                {profile? null : <NavLink to='/login' className={classes.navlink}>LogIn</NavLink> }
-                {profile? null : <NavLink to='/register' className={classes.navlink}>Register</NavLink> }
+                {profile? null : <NavLink to='/' className={classes.navlink}>LoveToLearn</NavLink>}
+                {profile? <NavLink to='/student' className={classes.navlink}>Student Learning</NavLink> : null }
+                {profile? <NavLink to='/dashboard' className={classes.navlink}>Parent Dashboard</NavLink>: null }
+                <div>
+                    {profile? null : <NavLink to='/login' className={classes.navlink}> LogIn</NavLink> }
+                    {profile? null : <NavLink to='/register' className={classes.navlink}>Register</NavLink> }
+                </div>
+
                 {profile? <Logout/> : null }
             </Toolbar>
         </AppBar>

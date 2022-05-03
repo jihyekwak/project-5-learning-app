@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import * as quizService from "../../../api/quiz.service";
 import { Grid, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import * as quizService from "../../../api/quiz.service";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,11 +15,15 @@ const useStyles = makeStyles((theme) => ({
     input: {
         width: '60%',
         height: '25px',
-        margin: '5px'
+        margin: '10px 10px'
+    },
+    paperTitle: {
+        color: '#0B5688',
+        fontWeight: 'bold'
     }
 }));
 
-const QuestionForm = (props) => {
+const QuestionForm = ({editQuizData, handleCompleteEditQuiz}) => {
 
     const classes = useStyles();
     const [quiz, setQuiz] = useState([]);
@@ -31,9 +35,10 @@ const QuestionForm = (props) => {
     const [answer3, setAnswer3] = useState("")
     const [correctAnswer3, setCorrectAnswer3] = useState(false);
     const [create, setCreate] = useState(false)
+    console.log(editQuizData.id)
 
     const fetchQuiz = async () => {
-        await quizService.getOne(props.editQuiz.id).then((res) => {
+        await quizService.getOne(editQuizData.id).then((res) => {
             setQuiz(res.data)
             setCreate(false)
             setQuestion("")
@@ -68,7 +73,7 @@ const QuestionForm = (props) => {
                     is_correct: correctAnswer3,
                 }
             ],
-            quiz: quiz.id
+            quiz: editQuizData.id
         }
 
         console.log(newQuestion);
@@ -86,18 +91,18 @@ const QuestionForm = (props) => {
 
     return(
     <>
-        <Button variant='contained' onClick={()=>props.handleCompleteEditQuiz()}>go back</Button>
+        <Button variant='contained' onClick={()=>handleCompleteEditQuiz()}>go back</Button>
         <Grid container className={classes.gridContainer}>
             <Grid item xs={5}>
                 <Paper className={classes.paper}>
                     <Typography variant="h4">{quiz.title}</Typography>
                     <br />
-                    <Typography variant="body1">{quiz.subject} / {quiz.grade} / {quiz.difficulty}</Typography>
+                    <Typography variant="body1">{quiz.grade} / {quiz.subject} / {quiz.difficulty}</Typography>
                 </Paper>
             </Grid>
             <Grid item xs={6}>
                 <Paper className={classes.paper}>
-                    <Typography variant="h6">Create New Question</Typography>
+                    <Typography className={classes.paperTitle} variant="h6">Create New Question</Typography>
                     <form>
                         <div>
                             <label>Question </label>
@@ -127,9 +132,8 @@ const QuestionForm = (props) => {
             </Grid>
         </Grid>
         
-        
-
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className={classes.paper}>
+            <Typography className={classes.paperTitle} variant="h6">Question List</Typography>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>

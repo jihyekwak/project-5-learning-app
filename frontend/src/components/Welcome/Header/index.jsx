@@ -1,19 +1,28 @@
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import GetStartedBtn from '../GetStartedBtn';
+import Cover from '../../../assets/image/coverimg2.jpg';
 
 const useStyles = makeStyles((theme) => ({
     component: {
-        // backgroundColor: '#F7F7EE',
-        padding: '50px',
-        // backgroundColor: '#C3E0E7'
         backgroundColor: "white",
+        height: '500px',
+        backgroundImage: `url(${Cover})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover'
 
     },
     headerText : {
         // fontFamily: 'Viga',
         margin:'20px'
     },
+    img: {
+        width: '100%',
+        opacity: '0.8',
+    },
+    startBtn: {
+        marginTop: '300px'
+    }
 }
 ))
 
@@ -23,8 +32,11 @@ const Header = () => {
 
     return (
         <Box className={classes.component}>
-            <Typography variant='h3' className={classes.headerText}>Learning App</Typography>
-            <GetStartedBtn />
+            <Typography variant='h3'>Love To Learn</Typography>
+            <div className={classes.startBtn}>
+                <GetStartedBtn />
+            </div>
+
         </Box>
     )
 }

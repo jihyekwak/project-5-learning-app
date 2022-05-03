@@ -1,28 +1,24 @@
 import { useState, } from 'react';
 import { Button, Container, Grid, Paper, Typography, Avatar, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import * as React from 'react';
 import NavBar from '../../components/NavBar';
 import QuizForm from '../../components/DashBoard/QuizForm';
 import QuestionForm from '../../components/DashBoard/QuestionForm';
-import Profile from '../../components/Profile';
-import StudentReport from '../../components/StudentReport';
+import Profile from '../../components/DashBoard/Profile';
+import StudentReport from '../../components/DashBoard/StudentReport';
 import CreateIcon from '@material-ui/icons/Create';
 import SettingsIcon from '@material-ui/icons/Settings';
-import DashboardHome from '../../components/DashboardHome';
+import DashboardHome from '../../components/DashBoard/DashboardHome';
 
 
 const useStyles = makeStyles((theme) => ({
     gridContainer: {
         justifyContent: 'space-around'
     },
-    button: {
-    },
     headerTitle: {
-        fontFamily: 'Staatliches',
         color: '#0B5688',
-        letterSpacing:'1px',
-        margin: '20px 0'
+        margin: '20px 0',
+        fontWeight: 'bold'
     },
     paper: {
         margin: "15px 0",
@@ -51,6 +47,8 @@ const Dashboard = ({profile, fetchProfile}) => {
         setCreateQuiz(false)
         setEditQuiz(true)
         setEditQuizData(quiz)
+        console.log("quiz", quiz)
+        console.log("editQuizdata", editQuizData)
     }
 
     const handleCompleteEditQuiz = () => {
@@ -67,14 +65,13 @@ const Dashboard = ({profile, fetchProfile}) => {
                 <Grid item xs={2}>
                     <Paper className={classes.paper}>
                         <Button
-                            className={classes.button} 
                             onClick={()=> {
                                 setStudent()
                                 setCreateQuiz(false)
                                 setEditQuiz(false)
                                 setProfileSetting(false)
                                 setDashboardHome(true)
-                            }}><Typography variant='body1'>Home</Typography>
+                            }}><Typography variant='body1'>DashBoard Home</Typography>
                         </Button>
                     </Paper>
                     <Paper className={classes.paper}>
@@ -84,7 +81,6 @@ const Dashboard = ({profile, fetchProfile}) => {
                             return(
                                 <div>
                                     <Button 
-                                        className={classes.button}
                                         key={index}
                                         onClick={() => {
                                             setStudent(student)
@@ -94,7 +90,8 @@ const Dashboard = ({profile, fetchProfile}) => {
                                             setDashboardHome(false)
                                         }}>
                                         <Avatar src={`image/${student.avatar}.png`} alt={student.grade}/>
-                                        <Typography variant='body1'>{student.name}</Typography></Button>
+                                        <Typography variant='body1'>{student.name}</Typography>
+                                    </Button>
                                 </div>
                             )
                         })}
@@ -103,7 +100,6 @@ const Dashboard = ({profile, fetchProfile}) => {
                         <Typography variant='body1'>My Quiz</Typography>
                         <Divider></Divider><br />
                         <Button
-                            className={classes.button} 
                             onClick={()=> {
                                 setStudent()
                                 setCreateQuiz(true)
@@ -116,14 +112,13 @@ const Dashboard = ({profile, fetchProfile}) => {
                         <Typography variant='body1'>Profile</Typography>
                         <Divider></Divider><br />
                         <Button 
-                            className={classes.button}
                             onClick={()=> {
                                 setStudent()
                                 setCreateQuiz(false)
                                 setEditQuiz(false)
                                 setProfileSetting(true)
                                 setDashboardHome(false)
-                            }}><SettingsIcon></SettingsIcon> <Typography variant='body1'>setting</Typography></Button>
+                            }}><SettingsIcon></SettingsIcon> <Typography variant='body1'>Setting</Typography></Button>
                     </Paper>
                 </Grid>
 
@@ -134,7 +129,7 @@ const Dashboard = ({profile, fetchProfile}) => {
                         <StudentReport 
                             student={student}
                             setStudent={setStudent}
-                            fetchProfile={fetchProfile}
+                            fetchProfile={fetchProfile()}
                             handleStudent={handleStudent}
                             />
                     </>): null }
@@ -146,7 +141,7 @@ const Dashboard = ({profile, fetchProfile}) => {
                     {editQuiz? (<>
                         <QuestionForm 
                             handleCompleteEditQuiz={handleCompleteEditQuiz} 
-                            editQuiz={editQuizData}/>
+                            editQuizData={editQuizData}/>
                     </>): null }
 
                     {profileSetting? (<>
@@ -158,4 +153,4 @@ const Dashboard = ({profile, fetchProfile}) => {
     </>
     )
 }
-export default Dashboard
+export default Dashboard;

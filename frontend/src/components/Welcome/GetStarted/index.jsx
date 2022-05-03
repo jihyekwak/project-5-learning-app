@@ -4,13 +4,8 @@ import GetStartedBtn from '../GetStartedBtn'
 
 const useStyles = makeStyles((theme) => ({
     component: {
-        // backgroundColor: '#F7F7EE',
         padding: '50px',
-        backgroundColor: "white",
-    },
-    headerText : {
-        // fontFamily: 'Viga',
-        margin:'20px'
+        backgroundColor: "#EEECDD"
     },
 }
 ))

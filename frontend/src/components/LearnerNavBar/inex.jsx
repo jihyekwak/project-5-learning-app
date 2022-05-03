@@ -1,30 +1,21 @@
-import { AppBar, Toolbar, Button, Grid, Avatar } from '@material-ui/core';
-import { makeStyles } from "@material-ui/core/styles";
-import {NavLink, useParams} from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import Logout from '../../components/Logout';
+import { AppBar, Toolbar, Button, Avatar } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core/styles";
 import * as userService from "../../api/user.service";
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
-        // backgroundColor: '#ea624c',
         backgroundColor: '#87BCC7',
-        // backgroundColor: '#87c7b2',
-        // backgroundColor: '#f5b120',
+        height: '65px'
     },
     toolbar: {
         justifyContent:'space-between',
-        height: '60px'
     },
     navlink: {
-        textDecoration: 'none',
         color: '#23596D',
         fontSize: '25px',
         fontFamily: 'Staatliches',
-        // "&:hover": {
-        //     transform: 'scale(1.2)',
-        //     cursor: 'pointer'
-        // },
     },
     button : {
         backgroundColor: '#0B568850',
@@ -67,19 +58,11 @@ const LearnerNavBar = () => {
     const fetchStudent = async () => {
         await userService.getOneStudent(studentId).then((res)=> {
             setStudent(res.data)
-
     })}
 
     useEffect(()=> {
         fetchStudent()
     }, [])
-
-
-
-    // const quizzes = student.quizzes
-    // const today = quizzes?.filter(quiz => quiz.create_at === date)
-    // console.log(today)
-    // console.log(student.quizzes)
 
     return(
         <AppBar className={classes.appbar} position="fixed">
@@ -88,8 +71,9 @@ const LearnerNavBar = () => {
                     <Avatar src={`image/${student.avatar}.png`} alt={student.grade}/>
                     <span className={classes.navlink}>Welcome {student.name}</span>
                 </div>
+                <span className={classes.navlink}>Level: {student.level}</span>
                 <span className={classes.navlink}>Reward: {student.reward}</span>
-                <span className={classes.navlink}>Daily Progress: 4/10 {student.quizzes? student.quizzes.filter(q => q.create_at === date) : null}</span>
+                <span className={classes.navlink}>Daily Progress: {student.quizzes? (student.quizzes.filter(q => q.created_at === date)?.length) : (null)} / 10</span>
                 <div>
                     <Button href='/student' className={classes.button}>Change Student</Button>
                     <Button href="/dashboard" className={classes.button}>Parent</Button>
