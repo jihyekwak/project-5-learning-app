@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams} from 'react-router-dom';
-import { Card, Container, Grid, Button } from "@material-ui/core";
+import { Paper, Card, Container, Grid, Button, ButtonGroup, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../api/quiz.service";
 import * as userService from "../../api/user.service";
@@ -31,23 +31,13 @@ const useStyles = makeStyles((theme) => ({
         letterSpacing:'1px',
         margin: '30px 0'
     },
-    gridContainer: {
-        justifyContent: 'space-between',
-        marginTop: '20px'
-    },
+    // gridContainer: {
+    //     justifyContent: 'space-around',
+    //     marginTop: '20px'
+    // },
     grid: {
-        margin: '20px 0'
+        margin: '10px 0'
     },
-    card: {
-        // backgroundColor: '#F9D263',
-        padding: '10px',
-        // borderRadius: '20px',
-        textAlign: 'center',
-        height: '100%',
-        "&:hover": {
-            transform: 'scale(1.05)'
-        },
-    }
 }));
 
 const QuizPage = ({profile}) => {
@@ -56,8 +46,7 @@ const QuizPage = ({profile}) => {
     const {studentId} = useParams();
     const [student, setStudent] = useState();
     const [quizList, setQuizList] = useState([])
-    const [subject, setSubject] = useState([])
-    const [filter, setFilter] = useState(false)
+    const [customQuiz, setCustomQuiz] = useState(false)
 
 
     const fetchQuizzes = async () => {
@@ -82,66 +71,61 @@ const QuizPage = ({profile}) => {
         fetchStudent()
     }, [])
 
-    const handleFilter = (subject) => {
-        setFilter(true);
-        setSubject(subject);
-        console.log(subject)
-    }
-    
-    const subjects = [...new Set(quizList.map(({subject}) => subject))]
+    const subjects = [...new Set(quizList.filter(quiz => (quiz.author === 1 || quiz.author === profile.id)).filter(quiz => quiz.grade = student.grade).map(({subject}) => subject))]
+    const cumstomSubjects = [...new Set(quizList.filter(quiz => (quiz.author === profile.id)).filter(quiz => quiz.grade = student.grade).map(({subject}) => subject))]
+    const customQuizList = quizList?.filter(quiz => (quiz.author === profile.id))
 
     return(
         <>
         <LearnerNavBar />
         <Container>
-            <Grid container spacing={2} className={classes.gridContainer}>
-            <Button onClick={()=> setFilter(false)} className={classes.button}>All</Button>
-                {subjects.map((subject, index)=> {
-                    return(
-                    <Button key={index} onClick={()=> handleFilter(subject)} className={classes.button}>{subject}</Button>
-                    )
-                })}
-            <Button onClick={()=> handleFilter("myquiz")} className={classes.button}>Custom Quiz</Button>
-            </Grid>
-
-            <Grid container spacing={4} className={classes.gridContainer}>
-                {!filter? (
-                    quizList?.filter(quiz => (quiz.author === 1 || quiz.author === profile.id)).filter(quiz => quiz.grade === student?.grade).map((quiz, index) => {
-                        return (
-                        <>
-                            <Grid item xs={4} zeroMinWidth key={index} className={classes.grid}>
-                                <Card className={classes.card}>
-                                    <QuizCard quiz={quiz}/>
-                                </Card>
+            <ButtonGroup size="small" variant="contained">
+                <Button onClick={()=>setCustomQuiz(false)} >All Quiz</Button>
+                <Button onClick={()=>setCustomQuiz(true)} >Custom Quiz</Button>
+            </ButtonGroup>
+            <Grid container>
+                {customQuiz? (
+                    cumstomSubjects.map(subject => {
+                        return(
+                            <>
+                            <Typography variant='h6'>{subject}</Typography>
+                            <br />
+                            <Grid container spacing={4}>
+                                {customQuizList?.filter(quiz => quiz.grade === student?.grade)
+                                                .filter(quiz => quiz.subject === subject)?.map((quiz, index) => {
+                                return (
+                                <>
+                                    <Grid item xs={4} zeroMinWidth key={index} className={classes.grid}>
+                                        <QuizCard quiz={quiz}/>
+                                    </Grid>
+                                </>
+                                )
+                            })}
                             </Grid>
-                        </>
+                            </>
                         )
                     })
                 ):(
-                    (subject !== "myquiz") ? (
-                        quizList?.filter(quiz => (quiz.author === 1 || quiz.author === profile.id)).filter(quiz => quiz.grade === student?.grade).filter(quiz => quiz.subject === subject).map((quiz, index) => {
-                        return (
-                        <>
-                            <Grid item xs={4} zeroMinWidth key={index} className={classes.grid}>
-                                <Card className={classes.card}>
-                                    <QuizCard quiz={quiz}/>
-                                </Card>
-                            </Grid>
-                        </>
-                        )
-                    })):(
-                        quizList?.filter(quiz => (quiz.author === profile.id)).filter(quiz => quiz.grade === student?.grade).map((quiz, index) => {
-                            return (
+                    subjects.map(subject => {
+                        return(
                             <>
-                                <Grid item xs={4} zeroMinWidth key={index} className={classes.grid}>
-                                    <Card className={classes.card}>
-                                        <QuizCard quiz={quiz}/>
-                                    </Card>
-                                </Grid>
+                            <Typography variant='h6'>{subject}</Typography>
+                            <br />
+                            <Grid container spacing={4}>
+                                {quizList?.filter(quiz => (quiz.author === 1 || quiz.author === profile.id))
+                                            .filter(quiz => quiz.grade === student?.grade).filter(quiz => quiz.subject === subject)?.map((quiz, index) => {
+                                return (
+                                <>
+                                    <Grid item xs={4} zeroMinWidth key={index} className={classes.grid}>
+                                            <QuizCard quiz={quiz}/>
+                                    </Grid>
+                                </>
+                                )
+                            })}
+                            </Grid>
                             </>
-                            )
-                        })
-                    )
+                        )
+                    })
                 )}
             </Grid>
         </Container>

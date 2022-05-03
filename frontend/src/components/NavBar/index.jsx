@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
         // backgroundColor: '#f5b120',
     },
     toolbar: {
-        justifyContent:'space-evenly'
+        justifyContent:'space-evenly',
+        height: '50px',
     },
     navlink: {
         textDecoration: 'none',

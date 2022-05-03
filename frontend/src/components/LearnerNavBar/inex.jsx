@@ -11,10 +11,10 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#87BCC7',
         // backgroundColor: '#87c7b2',
         // backgroundColor: '#f5b120',
-        cursor: ''
     },
     toolbar: {
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        height: '60px'
     },
     navlink: {
         textDecoration: 'none',

@@ -1,5 +1,5 @@
 import { useState, } from 'react';
-import { Button, Container, Grid, Paper, Typography } from "@material-ui/core";
+import { Button, Container, Grid, Paper, Typography, Avatar, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as React from 'react';
 import NavBar from '../../components/NavBar';
@@ -9,6 +9,8 @@ import Profile from '../../components/Profile';
 import StudentReport from '../../components/StudentReport';
 import CreateIcon from '@material-ui/icons/Create';
 import SettingsIcon from '@material-ui/icons/Settings';
+import DashboardHome from '../../components/DashboardHome';
+
 
 const useStyles = makeStyles((theme) => ({
     gridContainer: {
@@ -32,7 +34,7 @@ const Dashboard = ({profile, fetchProfile}) => {
 
     const classes = useStyles();
     const [student, setStudent] = useState()
-
+    const [dashboardHome, setDashboardHome] = useState(true)
     const [profileSetting, setProfileSetting] = useState(false)
     const [createQuiz, setCreateQuiz] = useState(false)
     const [editQuiz, setEditQuiz] = useState(false)
@@ -62,9 +64,22 @@ const Dashboard = ({profile, fetchProfile}) => {
         <Container>
         <Typography variant='h4' className={classes.headerTitle}>Dashboard</Typography>
             <Grid container className={classes.gridContainer}>
-                <Grid xs={2}>
+                <Grid item xs={2}>
                     <Paper className={classes.paper}>
-                        <Typography variant='h6'>My Student</Typography>
+                        <Button
+                            className={classes.button} 
+                            onClick={()=> {
+                                setStudent()
+                                setCreateQuiz(false)
+                                setEditQuiz(false)
+                                setProfileSetting(false)
+                                setDashboardHome(true)
+                            }}><Typography variant='body1'>Home</Typography>
+                        </Button>
+                    </Paper>
+                    <Paper className={classes.paper}>
+                        <Typography variant='body1'>My Students</Typography>
+                        <Divider></Divider><br />
                         {profile.students?.map((student, index) => {
                             return(
                                 <div>
@@ -76,13 +91,17 @@ const Dashboard = ({profile, fetchProfile}) => {
                                             setCreateQuiz(false)
                                             setEditQuiz(false)
                                             setProfileSetting(false)
-                                        }}>{student.name}</Button>
+                                            setDashboardHome(false)
+                                        }}>
+                                        <Avatar src={`image/${student.avatar}.png`} alt={student.grade}/>
+                                        <Typography variant='body1'>{student.name}</Typography></Button>
                                 </div>
                             )
                         })}
                     </Paper>
                     <Paper className={classes.paper}>
-                        <Typography variant='h6'>My Quiz</Typography>
+                        <Typography variant='body1'>My Quiz</Typography>
+                        <Divider></Divider><br />
                         <Button
                             className={classes.button} 
                             onClick={()=> {
@@ -90,10 +109,12 @@ const Dashboard = ({profile, fetchProfile}) => {
                                 setCreateQuiz(true)
                                 setEditQuiz(false)
                                 setProfileSetting(false)
-                            }}><CreateIcon></CreateIcon> Create my quiz</Button>
+                                setDashboardHome(false)
+                            }}><CreateIcon></CreateIcon> <Typography variant='body1'>Create my quiz</Typography></Button>
                     </Paper>
                     <Paper className={classes.paper}>
-                        <Typography variant='h6'>Profile</Typography>
+                        <Typography variant='body1'>Profile</Typography>
+                        <Divider></Divider><br />
                         <Button 
                             className={classes.button}
                             onClick={()=> {
@@ -101,12 +122,15 @@ const Dashboard = ({profile, fetchProfile}) => {
                                 setCreateQuiz(false)
                                 setEditQuiz(false)
                                 setProfileSetting(true)
-                            }}><SettingsIcon></SettingsIcon> setting</Button>
+                                setDashboardHome(false)
+                            }}><SettingsIcon></SettingsIcon> <Typography variant='body1'>setting</Typography></Button>
                     </Paper>
                 </Grid>
 
-                <Grid xs={9}>
-                {student? (<>
+                <Grid item xs={9}>
+                    {dashboardHome? <DashboardHome profile={profile} /> : null }
+
+                    {student? (<>
                         <StudentReport 
                             student={student}
                             setStudent={setStudent}
@@ -127,7 +151,7 @@ const Dashboard = ({profile, fetchProfile}) => {
 
                     {profileSetting? (<>
                         <Profile profile={profile} fetchProfile={fetchProfile}/>
-                    </>) : null}
+                    </>) : null }
                 </Grid>
             </Grid>
         </Container>
