@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams} from "react-router-dom";
-import { Paper, Box, Container, Grid, Typography, Button, Dialog, Card, Divider } from "@material-ui/core";
+import { Paper, Container, Grid, Typography, Button, Dialog } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab"
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../api/quiz.service"

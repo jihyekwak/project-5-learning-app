@@ -4,17 +4,16 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
     button : {
         backgroundColor: '#0B5688',
-        // color: '#0B5688',
+        color: 'white',
         fontFamily: 'Viga',
         fontSize: '15px',
         margin: '15px 0',
         padding: '15px 20px',
         borderRadius: '30px',
         "&:hover": {
-            transform: 'scale(1.1)',
+            transform: 'scale(1.2)',
             backgroundColor: '#0B5688',
             cursor: 'pointer',
-            color: 'white'
         },
     }
 }))

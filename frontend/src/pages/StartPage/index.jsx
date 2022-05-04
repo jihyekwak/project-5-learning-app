@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Dialog, Button, Container, Grid, Card, Typography, Avatar} from "@material-ui/core";
+import { Dialog, Button, Container, Grid, Card, Typography} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import StudentForm from '../../components/StudentForm';
 import NavBar from '../../components/NavBar';

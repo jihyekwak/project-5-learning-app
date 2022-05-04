@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from "@material-ui/core";
+import { useEffect } from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../../api/quiz.service";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';

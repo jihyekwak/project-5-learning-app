@@ -5,7 +5,8 @@ import GetStartedBtn from '../GetStartedBtn'
 const useStyles = makeStyles((theme) => ({
     component: {
         padding: '50px',
-        backgroundColor: "#EEECDD"
+        backgroundColor: '#F7F7EE',
+        // backgroundColor: '#C3E0E7',
     },
 }
 ))
