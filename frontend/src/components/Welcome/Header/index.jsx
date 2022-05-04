@@ -1,18 +1,31 @@
-import { Box, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import GetStartedBtn from '../GetStartedBtn';
+import Cover from '../../../assets/image/coverimg2.jpg';
 
 const useStyles = makeStyles((theme) => ({
     component: {
-        // backgroundColor: '#F7F7EE',
-        padding: '50px',
-        // backgroundColor: '#C3E0E7'
-        backgroundColor: "white",
-
+        height: '00px',
+        backgroundImage: `url(${Cover})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
     },
-    headerText : {
-        // fontFamily: 'Viga',
-        margin:'20px'
+    headerTitle: {
+        color: '#0B5688',
+        margin: '20px 0',
+        fontWeight: 'bold',
+    },
+    startBtn: {
+        marginTop: '20px'
+    },
+    cover: {
+        alignItems: 'center',
+        textAlign: 'center',
+        // height: '100%',
+        height: '600px',
+        backgroundImage: `url(${Cover})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
     },
 }
 ))
@@ -22,10 +35,21 @@ const Header = () => {
     const classes = useStyles();
 
     return (
-        <Box className={classes.component}>
-            <Typography variant='h3' className={classes.headerText}>Learning App</Typography>
-            <GetStartedBtn />
-        </Box>
+        // <Container className={classes.component}> 
+            <Grid container spacing={4} className={classes.cover}>
+                <Grid item xs={6}>
+                </Grid>
+                <Grid item xs={6}>
+                    <Typography className={classes.headerTitle} variant='h3'>Love To Learn</Typography>
+                    <Typography variant='h5'>Personalized Learning</Typography>
+                    <div className={classes.startBtn}>
+                        <GetStartedBtn />
+                    </div>
+                </Grid>
+            </Grid>
+
+
+        // </Container>
     )
 }
 

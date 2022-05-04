@@ -1,26 +1,24 @@
 import { useState, } from 'react';
-import { Button, Container, Grid, Paper, Typography } from "@material-ui/core";
+import { Button, Container, Grid, Paper, Typography, Avatar, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import * as React from 'react';
 import NavBar from '../../components/NavBar';
 import QuizForm from '../../components/DashBoard/QuizForm';
 import QuestionForm from '../../components/DashBoard/QuestionForm';
-import Profile from '../../components/Profile';
-import StudentReport from '../../components/StudentReport';
+import Profile from '../../components/DashBoard/Profile';
+import StudentReport from '../../components/DashBoard/StudentReport';
 import CreateIcon from '@material-ui/icons/Create';
 import SettingsIcon from '@material-ui/icons/Settings';
+import DashboardHome from '../../components/DashBoard/DashboardHome';
+
 
 const useStyles = makeStyles((theme) => ({
     gridContainer: {
         justifyContent: 'space-around'
     },
-    button: {
-    },
     headerTitle: {
-        fontFamily: 'Staatliches',
         color: '#0B5688',
-        letterSpacing:'1px',
-        margin: '20px 0'
+        margin: '20px 0',
+        fontWeight: 'bold'
     },
     paper: {
         margin: "15px 0",
@@ -32,7 +30,7 @@ const Dashboard = ({profile, fetchProfile}) => {
 
     const classes = useStyles();
     const [student, setStudent] = useState()
-
+    const [dashboardHome, setDashboardHome] = useState(true)
     const [profileSetting, setProfileSetting] = useState(false)
     const [createQuiz, setCreateQuiz] = useState(false)
     const [editQuiz, setEditQuiz] = useState(false)
@@ -49,6 +47,8 @@ const Dashboard = ({profile, fetchProfile}) => {
         setCreateQuiz(false)
         setEditQuiz(true)
         setEditQuizData(quiz)
+        console.log("quiz", quiz)
+        console.log("editQuizdata", editQuizData)
     }
 
     const handleCompleteEditQuiz = () => {
@@ -62,76 +62,95 @@ const Dashboard = ({profile, fetchProfile}) => {
         <Container>
         <Typography variant='h4' className={classes.headerTitle}>Dashboard</Typography>
             <Grid container className={classes.gridContainer}>
-                <Grid xs={2}>
+                <Grid item xs={2}>
                     <Paper className={classes.paper}>
-                        <Typography variant='h6'>My Student</Typography>
+                        <Button
+                            onClick={()=> {
+                                setStudent()
+                                setCreateQuiz(false)
+                                setEditQuiz(false)
+                                setProfileSetting(false)
+                                setDashboardHome(true)
+                            }}><Typography variant='body1'>DashBoard Home</Typography>
+                        </Button>
+                    </Paper>
+                    <Paper className={classes.paper}>
+                        <Typography variant='body1'>My Students</Typography>
+                        <Divider></Divider><br />
                         {profile.students?.map((student, index) => {
                             return(
                                 <div>
                                     <Button 
-                                        className={classes.button}
                                         key={index}
                                         onClick={() => {
                                             setStudent(student)
                                             setCreateQuiz(false)
                                             setEditQuiz(false)
                                             setProfileSetting(false)
-                                        }}>{student.name}</Button>
+                                            setDashboardHome(false)
+                                        }}>
+                                        <Avatar src={`image/${student.avatar}.png`} alt={student.grade}/>
+                                        <Typography variant='body1'>{student.name}</Typography>
+                                    </Button>
                                 </div>
                             )
                         })}
                     </Paper>
                     <Paper className={classes.paper}>
-                        <Typography variant='h6'>My Quiz</Typography>
+                        <Typography variant='body1'>My Quiz</Typography>
+                        <Divider></Divider><br />
                         <Button
-                            className={classes.button} 
                             onClick={()=> {
                                 setStudent()
                                 setCreateQuiz(true)
                                 setEditQuiz(false)
                                 setProfileSetting(false)
-                            }}><CreateIcon></CreateIcon> Create my quiz</Button>
+                                setDashboardHome(false)
+                            }}><CreateIcon></CreateIcon> <Typography variant='body1'>Create my quiz</Typography></Button>
                     </Paper>
                     <Paper className={classes.paper}>
-                        <Typography variant='h6'>Profile</Typography>
+                        <Typography variant='body1'>Profile</Typography>
+                        <Divider></Divider><br />
                         <Button 
-                            className={classes.button}
                             onClick={()=> {
                                 setStudent()
                                 setCreateQuiz(false)
                                 setEditQuiz(false)
                                 setProfileSetting(true)
-                            }}><SettingsIcon></SettingsIcon> setting</Button>
+                                setDashboardHome(false)
+                            }}><SettingsIcon></SettingsIcon> <Typography variant='body1'>Setting</Typography></Button>
                     </Paper>
                 </Grid>
 
-                <Grid xs={9}>
-                {student? (<>
+                <Grid item xs={9}>
+                    {dashboardHome? <DashboardHome profile={profile} /> : null }
+
+                    {student? (<>
                         <StudentReport 
                             student={student}
                             setStudent={setStudent}
-                            fetchProfile={fetchProfile}
+                            fetchProfile={fetchProfile()}
                             handleStudent={handleStudent}
                             />
                     </>): null }
 
                     {createQuiz? (<>
-                        <QuizForm handleEditQuiz={handleEditQuiz}/>
+                        <QuizForm handleEditQuiz={handleEditQuiz} profile={profile}/>
                     </>) : null }
 
                     {editQuiz? (<>
                         <QuestionForm 
                             handleCompleteEditQuiz={handleCompleteEditQuiz} 
-                            editQuiz={editQuizData}/>
+                            editQuizData={editQuizData}/>
                     </>): null }
 
                     {profileSetting? (<>
                         <Profile profile={profile} fetchProfile={fetchProfile}/>
-                    </>) : null}
+                    </>) : null }
                 </Grid>
             </Grid>
         </Container>
     </>
     )
 }
-export default Dashboard
+export default Dashboard;

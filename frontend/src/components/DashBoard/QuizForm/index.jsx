@@ -1,45 +1,42 @@
 import { useEffect, useState } from "react";
-import * as quizService from "../../../api/quiz.service";
-import { Table, TableContainer, Paper, Button, Typography } from "@material-ui/core";
-import QuizListTable from "../QuizListTable";
+import { Grid, Paper, Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import * as quizService from "../../../api/quiz.service";
+import QuizListTable from "../QuizListTable";
 
 const useStyles = makeStyles((theme) => ({
-	cardMedia: {
-		paddingTop: '56.25%', // 16:9
-	},
-	link: {
-		margin: theme.spacing(1, 1.5),
-	},
-	cardHeader: {
-		backgroundColor:
-			theme.palette.type === 'light'
-				? theme.palette.grey[200]
-				: theme.palette.grey[700],
-	},
-	postTitle: {
-		fontSize: '16px',
-		textAlign: 'left',
-	},
-	postText: {
-		display: 'flex',
-		justifyContent: 'left',
-		alignItems: 'baseline',
-		fontSize: '12px',
-		textAlign: 'left',
-		marginBottom: theme.spacing(2),
-	},
+    paper: {
+        margin: "15px 0",
+        padding: "15px"
+    },
+    input: {
+        width: '20%',
+        height: '30px',
+        margin: '10px 10px'
+    },
+    titleInput: {
+        width: '60%',
+        height: '25px',
+        margin: '10px 10px'
+    },
+    gridContainer: {
+        justifyContent: 'space-between'
+    },
+    paperTitle: {
+        color: '#0B5688',
+        fontWeight: 'bold'
+    }
 }));
 
-const QuizForm = ({handleEditQuiz}) => {
+const QuizForm = ({handleEditQuiz, profile}) => {
 
     const classes = useStyles();
     const [quizList, setQuizList] = useState([])
 
-    const [title, setTitle] = useState();
-    const [subject, setSubject] = useState();
-    const [grade, setGrade] = useState();
-    const [difficulty, setDifficulty] = useState();
+    const [title, setTitle] = useState("");
+    const [subject, setSubject] = useState("");
+    const [grade, setGrade] = useState("");
+    const [difficulty, setDifficulty] = useState("");
 
     const fetchQuizzes = async () => {
         await quizService.getAll().then((res) => {
@@ -53,75 +50,67 @@ const QuizForm = ({handleEditQuiz}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        let newQuiz = {title, subject, grade, difficulty}
-        let res = await quizService.create(newQuiz).then((res) => {
+        let newQuiz = {title, subject, grade, difficulty, author: `${profile.id}`}
+        await quizService.create(newQuiz).then((res) => {
             console.log(res)
             fetchQuizzes()
-
+            setTitle("")
+            setSubject("")
+            setGrade("")
+            setDifficulty("")
         })
-        if (!res===201) {
-            alert(`ERROR! It was code: ${res.status}`)
-        }
     }
-
-    // const handleEdit = (quiz) => {
-    //     setEdit(true)
-    //     setEditQuiz(quiz)
-    // }
-
-    // const handleDelete = async (id) => {
-    //     await quizService.destroy(id).then((res) => {
-    //         fetchQuizzes()
-    //     })
-    // }
-
-    // if (edit) {
-    //     return (
-    //         <QuestionForm quiz={editQuiz}/>
-    //     )
-    // }
 
     return(
     <>
-        <Paper>
-            <Typography variant="h6">Create New Quiz</Typography>
-            <label>Title:</label>
-            <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
-            <label>Subject</label>
-            <select value={grade} onChange={(e)=> setSubject(e.target.value)}>
-                <option>---</option>
-                <option value="Math">Math</option>
-                <option value="English">English</option>
-                <option value="Spanish">Spanish</option>
-                <option value="Korean">Korean</option>
-                <option value="Science">Science</option>
-                <option value="Social Studies">Social Studies</option>
-            </select>
+        <Paper className={classes.paper}>
+            <Grid container className={classes.gridContainer}>
+                <Grid item xs={3}>
+                    <Typography className={classes.paperTitle} variant="h6">Create New Quiz</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                    <div>
+                        <label>Grade</label>
+                        <select className={classes.input} value={grade} onChange={(e)=> setGrade(e.target.value)}>
+                            <option>---</option>
+                            <option value="Pre-K">Pre-K</option>
+                            <option value="Kindergarten">Kindergarten</option>
+                            <option value="1st Grade">1st Grade</option>
+                            <option value="2nd Grade">2nd Grade</option>
+                            <option value="3rd Grade">3rd Grade</option>
+                        </select>
 
-            <label>Grade</label>
-            <select value={grade} onChange={(e)=> setGrade(e.target.value)}>
-                <option>---</option>
-                <option value="Pre-K">Pre-K</option>
-                <option value="Kindergarten">Kindergarten</option>
-                <option value="1st Grade">1st Grade</option>
-                <option value="2nd Grade">2nd Grade</option>
-                <option value="3rd Grade">3rd Grade</option>
-            </select>
+                        <label>Subject</label>
+                        <select className={classes.input} value={subject} onChange={(e)=> setSubject(e.target.value)}>
+                            <option>---</option>
+                            <option value="Math">Math</option>
+                            <option value="English">English</option>
+                            <option value="Spanish">Spanish</option>
+                            <option value="Korean">Korean</option>
+                            <option value="Science">Science</option>
+                            <option value="Social Studies">Social Studies</option>
+                        </select>
 
-            <label>Difficulty</label>
-            <select value={difficulty} onChange={(e)=> setDifficulty(e.target.value)}>
-                <option>---</option>
-                <option value="easy">easy</option>
-                <option value="medium">medium</option>
-                <option value="difficult">difficult</option>
-            </select>
-            <Button type="submit"  onClick={handleSubmit}>Submit</Button>  
+                        <label>Difficulty</label>
+                        <select className={classes.input} value={difficulty} onChange={(e)=> setDifficulty(e.target.value)}>
+                            <option>---</option>
+                            <option value="easy">easy</option>
+                            <option value="medium">medium</option>
+                            <option value="difficult">difficult</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label>Title</label>
+                        <input  className={classes.titleInput} type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                        <Button type="submit" variant="contained" onClick={handleSubmit}>Submit</Button>  
+                    </div>
+                    
+                </Grid>
+            </Grid>
         </Paper>
 
-        <br />
-        <QuizListTable quizList={quizList} fetchQuizzes={fetchQuizzes} handleEditQuiz={handleEditQuiz}/>
-
-                                   {/* <Link color="textPrimary" href={`/quiz/${quiz.id}/edit`} className={classes.link}><EditIcon onClick={handleEdit}></EditIcon></Link> */}
+        <QuizListTable quizList={quizList} fetchQuizzes={fetchQuizzes} handleEditQuiz={handleEditQuiz} profile={profile}/>
     </>
     )
 }

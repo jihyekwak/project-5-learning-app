@@ -1,16 +1,48 @@
 import { useState, useEffect } from 'react';
 import { useParams} from "react-router-dom";
-import { Container, Grid, Typography, Button, Dialog, Card } from "@material-ui/core";
+import { Paper, Container, Grid, Typography, Button, Dialog } from "@material-ui/core";
+import { Alert, AlertTitle } from "@material-ui/lab"
 import { makeStyles } from "@material-ui/core/styles";
 import * as quizService from "../../api/quiz.service"
 import * as userService from "../../api/user.service";
+import LearnerNavBar from '../../components/LearnerNavBar/inex';
+import useSound from 'use-sound';
+import pop from '../../assets/sound/stories_sounds_pop-up-off.mp3'
 
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        marginTop: '100px' 
+        marginTop: '150px',
     },
-    gridContainer: {
+    paper: {
+        margin: "15px 0",
+        padding: "15px"
+    },
+    gridFirstContainer: {
+        justifyContent: 'space-around'
+    },
+    gridItemStart: {
+        textAlign: 'center',
+    },
+    startButton: {
+        backgroundColor: '#0B568850',
+        margin: '40px',
+        padding: '10px',
+        width: '200px',
+        height: '100px',
+        fontFamily: 'Viga',
+        fontSize: '20px',
+        "&:hover": {
+            transform: 'scale(1.1)',
+            backgroundColor: '#0B5688',
+            color: 'white',
+            cursor: 'pointer'
+        },
+    },
+    gridSecondContainer: {
+        justifyContent: 'space-around'
+    },
+    gridQuestionContainer: {
         alignItems: 'center',
         justifyContent: 'center',
         gap: '100px',
@@ -39,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Sniglet',
         margin: '30px'
     },
-    button : {
+    backButton : {
         backgroundColor: '#0B568850',
         color: '#0B5688',
         fontFamily: 'Viga',
@@ -53,16 +85,6 @@ const useStyles = makeStyles((theme) => ({
             color: 'white',
             cursor: 'pointer'
         },
-    },
-    card: {
-        // backgroundColor: '#F9D263',
-        padding: '10px',
-        // borderRadius: '20px',
-        textAlign: 'center',
-        height: '100%',
-        "&:hover": {
-            transform: 'scale(1.05)'
-        },
     }
 }))
 
@@ -70,19 +92,25 @@ const TakeQuizPage = () => {
 
     const classes = useStyles();
     const {id} =useParams();
-    const {student} = useParams();
-    const [quizTitle, setQuizTitle] = useState("")
+    const {studentId} = useParams();
+    const [quiz, setQuiz] = useState("")
     const [questionList, setQuestionList] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
-    const [showScore, setShowScore] = useState(false);
-    const [start, setStart] = useState(false);
-    const [takenQuiz, setTakenQuiz] = useState("")
     const [isCompleted, setIsCompleted] = useState(false)
+    const [takenQuiz, setTakenQuiz] = useState("")
+
+    const [start, setStart] = useState(false);
+    const [alertShow, setAlerShow] = useState(false)
+    const [showScore, setShowScore] = useState(false);
+    const [tryAgain, setTryAgain] = useState(false);
+    const [incorrect, setIncorrect] = useState(0);
+    const [play] = useSound(pop);
+
 
     const fetchQuiz = async () => {
         await quizService.getOne(`${id}`).then((res) => {
-            setQuizTitle(res.data.title)
+            setQuiz(res.data)
             setQuestionList(res.data.questions)
         })
     }
@@ -93,7 +121,7 @@ const TakeQuizPage = () => {
 
     const handleStart = async() => {
         setStart(true)
-        let newTakenQuiz = {student: `${student}`, quiz_id: `${id}`, is_completed: false, score: 0}
+        let newTakenQuiz = {student: `${studentId}`, quiz_id: `${id}`, is_completed: false, score: 0}
         console.log(newTakenQuiz)
         await userService.takenQuizCreate(newTakenQuiz).then((res)=>{
             setTakenQuiz(res.data.id)
@@ -101,94 +129,143 @@ const TakeQuizPage = () => {
     }
 
     const updateTakenQuiz = async() => {
-        await userService.takenQuizUpdate(`${takenQuiz}`, {student: `${student}`, quiz_id: `${id}`, is_completed: isCompleted, score: `${score}`}).then((res) => {
+        await userService.takenQuizUpdate(`${takenQuiz}`, {student: `${studentId}`, quiz_id: `${id}`, is_completed: isCompleted, score: `${score}`}).then((res) => {
             console.log(res)
         })
     }
 
     const handleSelection = (correct) => {
-
-        if (correct) {
-            setScore(score + 1);
-        }
-
         const nextQuestion = currentQuestion+ 1;
-        if (nextQuestion < questionList.length) {
-            setCurrentQuestion(nextQuestion);
+        if (!correct) {
+            setAlerShow(true)
+            setCurrentQuestion(currentQuestion)
+            setTryAgain(true)
+        } else if (correct && tryAgain) {
+            setTryAgain(false)
+            if (nextQuestion < questionList.length) {
+                setCurrentQuestion(nextQuestion);
+                setIncorrect(incorrect+1);
+            } else {
+                setIsCompleted(true)
+                setShowScore(true)
+            }
         } else {
-            setIsCompleted(true)
-            setShowScore(true)
-            // updateTakenQuiz()
+            setScore(score + 1);
+            if (nextQuestion < questionList.length) {
+                setCurrentQuestion(nextQuestion);
+            } else {
+                setIsCompleted(true)
+                setShowScore(true)
+            }
         }
     }
 
     const handleTryAgain = () => {
+        updateTakenQuiz()
+        setStart(false)
         setCurrentQuestion(0);
         setScore(0);
         setIsCompleted(false);
         setShowScore(false);
     }
 
-    if (!start) {
-        return (
-            <>
-            {/* <LearnerNavBar /> */}
-            <Container>
-                <Card className={classes.card}>
-                    <Typography variant='h3'>{quizTitle}</Typography>
-                <Button onClick={handleStart} className={classes.button}>Start</Button>
-                <Button href={`/student/${student}/`} className={classes.button}>Go Back</Button>
+    return (
+        <>
+        <LearnerNavBar />
+            <Container className={classes.container}>
+                <Grid container className={classes.gridFirstContainer}>
+                    <Grid item xs={2}>
+                        <Paper className={classes.paper}>
+                            <Typography variant='h4'>{quiz.title}</Typography>
+                            <br />
+                            <Typography variant='body1'>Subject: {quiz.subject}</Typography>
+                            <Typography variant='body1'>Grade: {quiz.grade}</Typography>
+                            <Typography variant='body1'>Difficulty: {quiz.difficulty}</Typography>
+                            <Typography variant='body1'>{quiz.questions?.length} Questions</Typography>
+                        </Paper>
+                        <Button href={`/student/${studentId}/`} onClick={()=> updateTakenQuiz()} className={classes.backButton}>Quit</Button>
+                    </Grid>
+                    <Grid item xs={9}>
+                        {!start? (
+                                <Grid Container className={classes.gridItemStart}>
+                                    <Grid item xs={8}>
+                                            <Button onClick={handleStart} className={classes.startButton}>Start</Button>
+                                        <Button href={`/student/${studentId}/`} className={classes.startButton}>Go Back</Button>
+                                    </Grid>
+                                </Grid>
+                        ):(<>
+                            <div>
+                                <Grid container className={classes.gridSecondContainer}>
+                                    <Grid item xs={9}>   
+                                        <Typography variant='body1'>Question {currentQuestion +1 }/{questionList.length}</Typography>
+                                        <Grid container className={classes.gridQuestionContainer}>
+                                            <Grid item x3={4}>
+                                                <Typography variant='h1' className={classes.question}>
+                                                {questionList[currentQuestion]?.text}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item x3={8}>
+                                            {questionList[currentQuestion]?.answers?.map(({text, is_correct, id})=> {
+                                                return(
+                                                    <div key={id}>
+                                                        <Button 
+                                                            onClick={() => {
+                                                                handleSelection(is_correct)
+                                                                play()
+                                                            }} 
+                                                            className={classes.selectButton}>{text}</Button>
+                                                    </div>
+                                                )
+                                            })}
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
 
-                </Card>
+                                    <Grid item xs={2}>
+                                        <Paper className={classes.paper}>
+                                            <Typography variant='h6'>Quiz Score</Typography>
+                                            <br />
+                                            <Typography>Correct: {score}</Typography>
+                                            <Typography>Incorrect: {incorrect}</Typography>
+                                        </Paper>
+                                    </Grid>
+                                </Grid>
+                
+                                <Dialog open={alertShow} >
+                                    <Alert severity="warning" onClose={()=> {setAlerShow(false)}}>
+                                        <AlertTitle><Typography variant='h6'>Try Again!</Typography></AlertTitle>
+                                    </Alert>
+                                </Dialog>
+                
+                                <Dialog open={showScore}>
+                                    <Typography variant='h5' align='center' className={classes.score} >
+                                        You scored {score} out of {questionList.length}!
+                                    </Typography>
+                                    <div style={{margin: 'auto auto'}}>
+                                        <Button onClick={() => handleTryAgain()} className={classes.button}>Try Again</Button>
+                                        <Button href={`/student/${studentId}/`} onClick={()=>updateTakenQuiz()}className={classes.button}>Quiz List</Button>
+                                    </div>
+                                </Dialog>
+
+                            </div>
+                            </>)}
+
+                    </Grid>
+                </Grid>
+                {/* <Box className={classes.box}>
+                    <Typography variant='h3'>{quiz.title}</Typography>
+                    <Typography variant='body1'>Subject: {quiz.subject}</Typography>
+                    <Typography variant='body1'>Grade: {quiz.grade}</Typography>
+                    <Typography variant='body1'>Difficulty: {quiz.difficulty}</Typography>
+                    <Typography variant='body1'>{quiz.questions?.length} Questions</Typography>
+                    <Button onClick={handleStart} className={classes.button}>Start</Button>
+                    <Button href={`/student/${studentId}/`} className={classes.button}>Go Back</Button>
+                </Box> */}
+                {/* </Card> */}
                 
             </Container>
-            </>
-
-        )
-    } else {
-        return(
-            <>
-            {/* <LearnerNavBar /> */}
-            <Container>
-                {showScore ? (
-                    <Dialog open={true}>
-                        <Typography align='center' className={classes.score} >
-                            <h2>You scored {score} out of {questionList.length}!</h2>
-                        </Typography>
-                        <div style={{margin: 'auto auto'}}>
-                            <Button onClick={() => handleTryAgain()} className={classes.button}>Try Again</Button>
-                            <Button href={`/student/${student}/`} onClick={()=>updateTakenQuiz()}className={classes.button}>Quiz List</Button>
-                        </div>
-                    </Dialog>
-                ) : (
-                    <>
-                        <p>Question {currentQuestion +1 }/{questionList.length}</p>
-                        <Grid container className={classes.gridContainer}>
-                            <Grid item x3={4}>
-                                <Typography variant='h1' className={classes.question}>
-                                    {questionList[currentQuestion]?.text}
-                                </Typography>
-                            </Grid>
-                            <Grid item x3={8}>
-                                {questionList[currentQuestion]?.answers?.map(({text, is_correct, id})=> {
-                                    return(
-                                        <div key={id}>
-                                            <Button onClick={() => handleSelection(is_correct)} className={classes.selectButton}>{text}</Button>
-                                        </div>
-                                    )
-                                })}
-                            </Grid>
-                        </Grid>
-                        <Button href={`/student/${student}/`} onClick={()=> updateTakenQuiz()} className={classes.button}>Go Back</Button>
-                    </>
-                )}
-    
-            </Container>
-            </>
-           
-        )
-    }
-
+        </>
+    )
 
 }
 export default TakeQuizPage;

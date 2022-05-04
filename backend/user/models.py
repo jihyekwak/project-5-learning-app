@@ -4,7 +4,14 @@ from quiz.models import Quiz
 # Create your models here.
 
 AVATAR_CHOICES = {
-    ('1', 'avatar1')
+    ('boy_avatar1', 'Boy Avatar1'),
+    ('boy_avatar2', 'Boy Avatar2'),
+    ('boy_avatar3', 'Boy Avatar3'),
+    ('boy_avatar4', 'Boy Avatar4'),
+    ('girl_avatar1', 'Girl Avatar1'),
+    ('girl_avatar2', 'Girl Avatar2'),
+    ('girl_avatar3', 'Girl Avatar3'),
+    ('girl_avatar4', 'Girl Avatar4'),
 }
 
 GRADE_CHOICES = {

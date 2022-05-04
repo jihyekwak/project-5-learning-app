@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Grid, Button, Box, Typography, TextField, Link, CssBaseline} from "@material-ui/core";
+import { Container, Grid, Button, Box, Typography, TextField, Link} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as authService from '../../api/auth.service';
 
@@ -12,12 +12,10 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%)',
     },
     headerText: {
-        fontFamily: 'Viga',
         textAlign: 'center',
         margin: '15px 0'
     },
     input: {
-        backgroundColor: '#9ad4c7',
         width: '100%',
     },
     button: {

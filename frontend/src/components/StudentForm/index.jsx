@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { InputLabel, Select, Button, Box, Typography, TextField, Link, CssBaseline, DialogTitle } from "@material-ui/core";
+import { InputLabel, Select, Button, Box, Typography, TextField, Link, DialogTitle } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as userService from '../../api/user.service';
 
@@ -75,7 +75,14 @@ const StudentForm = (props) => {
                 variant='filled'
                 onChange={(e)=> setAvatar(e.target.value)}>
                 <option>select</option>
-                <option value="1">avatar1</option>
+                <option value="boy_avatar1">Boy Avatar1</option>
+                <option value="boy_avatar2">Boy Avatar2</option>
+                <option value="boy_avatar3">Boy Avatar3</option>
+                <option value="boy_avatar4">Boy Avatar4</option>
+                <option value="girl_avatar1">Girl Avatar1</option>
+                <option value="girl_avatar2">Girl Avatar2</option>
+                <option value="girl_avatar3">Girl Avatar3</option>
+                <option value="girl_avatar4">Girl Avatar4</option>
             </Select>
             <div>
                 <Button className={classes.button} type="submit">Add</Button>
