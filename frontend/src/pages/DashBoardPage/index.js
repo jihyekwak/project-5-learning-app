@@ -1,13 +1,13 @@
 import { useState, } from 'react';
 import { Button, Container, Grid, Paper, Typography, Avatar, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import CreateIcon from '@material-ui/icons/Create';
+import SettingsIcon from '@material-ui/icons/Settings';
 import NavBar from '../../components/NavBar';
 import QuizForm from '../../components/DashBoard/QuizForm';
 import QuestionForm from '../../components/DashBoard/QuestionForm';
 import Profile from '../../components/DashBoard/Profile';
 import StudentReport from '../../components/DashBoard/StudentReport';
-import CreateIcon from '@material-ui/icons/Create';
-import SettingsIcon from '@material-ui/icons/Settings';
 import DashboardHome from '../../components/DashBoard/DashboardHome';
 
 
