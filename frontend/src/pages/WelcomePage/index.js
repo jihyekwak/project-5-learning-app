@@ -1,5 +1,5 @@
 import Header from '../../components/Welcome/Header';
-import About from '../../components/Welcome/About';
+import About from '../../components/Welcome/Parents';
 import Footer from '../../components/Welcome/Footer';
 import GetStarted from '../../components/Welcome/GetStarted';
 // import Description from '../../components/Welcome/Description';

@@ -6,8 +6,6 @@ import Logout from '../../components/Logout';
 const useStyles = makeStyles((theme) => ({
     appbar: {
         backgroundColor: '#87BCC7',
-        // backgroundColor: '#C3E0E7'
-        // backgroundColor: 'white'
     },
     toolbar: {
         justifyContent:'space-between',

@@ -26,19 +26,21 @@ const useStyles = makeStyles((theme) => ({
     headerTitle: {
         color: '#0B5688',
         margin: '20px 0',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
     subject: {
         margin: '20px 0 10px 0'
     },
     paper: {
         margin: "15px 0",
-        padding: "15px",
+        padding: "10px",
+        minWidth: "100px",
+        textAlign: "center"
     },
     container: {
         width: '70%'
     }
-
 }));
 
 const QuizPage = ({profile}) => {

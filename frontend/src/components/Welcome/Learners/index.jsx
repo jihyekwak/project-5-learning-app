@@ -4,12 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
     component: {
         backgroundColor: '#F7F7EE',
-        padding: '20px',
-        // backgroundColor: '#C3E0E7',
-        // backgroundColor: "white",
+        padding: '50px',
     },
     headerText : {
-        // fontFamily: 'Viga',
         margin:'20px'
     },
     img: {
@@ -39,7 +36,7 @@ const Learners = () => {
         <Box className={classes.component}>
             <Container className={classes.homepageContainer}>
                 <br/><br/>
-                <Typography className={classes.headerTitle} variant='h5'>Lerners</Typography>
+                <Typography className={classes.headerTitle} variant='h5'>Learners</Typography>
                 <Grid container className={classes.grid}>
                     <Grid item xs={5}>
                         <img src="image/quizlist.png" alt="dashboard" className={classes.img}/>
@@ -54,7 +51,7 @@ const Learners = () => {
                 <Grid container className={classes.grid}>
                     <Grid item xs={6}>
                     <Typography variant='h4' className={classes.headerTitle}>Take Quiz</Typography>
-                        <Typography variant='body1'>Learner can take quizzes in their grade. Learner can see the how many questions correct or incorrect. And after taking quiz, the score is stored and gain the reward. Learner can try again and go back to quiz list. </Typography>
+                        <Typography variant='body1'>Learners can take quizzes in their grade. Learner can see the how many questions correct or incorrect. And after taking quiz, the score is stored and gain the reward. Learner can try again and go back to quiz list. </Typography>
                     </Grid>
                     <Grid item xs={1}></Grid>
                     <Grid item xs={5}>

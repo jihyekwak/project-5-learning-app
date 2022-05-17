@@ -1,45 +1,42 @@
 
-# Learning App
-This app is learning app for kids.
+# Love To Learn
+This app is personalized learning app for kids. Parent user can make student user, and student user can take quizzes. Parent user can see the student's report.
 
 #### Table of Contents  
-1. [About The Project](#about-the-project)
-2. [User Stories](#user-stories)
-3. [User Flow](#user-flow)
-4. [ERD](#erd)
-5. [Wireframes](#wireframes)
-6. [Technologies used](#technologies-used)
+- [Love To Learn](#love-to-learn)
+      - [Table of Contents](#table-of-contents)
+- [About The Project](#about-the-project)
+- [User Stories](#user-stories)
+- [User Flow](#user-flow)
+- [ERD](#erd)
+- [Wireframes](#wireframes)
+- [Technologies Used](#technologies-used)
 
 # About The Project  
-
+Built a full stack web application utilizing Django Rest Framework, PostgreSQL database for backend. Created restful API with CRUD features for User, Student user, Quiz, Question, Taken Quiz. The app has signup and login features with JWT authentication. React and Material UI were used for frontend. 
 
 # User Stories
 Home Page (Laning page) / General:
 - AAU, I want to know what the website is about.  
-- AAU, I want to have navigation for pages.  
 - AAU, I want to sign up and login. 
-- AAU, I want to click logout button. 
 
-Dashbord / Profile Page
-- AAU, I want to see the quiz I taken.
-- AAU, I want to add new quizset.
-- AAU, I want to delete quizset.
-- AAU, I want to click to edit my profile setting.
-
-Quizset List Page
-- AAU, I want to see the list of quizset. 
-- AAU, I want to search quizset.
-- AAU, I want to click to take quiz.
+Start Page (Student page):
+- AAU, I want to add student user.
+- AAU, I want to click to start quizzes.
+- AAU, I want to click to go to dashboard.
 
 Quiz Page:
-- AAU, I want to click to start quiz.
+- AAU, I want to see the list of quizzes and click to start quiz.
 - AAU, I want to choose the answer from choices.
 - AAU, I want to quit the quiz.
-
-Quiz Result Page:  
 - AAU, I want to see the result.
 - AAU, I want to click to try again.
- 
+
+Dashbord / Profile Page
+- AAU, I want to see the students' report.
+- AAU, I want to add new quizzes.
+- AAU, I want to add new questions.
+- AAU, I want to click to edit my profile setting.
 
 # User Flow
  ![image](https://user-images.githubusercontent.com/47770303/163765706-9464c79b-7534-48a4-87a6-19fde655b2f5.png)
@@ -52,5 +49,8 @@ Quiz Result Page:
 
 # Technologies Used
 - Django-rest-framework
-- React
+- JWT Authentication
 - PostgreSQL
+- React
+- Material UI
+

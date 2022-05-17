@@ -3,13 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     component: {
-        // backgroundColor: '#F7F7EE',
-        padding: '20px',
+        padding: '50px',
         backgroundColor: '#C3E0E7',
-        // backgroundColor: "white",
     },
     headerText : {
-        // fontFamily: 'Viga',
         margin:'20px'
     },
     img: {
@@ -31,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }
 ))
 
-const About = () => {
+const Parents = () => {
 
     const classes = useStyles();
 
@@ -39,7 +36,7 @@ const About = () => {
         <Box className={classes.component}>
             <Container className={classes.homepageContainer}>
                 <br/><br/>
-                <Typography className={classes.headerTitle} variant='h5'>Parent</Typography>
+                <Typography className={classes.headerTitle} variant='h5'>Parents</Typography>
                 <Grid container className={classes.grid}>
                     <Grid item xs={5}>
                         <img src="image/dashboard.png" alt="dashboard" className={classes.img}/>
@@ -66,4 +63,4 @@ const About = () => {
     )
 }
 
-export default About
+export default Parents

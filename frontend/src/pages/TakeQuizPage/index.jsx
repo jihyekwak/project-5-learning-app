@@ -16,19 +16,21 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         margin: "15px 0",
-        padding: "15px"
+        padding: "15px",
     },
     gridFirstContainer: {
         justifyContent: 'space-around'
     },
     gridItemStart: {
         textAlign: 'center',
+        justifyContent: 'center',
+        marginTop: '100px'
     },
     startButton: {
         backgroundColor: '#0B568850',
-        margin: '40px',
+        // margin: '40px',
         padding: '10px',
-        width: '200px',
+        width: '80%',
         height: '100px',
         fontFamily: 'Viga',
         fontSize: '20px',
@@ -68,7 +70,6 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     score: {
-        fontFamily: 'Sniglet',
         margin: '30px'
     },
     backButton : {
@@ -76,15 +77,22 @@ const useStyles = makeStyles((theme) => ({
         color: '#0B5688',
         fontFamily: 'Viga',
         fontSize: '15px',
-        margin: '15px 10px',
+        margin: '15px 0px',
         padding: '10px',
-        width: '100px',
         "&:hover": {
             transform: 'scale(1.1)',
             backgroundColor: '#0B5688',
             color: 'white',
             cursor: 'pointer'
         },
+    },
+    button: {
+        backgroundColor: '#0B568850',
+        color: '#0B5688',
+        fontFamily: 'Viga',
+        fontSize: '15px',
+        margin: '15px 10px',
+        padding: '10px',
     }
 }))
 
@@ -174,7 +182,7 @@ const TakeQuizPage = () => {
         <LearnerNavBar />
             <Container className={classes.container}>
                 <Grid container className={classes.gridFirstContainer}>
-                    <Grid item xs={2}>
+                    <Grid item xs={3}>
                         <Paper className={classes.paper}>
                             <Typography variant='h4'>{quiz.title}</Typography>
                             <br />
@@ -183,20 +191,28 @@ const TakeQuizPage = () => {
                             <Typography variant='body1'>Difficulty: {quiz.difficulty}</Typography>
                             <Typography variant='body1'>{quiz.questions?.length} Questions</Typography>
                         </Paper>
+                        <Paper className={classes.paper}>
+                                            <Typography variant='h6'>Quiz Score</Typography>
+                                            <br />
+                                            <Typography>Correct: {score}</Typography>
+                                            <Typography>Incorrect: {incorrect}</Typography>
+                        </Paper>
                         <Button href={`/student/${studentId}/`} onClick={()=> updateTakenQuiz()} className={classes.backButton}>Quit</Button>
                     </Grid>
                     <Grid item xs={9}>
                         {!start? (
-                                <Grid Container className={classes.gridItemStart}>
-                                    <Grid item xs={8}>
-                                            <Button onClick={handleStart} className={classes.startButton}>Start</Button>
+                                <Grid container className={classes.gridItemStart} spacing={4}>
+                                    <Grid item xs={4}>
+                                        <Button onClick={handleStart} className={classes.startButton}>Start</Button>
+                                    </Grid>
+                                    <Grid item xs={4}>
                                         <Button href={`/student/${studentId}/`} className={classes.startButton}>Go Back</Button>
                                     </Grid>
                                 </Grid>
                         ):(<>
                             <div>
                                 <Grid container className={classes.gridSecondContainer}>
-                                    <Grid item xs={9}>   
+                                    <Grid item xs={11}>   
                                         <Typography variant='body1'>Question {currentQuestion +1 }/{questionList.length}</Typography>
                                         <Grid container className={classes.gridQuestionContainer}>
                                             <Grid item x3={4}>
@@ -220,15 +236,6 @@ const TakeQuizPage = () => {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-
-                                    <Grid item xs={2}>
-                                        <Paper className={classes.paper}>
-                                            <Typography variant='h6'>Quiz Score</Typography>
-                                            <br />
-                                            <Typography>Correct: {score}</Typography>
-                                            <Typography>Incorrect: {incorrect}</Typography>
-                                        </Paper>
-                                    </Grid>
                                 </Grid>
                 
                                 <Dialog open={alertShow} >
@@ -243,7 +250,7 @@ const TakeQuizPage = () => {
                                     </Typography>
                                     <div style={{margin: 'auto auto'}}>
                                         <Button onClick={() => handleTryAgain()} className={classes.button}>Try Again</Button>
-                                        <Button href={`/student/${studentId}/`} onClick={()=>updateTakenQuiz()}className={classes.button}>Quiz List</Button>
+                                        <Button href={`/student/${studentId}/`} onClick={()=>updateTakenQuiz()} className={classes.button}>Quiz List</Button>
                                     </div>
                                 </Dialog>
 
@@ -252,17 +259,6 @@ const TakeQuizPage = () => {
 
                     </Grid>
                 </Grid>
-                {/* <Box className={classes.box}>
-                    <Typography variant='h3'>{quiz.title}</Typography>
-                    <Typography variant='body1'>Subject: {quiz.subject}</Typography>
-                    <Typography variant='body1'>Grade: {quiz.grade}</Typography>
-                    <Typography variant='body1'>Difficulty: {quiz.difficulty}</Typography>
-                    <Typography variant='body1'>{quiz.questions?.length} Questions</Typography>
-                    <Button onClick={handleStart} className={classes.button}>Start</Button>
-                    <Button href={`/student/${studentId}/`} className={classes.button}>Go Back</Button>
-                </Box> */}
-                {/* </Card> */}
-                
             </Container>
         </>
     )

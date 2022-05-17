@@ -4,12 +4,6 @@ import GetStartedBtn from '../GetStartedBtn';
 import Cover from '../../../assets/image/coverimg2.jpg';
 
 const useStyles = makeStyles((theme) => ({
-    component: {
-        height: '00px',
-        backgroundImage: `url(${Cover})`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-    },
     headerTitle: {
         color: '#0B5688',
         margin: '20px 0',

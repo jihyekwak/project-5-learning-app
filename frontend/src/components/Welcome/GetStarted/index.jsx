@@ -6,7 +6,11 @@ const useStyles = makeStyles((theme) => ({
     component: {
         padding: '50px',
         backgroundColor: '#F7F7EE',
-        // backgroundColor: '#C3E0E7',
+    },
+    headerTitle: {
+        color: '#0B5688',
+        margin: '20px 0',
+        fontWeight: 'bold',
     },
 }
 ))
@@ -17,7 +21,7 @@ const GetStarted = () => {
 
     return (
         <Box className={classes.component}>
-            <Typography variant='h5'>Ready to start?</Typography>
+            <Typography variant='h5' className={classes.headerTitle}>Ready to start?</Typography>
             <GetStartedBtn />
         </Box>
     )
