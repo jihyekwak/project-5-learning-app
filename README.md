@@ -1,16 +1,23 @@
-
-# Love To Learn
-This app is personalized learning app for kids. Parent user can make student user, and student user can take quizzes. Parent user can see the student's report.
+<img width="1606" alt="lovetolearn" src="https://user-images.githubusercontent.com/47770303/168734224-12463490-be57-4419-8196-717952cd1381.png">
 
 #### Table of Contents  
 - [Love To Learn](#love-to-learn)
-      - [Table of Contents](#table-of-contents)
+- [Table of Contents](#table-of-contents)
 - [About The Project](#about-the-project)
 - [User Stories](#user-stories)
 - [User Flow](#user-flow)
 - [ERD](#erd)
 - [Wireframes](#wireframes)
 - [Technologies Used](#technologies-used)
+
+# Love To Learn
+
+This app is personalized learning app for kids. Parent user can make student users, and student users can take quizzes. Parent user can see the student's report and create quizzes for their kids.  
+
+![quizlist](https://user-images.githubusercontent.com/47770303/168732610-e94319f5-e77b-4b11-9e93-4795b4cdaf67.png)
+![quiz](https://user-images.githubusercontent.com/47770303/168732325-6449213d-eb24-44a9-a07d-a0acd6563f25.png)
+![dashbooard](https://user-images.githubusercontent.com/47770303/168732280-39b15082-86a4-4cf8-aa81-df2bf72648cd.png)
+![createquiz](https://user-images.githubusercontent.com/47770303/168732360-f3e011c6-3d14-4086-857d-d4cc9934ba1a.png)
 
 # About The Project  
 Built a full stack web application utilizing Django Rest Framework, PostgreSQL database for backend. Created restful API with CRUD features for User, Student user, Quiz, Question, Taken Quiz. The app has signup and login features with JWT authentication. React and Material UI were used for frontend. 
