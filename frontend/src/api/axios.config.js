@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backendAPI = "https://lovetolearnapp.herokuapp.com/api/" ||"http://127.0.0.1:8000/api/" 
+const backendAPI = "http://127.0.0.1:8000/api/" 
 
 // const user = JSON.parse(localStorage.getItem("user"))
 

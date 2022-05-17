@@ -23,14 +23,14 @@ const useStyles = makeStyles((theme) => ({
     },
     addbutton : {
         width: '25%',
-        height: '50px',
+        height: '80px',
         borderRadius: '100px',
         fontFamily: 'Viga',
         fontSize: '20px',
-        margin: '50px auto',
+        margin: '100px auto',
+        alignItems: 'center',
         backgroundColor: '#0B568850',
         "&:hover": {
-            // transform: 'scale(1.1)',
             cursor: 'pointer',
             backgroundColor: '#0B568890'
         },
@@ -109,7 +109,10 @@ const StartPage = ({profile}) => {
                     )
                 })}
             </Grid>
-            <Button onClick={handleOpen} className={classes.addbutton}>+ New Student</Button>
+            <Grid container>
+                <Button onClick={handleOpen} className={classes.addbutton}>+ New Student</Button>
+            </Grid>
+
             <Dialog open={addStudent} fullWidth='true'>
                 <StudentForm handleClose={handleClose}/>
             </Dialog>

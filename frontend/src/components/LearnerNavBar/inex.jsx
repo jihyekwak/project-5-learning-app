@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme) => ({
     appbar: {
         backgroundColor: '#87BCC7',
         height: '65px',
-        // backgroundColor: '#C3E0E7'
     },
     toolbar: {
         justifyContent:'space-between',
@@ -53,8 +52,9 @@ const LearnerNavBar = () => {
     const current = new Date();
     const year = current.getFullYear()
     const month = `${current.getMonth() + 1}`.padStart(2, "0")
-    const day = `${current.getDate()}`.padStart(2, "0")
+    const day = `${current.getDate()+1}`.padStart(2, "0")
     const date = [year, month, day].join("-")
+    console.log(date)
 
     const fetchStudent = async () => {
         await userService.getOneStudent(studentId).then((res)=> {

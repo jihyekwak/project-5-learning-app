@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     cover: {
         alignItems: 'center',
         textAlign: 'center',
-        // height: '100%',
         height: '600px',
         backgroundImage: `url(${Cover})`,
         backgroundPosition: 'center',
@@ -35,21 +34,17 @@ const Header = () => {
     const classes = useStyles();
 
     return (
-        // <Container className={classes.component}> 
-            <Grid container spacing={4} className={classes.cover}>
-                <Grid item xs={6}>
-                </Grid>
-                <Grid item xs={6}>
-                    <Typography className={classes.headerTitle} variant='h3'>Love To Learn</Typography>
-                    <Typography variant='h5'>Personalized Learning</Typography>
-                    <div className={classes.startBtn}>
-                        <GetStartedBtn />
-                    </div>
-                </Grid>
+        <Grid container spacing={4} className={classes.cover}>
+            <Grid item xs={6}>
             </Grid>
-
-
-        // </Container>
+            <Grid item xs={6}>
+                <Typography className={classes.headerTitle} variant='h3'>Love To Learn</Typography>
+                <Typography variant='h5'>Personalized Learning</Typography>
+                <div className={classes.startBtn}>
+                    <GetStartedBtn />
+                </div>
+            </Grid>
+        </Grid>
     )
 }
 

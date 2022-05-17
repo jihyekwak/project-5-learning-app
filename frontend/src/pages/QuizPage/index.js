@@ -69,9 +69,10 @@ const QuizPage = ({profile}) => {
         fetchStudent()
     }, [])
 
-    const subjects = [...new Set(quizList.filter(quiz => (quiz.author === 1)).filter(quiz => quiz.grade = student?.grade).map(({subject}) => subject))]
-    const cumstomSubjects = [...new Set(quizList.filter(quiz => (quiz.author === profile.id)).filter(quiz => quiz.grade = student?.grade).map(({subject}) => subject))]
+    const subjects = [...new Set(quizList.filter(quiz => (quiz.author === 1)).filter(quiz => quiz.grade === student?.grade).map(({subject}) => subject))]
     const customQuizList = quizList?.filter(quiz => (quiz.author === profile.id))
+    const cumstomSubjects = [...new Set(customQuizList.filter(quiz => (quiz.grade === student?.grade)).map(({subject}) => subject))]
+    console.log(quizList)
 
     return(
         <>
