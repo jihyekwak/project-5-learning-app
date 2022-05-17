@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
         backgroundPosition: 'center',
         backgroundSize: 'cover',
     },
+    text: {
+        color: '#0B5688',
+        fontWeight: 'bold'
+    }
 }
 ))
 
@@ -33,7 +37,8 @@ const Header = () => {
             </Grid>
             <Grid item xs={6}>
                 <Typography className={classes.headerTitle} variant='h3'>Love To Learn</Typography>
-                <Typography variant='h5'>Personalized Learning</Typography>
+                <Typography variant='h5' className={classes.text}>Personalized Learning</Typography>
+                <Typography variant='h6' className={classes.text}>Customize learning for each student's strengths, needs, skills, and interests</Typography>
                 <div className={classes.startBtn}>
                     <GetStartedBtn />
                 </div>
